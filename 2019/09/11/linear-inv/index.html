@@ -6,7 +6,7 @@
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
@@ -55,15 +55,18 @@
   };
 </script>
 
-  <meta name="keywords" content="算法,模板,数论">
+  <meta name="description" content="在线性时间里求出1~n在模m意义下的逆元。 理论对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则  t*i \equiv -k (mod\ m)\\ -t*inv(k) \equiv inv(i)(mod\ m)\\ -(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)因此 $inv(i)=(m-m/i)*inv(m\%i)$ 应用线性求1~n逆元、线性求1~n">
+<meta name="keywords" content="算法,模板,数论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线性求逆元">
 <meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/11/linear-inv/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
+<meta property="og:description" content="在线性时间里求出1~n在模m意义下的逆元。 理论对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则  t*i \equiv -k (mod\ m)\\ -t*inv(k) \equiv inv(i)(mod\ m)\\ -(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)因此 $inv(i)=(m-m/i)*inv(m\%i)$ 应用线性求1~n逆元、线性求1~n">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-11T11:51:12.615Z">
+<meta property="og:updated_time" content="2019-09-11T12:47:13.435Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线性求逆元">
+<meta name="twitter:description" content="在线性时间里求出1~n在模m意义下的逆元。 理论对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则  t*i \equiv -k (mod\ m)\\ -t*inv(k) \equiv inv(i)(mod\ m)\\ -(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)因此 $inv(i)=(m-m/i)*inv(m\%i)$ 应用线性求1~n逆元、线性求1~n">
   <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/11/linear-inv/">
 
 
@@ -110,12 +113,12 @@
   .use-motion .logo-line-before i { left: initial; }
   .use-motion .logo-line-after i { right: initial; }
   </style>
-</noscript>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
-  <div class="container use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -243,12 +246,8 @@
                 
               
 
-              <time title="Created: 2019-09-11 19:49:12 / Modified: 19:51:12" itemprop="dateCreated datePublished" datetime="2019-09-11T19:49:12+08:00">2019-09-11</time>
+              <time title="Created: 2019-09-11 20:47:13" itemprop="dateCreated datePublished" datetime="2019-09-11T20:47:13+08:00">2019-09-11</time>
             </span>
-          
-            
-
-            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,7 +281,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>在线性时间里求出<code>1~n</code>在模<code>m</code>意义下的逆元。</p>
+<h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p>对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则</p>
+<script type="math/tex; mode=display">
+t*i \equiv -k (mod\ m)\\
+-t*inv(k) \equiv inv(i)(mod\ m)\\
+-(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)</script><p>因此 $inv(i)=(m-m/i)*inv(m\%i)$</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>线性求<code>1~n</code>逆元、线性求<code>1~n</code>阶乘逆元</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getinv</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> mod, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;inv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    inv.resize(n + <span class="number">1</span>);</span><br><span class="line">    inv[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">        inv[i] = ((<span class="keyword">long</span> <span class="keyword">long</span>)mod - mod / i) * inv[mod % i] % mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -368,6 +374,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理论"><span class="nav-number">1.</span> <span class="nav-text">理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -490,6 +498,75 @@
 
 
 
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+    
   
 
   
