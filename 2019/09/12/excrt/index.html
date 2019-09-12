@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="求解线性同余方程组 理论问题求解满足下列同余方程组的最小的x.  x \equiv a_0\ (mod\ m_0)\\ x \equiv a_1\ (mod\ m_1)\\ x \equiv a_2\ (mod\ m_2)\\ \dots\\ x \equiv a_n\ (mod\ m_n)\\解法如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。 假设前">
+  <meta name="description" content="求解线性同余方程组理论问题求解满足下列同余方程组的最小的x. x \equiv a_0\ (mod\ m_0)\\ x \equiv a_1\ (mod\ m_1)\\ x \equiv a_2\ (mod\ m_2)\\ \dots\\ x \equiv a_n\ (mod\ m_n)\\解法如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。">
 <meta name="keywords" content="算法,模板,数论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="扩展中国剩余定理">
 <meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/12/excrt/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="求解线性同余方程组 理论问题求解满足下列同余方程组的最小的x.  x \equiv a_0\ (mod\ m_0)\\ x \equiv a_1\ (mod\ m_1)\\ x \equiv a_2\ (mod\ m_2)\\ \dots\\ x \equiv a_n\ (mod\ m_n)\\解法如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。 假设前">
+<meta property="og:description" content="求解线性同余方程组理论问题求解满足下列同余方程组的最小的x. x \equiv a_0\ (mod\ m_0)\\ x \equiv a_1\ (mod\ m_1)\\ x \equiv a_2\ (mod\ m_2)\\ \dots\\ x \equiv a_n\ (mod\ m_n)\\解法如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-12T12:05:49.554Z">
+<meta property="og:updated_time" content="2019-09-12T12:13:34.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="扩展中国剩余定理">
-<meta name="twitter:description" content="求解线性同余方程组 理论问题求解满足下列同余方程组的最小的x.  x \equiv a_0\ (mod\ m_0)\\ x \equiv a_1\ (mod\ m_1)\\ x \equiv a_2\ (mod\ m_2)\\ \dots\\ x \equiv a_n\ (mod\ m_n)\\解法如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。 假设前">
+<meta name="twitter:description" content="求解线性同余方程组理论问题求解满足下列同余方程组的最小的x. x \equiv a_0\ (mod\ m_0)\\ x \equiv a_1\ (mod\ m_1)\\ x \equiv a_2\ (mod\ m_2)\\ \dots\\ x \equiv a_n\ (mod\ m_n)\\解法如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。">
   <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/12/excrt/">
 
 
@@ -246,7 +246,7 @@
                 
               
 
-              <time title="Created: 2019-09-12 20:03:53 / Modified: 20:05:49" itemprop="dateCreated datePublished" datetime="2019-09-12T20:03:53+08:00">2019-09-12</time>
+              <time title="Created: 2019-09-12 20:03:53 / Modified: 20:13:34" itemprop="dateCreated datePublished" datetime="2019-09-12T20:03:53+08:00">2019-09-12</time>
             </span>
           
             
@@ -285,14 +285,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>求解线性同余方程组</p>
-<h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>求解满足下列同余方程组的最小的<code>x</code>.</p>
-<script type="math/tex; mode=display">
+        <p>求解线性同余方程组</p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>求解满足下列同余方程组的最小的<code>x</code>.</p><script type="math/tex; mode=display">
 x \equiv a_0\ (mod\ m_0)\\
 x \equiv a_1\ (mod\ m_1)\\
 x \equiv a_2\ (mod\ m_2)\\
 \dots\\
-x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。</p>
+x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。</p><a id="more"></a>
+
+
 <p>假设前<code>k-1</code>个方程的解为$x \equiv\ A(mod\ M)$，考虑扩展到第<code>k</code>个方程。</p>
 <p>设$\ x=t \ast M+A$，由$x \equiv a_k(mod\ m_k)$可得$t \ast M \equiv a_k - A (mod\ m_k)$，然后可使用扩展欧几里得求解$t$，因此可令$A’=t*M+A$，$x \equiv A’(mod\ lcm(M,m_k))$，因此前<code>k</code>个方程的解为$x \equiv A’(mod\ lcm(M,m_k))$</p>
 <h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>解线性同余方程组</p>

@@ -241,7 +241,7 @@
                 
               
 
-              <time title="Created: 2019-09-12 20:03:53 / Modified: 20:05:49" itemprop="dateCreated datePublished" datetime="2019-09-12T20:03:53+08:00">2019-09-12</time>
+              <time title="Created: 2019-09-12 20:03:53 / Modified: 20:13:34" itemprop="dateCreated datePublished" datetime="2019-09-12T20:03:53+08:00">2019-09-12</time>
             </span>
           
             
@@ -280,21 +280,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>求解线性同余方程组</p>
-<h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>求解满足下列同余方程组的最小的<code>x</code>.</p>
-<script type="math/tex; mode=display">
+          <p>求解线性同余方程组</p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>求解满足下列同余方程组的最小的<code>x</code>.</p><script type="math/tex; mode=display">
 x \equiv a_0\ (mod\ m_0)\\
 x \equiv a_1\ (mod\ m_1)\\
 x \equiv a_2\ (mod\ m_2)\\
 \dots\\
 x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。</p>
-<p>假设前<code>k-1</code>个方程的解为$x \equiv\ A(mod\ M)$，考虑扩展到第<code>k</code>个方程。</p>
-<p>设$\ x=t \ast M+A$，由$x \equiv a_k(mod\ m_k)$可得$t \ast M \equiv a_k - A (mod\ m_k)$，然后可使用扩展欧几里得求解$t$，因此可令$A’=t*M+A$，$x \equiv A’(mod\ lcm(M,m_k))$，因此前<code>k</code>个方程的解为$x \equiv A’(mod\ lcm(M,m_k))$</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>解线性同余方程组</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">exgcd</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b, <span class="keyword">long</span> <span class="keyword">long</span> &amp;x, <span class="keyword">long</span> <span class="keyword">long</span> &amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!a &amp;&amp; !b)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x = <span class="number">1</span>;</span><br><span class="line">        y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> d = exgcd(b, a % b, y, x);</span><br><span class="line">    y -= a / b * x;</span><br><span class="line">    <span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">excrt</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; &amp;a, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; &amp;m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> M = m[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> A = a[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; a.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> k, t;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> d = exgcd(M, m[i], k, t);</span><br><span class="line">        t = (a[i] - A) % m[i];</span><br><span class="line">        <span class="keyword">if</span> (t &lt; <span class="number">0</span>)</span><br><span class="line">            t += m[i];</span><br><span class="line">        <span class="keyword">if</span> (t % d)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> x = M;</span><br><span class="line">        M *= m[i] / d;</span><br><span class="line">        A = (A + t / d * (<span class="keyword">__int128_t</span>)k % M * x) % M;</span><br><span class="line">        <span class="keyword">if</span> (A &lt; <span class="number">0</span>)</span><br><span class="line">            A += M;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> A;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exgcd</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">0</span> <span class="keyword">and</span> b == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    <span class="keyword">if</span> b == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> (a, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">    d, y, x = exgcd(b, a % b)</span><br><span class="line">    y -= a//b*x</span><br><span class="line">    <span class="keyword">return</span> d, x, y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">excrt</span><span class="params">(a, m)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(a) != len(m):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    M = m[<span class="number">0</span>]</span><br><span class="line">    A = a[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(a)):</span><br><span class="line">        d, x, y = exgcd(M, m[i])</span><br><span class="line">        t = (a[i]-A) % m[i]</span><br><span class="line">        <span class="keyword">if</span> t &lt; <span class="number">0</span>:</span><br><span class="line">            t += m[i]</span><br><span class="line">        <span class="keyword">if</span> t % d != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        A += t//d*x*M</span><br><span class="line">        M *= m[i]//d</span><br><span class="line">        A %= M</span><br><span class="line">    <span class="keyword">return</span> A</span><br></pre></td></tr></table></figure>
-<h2 id="模板题"><a href="#模板题" class="headerlink" title="模板题"></a>模板题</h2><p><a href="https://www.luogu.org/problem/P4777" target="_blank" rel="noopener">luogu P4777 【模板】扩展中国剩余定理（EXCRT）</a></p>
-
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/09/12/excrt/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -358,7 +358,7 @@ x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="head
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-12 20:06:52" itemprop="dateModified" datetime="2019-09-12T20:06:52+08:00">2019-09-12</time>
+                <time title="Modified: 2019-09-12 20:14:43" itemprop="dateModified" datetime="2019-09-12T20:14:43+08:00">2019-09-12</time>
               </span>
             
           
@@ -394,16 +394,19 @@ x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="head
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在线性时间里求出<code>1~n</code>在模<code>m</code>意义下的逆元。</p>
-<h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p>对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则</p>
-<script type="math/tex; mode=display">
+          <p>在线性时间里求出<code>1~n</code>在模<code>m</code>意义下的逆元。</p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p>对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则</p><script type="math/tex; mode=display">
 t*i \equiv -k (mod\ m)\\
 -t*inv(k) \equiv inv(i)(mod\ m)\\
--(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)</script><p>因此 $inv(i)=(m-m/i)*inv(m\%i)$</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>线性求<code>1~n</code>逆元、线性求<code>1~n</code>阶乘逆元</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getinv</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> mod, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;inv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    inv.resize(n + <span class="number">1</span>);</span><br><span class="line">    inv[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">        inv[i] = ((<span class="keyword">long</span> <span class="keyword">long</span>)mod - mod / i) * inv[mod % i] % mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="模板题"><a href="#模板题" class="headerlink" title="模板题"></a>模板题</h2><p><a href="https://www.luogu.org/problem/P3811" target="_blank" rel="noopener">luogu P3811 【模板】乘法逆元</a></p>
-
+-(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)</script>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/09/11/linear-inv/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -475,10 +478,16 @@ t*i \equiv -k (mod\ m)\\
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>这个博客的第一篇文章（自动生成的<code>helloworld</code>不算），<code>hexo</code>这玩意我慢慢探索，所以这篇文章里花里胡哨的东西比较少，也不想按照写<code>markdown</code>的惯例加各种大小标题了，就这样看看吧。</p>
-<p>说一下搭这个博客的原因。最近一段时间打比赛总是自闭，切完水题就没心思打开其他题了，打网络赛的时候碰到了一个扩展中国剩余定理都要上网搜模板（关键是那个模板还让我<code>WA</code>了几发），深感自己的弱小，想完善一下自己的板子。最近的各种课任务繁重，想找个地方记录一下上课所学，所以就搭了这个博客。</p>
-<p><a href="zhaoyiping.xyz">上一个博客</a>里我总共写了两篇文章，但愿这个博客我能坚持下去把。</p>
-
+          <p>这个博客的第一篇文章（自动生成的<code>helloworld</code>不算），<code>hexo</code>这玩意我慢慢探索，所以这篇文章里花里胡哨的东西比较少，也不想按照写<code>markdown</code>的惯例加各种大小标题了，就这样看看吧。</p><p>说一下搭这个博客的原因。最近一段时间打比赛总是自闭，切完水题就没心思打开其他题了，打网络赛的时候碰到了一个扩展中国剩余定理都要上网搜模板（关键是那个模板还让我<code>WA</code>了几发），深感自己的弱小，想完善一下自己的板子。最近的各种课任务繁重，想找个地方记录一下上课所学，所以就搭了这个博客。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/09/11/start/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -534,6 +543,18 @@ t*i \equiv -k (mod\ m)\\
               <time title="Created: 2019-09-11 14:17:18" itemprop="dateCreated datePublished" datetime="2019-09-11T14:17:18+08:00">2019-09-11</time>
             </span>
           
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-09-12 20:13:33" itemprop="dateModified" datetime="2019-09-12T20:13:33+08:00">2019-09-12</time>
+              </span>
+            
+          
 
           
 
@@ -547,15 +568,15 @@ t*i \equiv -k (mod\ m)\\
 
       
           <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/09/11/hello-world/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
