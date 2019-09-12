@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="在线性时间里求出1~n在模m意义下的逆元。理论对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则 t*i \equiv -k (mod\ m)\\ -t*inv(k) \equiv inv(i)(mod\ m)\\ -(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)">
+  <meta name="description" content="线性筛素数、欧拉函数、莫比乌斯函数原理时间复杂度$O(n)$对每个数筛去它最小的质因数，因此几乎可以筛所有的积性函数（但是有的时候推公式太复杂，我直接埃式筛筛积性函数）应用线性筛素数、欧拉函数、莫比乌斯函数实现123456789101112131415161718192021222324252627282930const int MAXN = 1e7 + 5;int prime[MAXN];boo">
 <meta name="keywords" content="算法,模板,数论">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线性求逆元">
-<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/11/linear-inv/index.html">
+<meta property="og:title" content="线性筛">
+<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/12/euler-sieve/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="在线性时间里求出1~n在模m意义下的逆元。理论对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则 t*i \equiv -k (mod\ m)\\ -t*inv(k) \equiv inv(i)(mod\ m)\\ -(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)">
+<meta property="og:description" content="线性筛素数、欧拉函数、莫比乌斯函数原理时间复杂度$O(n)$对每个数筛去它最小的质因数，因此几乎可以筛所有的积性函数（但是有的时候推公式太复杂，我直接埃式筛筛积性函数）应用线性筛素数、欧拉函数、莫比乌斯函数实现123456789101112131415161718192021222324252627282930const int MAXN = 1e7 + 5;int prime[MAXN];boo">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-12T12:14:43.058Z">
+<meta property="og:updated_time" content="2019-09-12T14:19:20.592Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线性求逆元">
-<meta name="twitter:description" content="在线性时间里求出1~n在模m意义下的逆元。理论对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则 t*i \equiv -k (mod\ m)\\ -t*inv(k) \equiv inv(i)(mod\ m)\\ -(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)">
-  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/11/linear-inv/">
+<meta name="twitter:title" content="线性筛">
+<meta name="twitter:description" content="线性筛素数、欧拉函数、莫比乌斯函数原理时间复杂度$O(n)$对每个数筛去它最小的质因数，因此几乎可以筛所有的积性函数（但是有的时候推公式太复杂，我直接埃式筛筛积性函数）应用线性筛素数、欧拉函数、莫比乌斯函数实现123456789101112131415161718192021222324252627282930const int MAXN = 1e7 + 5;int prime[MAXN];boo">
+  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/12/euler-sieve/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>线性求逆元 | zhaoyiping's blog</title>
+  <title>线性筛 | zhaoyiping's blog</title>
   
 
 
@@ -218,7 +218,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/11/linear-inv/">
+    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/12/euler-sieve/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoyiping">
@@ -230,7 +230,7 @@
       <meta itemprop="name" content="zhaoyiping's blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">线性求逆元
+        <h1 class="post-title" itemprop="name headline">线性筛
 
           
         </h1>
@@ -246,20 +246,8 @@
                 
               
 
-              <time title="Created: 2019-09-11 20:47:13" itemprop="dateCreated datePublished" datetime="2019-09-11T20:47:13+08:00">2019-09-11</time>
+              <time title="Created: 2019-09-12 22:19:20" itemprop="dateCreated datePublished" datetime="2019-09-12T22:19:20+08:00">2019-09-12</time>
             </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-12 20:14:43" itemprop="dateModified" datetime="2019-09-12T20:14:43+08:00">2019-09-12</time>
-              </span>
-            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,16 +281,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在线性时间里求出<code>1~n</code>在模<code>m</code>意义下的逆元。</p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p>对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则</p><script type="math/tex; mode=display">
-t*i \equiv -k (mod\ m)\\
--t*inv(k) \equiv inv(i)(mod\ m)\\
--(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)</script><a id="more"></a>
+        <p>线性筛素数、欧拉函数、莫比乌斯函数</p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>时间复杂度$O(n)$</p><p>对每个数筛去它最小的质因数，因此几乎可以筛所有的积性函数（但是有的时候推公式太复杂，我直接埃式筛筛积性函数）</p><h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>线性筛素数、欧拉函数、莫比乌斯函数</p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e7</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> prime[MAXN];</span><br><span class="line"><span class="keyword">bool</span> isprime[MAXN];</span><br><span class="line"><span class="keyword">int</span> mu[MAXN];</span><br><span class="line"><span class="keyword">int</span> phi[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">euler</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(isprime, <span class="literal">true</span>, <span class="keyword">sizeof</span> isprime);</span><br><span class="line">    isprime[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line">    mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    phi[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; MAXN; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (isprime[i])</span><br><span class="line">            prime[++prime[<span class="number">0</span>]] = i, mu[i] = <span class="number">-1</span>, phi[i] = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= prime[<span class="number">0</span>] &amp;&amp; i * prime[j] &lt; MAXN; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> t = i * prime[j];</span><br><span class="line">            isprime[t] = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                mu[t] = <span class="number">0</span>;</span><br><span class="line">                phi[t] = prime[j] * phi[i];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            mu[t] = -mu[i];</span><br><span class="line">            phi[t] = (prime[j] - <span class="number">1</span>) * phi[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><a id="more"></a>
 
-<p>因此 $inv(i)=(m-m/i)*inv(m\%i)$</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>线性求<code>1~n</code>逆元、线性求<code>1~n</code>阶乘逆元</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getinv</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> mod, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;inv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    inv.resize(n + <span class="number">1</span>);</span><br><span class="line">    inv[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">        inv[i] = ((<span class="keyword">long</span> <span class="keyword">long</span>)mod - mod / i) * inv[mod % i] % mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="模板题"><a href="#模板题" class="headerlink" title="模板题"></a>模板题</h2><p><a href="https://www.luogu.org/problem/P3811" target="_blank" rel="noopener">luogu P3811 【模板】乘法逆元</a></p>
 
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 容易MLE </span></span><br><span class="line"><span class="comment"># pypy codeforces</span></span><br><span class="line"><span class="comment"># 1e6约20M 202ms</span></span><br><span class="line"><span class="comment"># 2e6约38M 280ms</span></span><br><span class="line"><span class="comment"># 3e6约57M 389ms</span></span><br><span class="line"><span class="comment"># 4e6约75M 452ms</span></span><br><span class="line"><span class="comment"># 5e6约93M 561ms</span></span><br><span class="line"><span class="comment"># 6e6约111M 670ms</span></span><br><span class="line"><span class="comment"># 7e6约128M 779ms</span></span><br><span class="line"><span class="comment"># 8e6约148M 810ms</span></span><br><span class="line"><span class="comment"># 9e6约164M 920ms</span></span><br><span class="line"><span class="comment"># 1e7约183M 998ms</span></span><br><span class="line">isprime = []</span><br><span class="line">prime = []</span><br><span class="line">mu = []</span><br><span class="line">phi = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> isprime, prime, mu, phi</span><br><span class="line">    isprime = [<span class="literal">True</span>]*(n+<span class="number">1</span>)</span><br><span class="line">    mu = [<span class="number">0</span>]*(n+<span class="number">1</span>)</span><br><span class="line">    phi = [<span class="number">0</span>]*(n+<span class="number">1</span>)</span><br><span class="line">    isprime[<span class="number">1</span>] = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, n+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> isprime[i]:</span><br><span class="line">            prime.append(i)</span><br><span class="line">            mu[i] = <span class="number">-1</span></span><br><span class="line">            phi[i] = i<span class="number">-1</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> prime:</span><br><span class="line">            t = i*j</span><br><span class="line">            <span class="keyword">if</span> t &gt; n:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            isprime[t] = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> i % j == <span class="number">0</span>:</span><br><span class="line">                mu[t] = <span class="number">0</span></span><br><span class="line">                phi[t] = j*phi[i]</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            mu[t] = -mu[i]</span><br><span class="line">            phi[t] = (j<span class="number">-1</span>)*phi[i]</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -331,8 +315,8 @@ t*i \equiv -k (mod\ m)\\
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/09/11/start/" rel="next" title="START">
-                  <i class="fa fa-chevron-left"></i> START
+                <a href="/2019/09/12/lucas/" rel="next" title="卢卡斯定理">
+                  <i class="fa fa-chevron-left"></i> 卢卡斯定理
                 </a>
               
             </div>
@@ -340,10 +324,6 @@ t*i \equiv -k (mod\ m)\\
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/09/12/excrt/" rel="prev" title="扩展中国剩余定理">
-                  扩展中国剩余定理 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -392,7 +372,7 @@ t*i \equiv -k (mod\ m)\\
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理论"><span class="nav-number">1.</span> <span class="nav-text">理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板题"><span class="nav-number">4.</span> <span class="nav-text">模板题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
