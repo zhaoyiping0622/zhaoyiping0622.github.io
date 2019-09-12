@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="在线性时间里求出1~n在模m意义下的逆元。理论对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则 t*i \equiv -k (mod\ m)\\ -t*inv(k) \equiv inv(i)(mod\ m)\\ -(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)">
+  <meta name="description" content="快速求解$\binom{n}{m}\%p\ (p较小)$理论 \binom{n}{m}=\prod_{i=0}^{k}\binom{n_i}{m_i}(mod\ p)\\ 其中\\ m=m_kp^k+m_{k-1}p^{k-1}+m_{k-2}p^{k-2}+\dots+m_1p+m_0\\ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0">
 <meta name="keywords" content="算法,模板,数论">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线性求逆元">
-<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/11/linear-inv/index.html">
+<meta property="og:title" content="卢卡斯定理">
+<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/12/lucas/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="在线性时间里求出1~n在模m意义下的逆元。理论对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则 t*i \equiv -k (mod\ m)\\ -t*inv(k) \equiv inv(i)(mod\ m)\\ -(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)">
+<meta property="og:description" content="快速求解$\binom{n}{m}\%p\ (p较小)$理论 \binom{n}{m}=\prod_{i=0}^{k}\binom{n_i}{m_i}(mod\ p)\\ 其中\\ m=m_kp^k+m_{k-1}p^{k-1}+m_{k-2}p^{k-2}+\dots+m_1p+m_0\\ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-12T12:14:43.058Z">
+<meta property="og:updated_time" content="2019-09-12T13:15:33.357Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线性求逆元">
-<meta name="twitter:description" content="在线性时间里求出1~n在模m意义下的逆元。理论对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则 t*i \equiv -k (mod\ m)\\ -t*inv(k) \equiv inv(i)(mod\ m)\\ -(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)">
-  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/11/linear-inv/">
+<meta name="twitter:title" content="卢卡斯定理">
+<meta name="twitter:description" content="快速求解$\binom{n}{m}\%p\ (p较小)$理论 \binom{n}{m}=\prod_{i=0}^{k}\binom{n_i}{m_i}(mod\ p)\\ 其中\\ m=m_kp^k+m_{k-1}p^{k-1}+m_{k-2}p^{k-2}+\dots+m_1p+m_0\\ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0">
+  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/12/lucas/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>线性求逆元 | zhaoyiping's blog</title>
+  <title>卢卡斯定理 | zhaoyiping's blog</title>
   
 
 
@@ -218,7 +218,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/11/linear-inv/">
+    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/12/lucas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoyiping">
@@ -230,7 +230,7 @@
       <meta itemprop="name" content="zhaoyiping's blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">线性求逆元
+        <h1 class="post-title" itemprop="name headline">卢卡斯定理
 
           
         </h1>
@@ -246,20 +246,8 @@
                 
               
 
-              <time title="Created: 2019-09-11 20:47:13" itemprop="dateCreated datePublished" datetime="2019-09-11T20:47:13+08:00">2019-09-11</time>
+              <time title="Created: 2019-09-12 21:15:33" itemprop="dateCreated datePublished" datetime="2019-09-12T21:15:33+08:00">2019-09-12</time>
             </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-12 20:14:43" itemprop="dateModified" datetime="2019-09-12T20:14:43+08:00">2019-09-12</time>
-              </span>
-            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,15 +281,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在线性时间里求出<code>1~n</code>在模<code>m</code>意义下的逆元。</p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p>对于需要求逆元的数$i$,设$t=m/i,k=m\%i$,则</p><script type="math/tex; mode=display">
-t*i \equiv -k (mod\ m)\\
--t*inv(k) \equiv inv(i)(mod\ m)\\
--(m/i)*inv(m\%i) \equiv inv(i)(mod\ m)</script><a id="more"></a>
-
-<p>因此 $inv(i)=(m-m/i)*inv(m\%i)$</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>线性求<code>1~n</code>逆元、线性求<code>1~n</code>阶乘逆元</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getinv</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> mod, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;inv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    inv.resize(n + <span class="number">1</span>);</span><br><span class="line">    inv[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">        inv[i] = ((<span class="keyword">long</span> <span class="keyword">long</span>)mod - mod / i) * inv[mod % i] % mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="模板题"><a href="#模板题" class="headerlink" title="模板题"></a>模板题</h2><p><a href="https://www.luogu.org/problem/P3811" target="_blank" rel="noopener">luogu P3811 【模板】乘法逆元</a></p>
+        <p>快速求解$\binom{n}{m}\%p\ (p较小)$</p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><script type="math/tex; mode=display">
+\binom{n}{m}=\prod_{i=0}^{k}\binom{n_i}{m_i}(mod\ p)\\
+其中\\
+m=m_kp^k+m_{k-1}p^{k-1}+m_{k-2}p^{k-2}+\dots+m_1p+m_0\\
+n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0\\
+当n<m时，\binom{n}{m}=0</script><a id="more"></a>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>不会</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>快速求解$\binom{n}{m}\%p\ (p较小，因为要预处理阶乘)$</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> fac[MAXN];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> invfac[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fac[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    fac[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    invfac[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    invfac[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; p; i++)</span><br><span class="line">        fac[i] = i * fac[i - <span class="number">1</span>] % p, invfac[i] = ((<span class="keyword">long</span> <span class="keyword">long</span>)p - p / i) * invfac[p % i] % p;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; p; i++)</span><br><span class="line">        invfac[i] = invfac[i] * invfac[i - <span class="number">1</span>] % p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">c</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> n, <span class="keyword">long</span> <span class="keyword">long</span> m, <span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (m &gt; n)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (m == n || m == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; p)</span><br><span class="line">        <span class="keyword">return</span> fac[n] * invfac[m] % p * invfac[n - m] % p;</span><br><span class="line">    <span class="keyword">return</span> c(n / p, m / p, p) * c(n % p, m % p, p) % p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lucas</span><span class="params">(p)</span>:</span></span><br><span class="line">    fac = [<span class="number">0</span>]*p</span><br><span class="line">    invfac = [<span class="number">0</span>]*p</span><br><span class="line">    fac[<span class="number">0</span>] = fac[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    invfac[<span class="number">0</span>] = invfac[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, p):</span><br><span class="line">        fac[i] = i*fac[i<span class="number">-1</span>] % p</span><br><span class="line">        invfac[i] = (p-p//i)*invfac[p % i] % p</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, p):</span><br><span class="line">        invfac[i] = invfac[i]*invfac[i<span class="number">-1</span>] % p</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(n, m, p)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> n &lt; m:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> n == m <span class="keyword">or</span> m == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n &lt; p:</span><br><span class="line">            <span class="keyword">return</span> fac[n]*invfac[n-m]*invfac[m] % p</span><br><span class="line">        <span class="keyword">return</span> cal(n//p, m//p, p)*cal(n % p, m % p, p) % p</span><br><span class="line">    <span class="keyword">return</span> cal</span><br></pre></td></tr></table></figure>
+<h2 id="扩展卢卡斯定理"><a href="#扩展卢卡斯定理" class="headerlink" title="扩展卢卡斯定理"></a>扩展卢卡斯定理</h2><p>就是卢卡斯定理加上扩展欧几里得，占坑，待补</p>
 
     </div>
 
@@ -331,8 +321,8 @@ t*i \equiv -k (mod\ m)\\
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/09/11/start/" rel="next" title="START">
-                  <i class="fa fa-chevron-left"></i> START
+                <a href="/2019/09/12/excrt/" rel="next" title="扩展中国剩余定理">
+                  <i class="fa fa-chevron-left"></i> 扩展中国剩余定理
                 </a>
               
             </div>
@@ -340,10 +330,6 @@ t*i \equiv -k (mod\ m)\\
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/09/12/excrt/" rel="prev" title="扩展中国剩余定理">
-                  扩展中国剩余定理 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -392,7 +378,7 @@ t*i \equiv -k (mod\ m)\\
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理论"><span class="nav-number">1.</span> <span class="nav-text">理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板题"><span class="nav-number">4.</span> <span class="nav-text">模板题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理论"><span class="nav-number">1.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#证明"><span class="nav-number">1.1.</span> <span class="nav-text">证明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展卢卡斯定理"><span class="nav-number">4.</span> <span class="nav-text">扩展卢卡斯定理</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
