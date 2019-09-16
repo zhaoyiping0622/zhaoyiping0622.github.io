@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="题意题目链接序列$p$满足$p_1+p_2+\dots+p_k=1$，给定序列$f$，前$2*k$项已知，满足 f_t=\sum_{i=1}^{k}p_i\ast f_{t-i}\ (t \ge k)求 \sum_{i=1}^{n}f_i数据范围：$T(1\le T\le 20)$组数据，$1\le k \le 70$，$1\le n \le 10^{18}$">
+<meta name="keywords" content="算法,题解,高斯消元,矩阵快速幂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Guanguan&#39;s Happy water(2019沈阳网络赛K)">
+<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/16/2019-shenyang-online-K/index.html">
+<meta property="og:site_name" content="zhaoyiping&#39;s blog">
+<meta property="og:description" content="题意题目链接序列$p$满足$p_1+p_2+\dots+p_k=1$，给定序列$f$，前$2*k$项已知，满足 f_t=\sum_{i=1}^{k}p_i\ast f_{t-i}\ (t \ge k)求 \sum_{i=1}^{n}f_i数据范围：$T(1\le T\le 20)$组数据，$1\le k \le 70$，$1\le n \le 10^{18}$">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-16T06:05:31.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Guanguan&#39;s Happy water(2019沈阳网络赛K)">
+<meta name="twitter:description" content="题意题目链接序列$p$满足$p_1+p_2+\dots+p_k=1$，给定序列$f$，前$2*k$项已知，满足 f_t=\sum_{i=1}^{k}p_i\ast f_{t-i}\ (t \ge k)求 \sum_{i=1}^{n}f_i数据范围：$T(1\le T\le 20)$组数据，$1\le k \le 70$，$1\le n \le 10^{18}$">
+  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/16/2019-shenyang-online-K/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Guanguan's Happy water(2019沈阳网络赛K) | zhaoyiping's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhaoyiping's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/16/2019-shenyang-online-K/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoyiping">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhaoyiping's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Guanguan's Happy water(2019沈阳网络赛K)
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-16 14:05:31" itemprop="dateCreated datePublished" datetime="2019-09-16T14:05:31+08:00">2019-09-16</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/题解/" itemprop="url" rel="index"><span itemprop="name">题解</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p><a href="https://nanti.jisuanke.com/t/41411" target="_blank" rel="noopener">题目链接</a></p><p>序列$p$满足$p_1+p_2+\dots+p_k=1$，给定序列$f$，前$2*k$项已知，满足</p><script type="math/tex; mode=display">
+f_t=\sum_{i=1}^{k}p_i\ast f_{t-i}\ (t \ge k)</script><p>求</p><script type="math/tex; mode=display">
+\sum_{i=1}^{n}f_i</script><p>数据范围：$T(1\le T\le 20)$组数据，$1\le k \le 70$，$1\le n \le 10^{18}$</p><a id="more"></a>
+
+
+
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>显然，先把$p$求出来。</p>
+<p>题目中的递推式显然可以用如下矩阵表示：</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+    p_1 & p_2 & \dots&p_{k-1} &p_k \\
+    1 & 0 & \dots & 0 & 0 \\
+    0 & 1 & \dots & 0 & 0 \\
+    \dots & \dots & \dots & \dots & \dots \\
+    0 & 0 & \dots & 1 & 0
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+    f_t \\
+    f_{t-1}\\
+    f_{t-2}\\
+    \dots \\
+    f_{t-k+1}
+\end{matrix}
+\right]=
+\left[
+    \begin{matrix}
+    f_{t+1} \\
+    f_{t}\\
+    f_{t-1}\\
+    \dots \\
+    f_{t-k+2}
+    \end{matrix}
+\right]\tag{1}</script><p>显然，这个方程组可以改成关于$p$的方程组：</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+f_k & f_{k-1} & \dots & f_{1}\\
+f_{k+1} & f_{k} & \dots & f_{2}\\
+f_{k+2} & f_{k+1} & \dots & f_{3}\\
+\dots & \dots & \dots & \dots \\
+f_{2k-1} & f_{2k-2} & \dots & f_{k}
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+p_1\\
+p_2\\
+p_3\\
+\dots\\
+p_k
+\end{matrix}
+\right]=
+\left[
+\begin{matrix}
+f_{k+1}\\
+f_{k+2}\\
+f_{k+3}\\
+\dots\\
+f_{2k-1}
+\end{matrix}
+\right]\tag{2}</script><p>然后用高斯消元解方程(2)就可以求出序列$p$了，然后将$p$带回方程(1)，就可以求出$f$的每一项了，但是由于$n$范围太大，所以算出来每一项也没啥用。下面优化一下：</p>
+<p>设</p>
+<script type="math/tex; mode=display">
+F_t=\sum_{i=1}^{t-1}f_i</script><p>改一下上面那个方程(1)</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+    1 & 1 & 0 & \dots & 0 & 0\\
+    0 & p_1 & p_2 & \dots&p_{k-1} &p_k \\
+    0 & 1 & 0 & \dots & 0 & 0 \\
+    0 & 0 & 1 & \dots & 0 & 0 \\
+    0 & \dots & \dots & \dots & \dots & \dots \\
+    0 & 0 & 0 & \dots & 1 & 0
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+    F_t\\
+    f_t \\
+    f_{t-1}\\
+    f_{t-2}\\
+    \dots \\
+    f_{t-k+1}
+\end{matrix}
+\right]=
+\left[
+    \begin{matrix}
+    F_{t+1}\\
+    f_{t+1} \\
+    f_{t}\\
+    f_{t-1}\\
+    \dots \\
+    f_{t-k+2}
+    \end{matrix}
+\right]</script><p>然后就可以用矩阵快速幂快速算$F$了。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>由于是比赛时写的，所以写的有点丑，勿喷<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> f[MAXN &lt;&lt; <span class="number">1</span>];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> p[MAXN];</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> MOD = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">mat</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> a[MAXN][MAXN];</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">one</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        zero();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            a[i][i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">zero</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(a, <span class="number">0</span>, <span class="keyword">sizeof</span> a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">mat <span class="keyword">operator</span>*(mat a, mat b)</span><br><span class="line">&#123;</span><br><span class="line">    mat ret;</span><br><span class="line">    ret.n = a.n;</span><br><span class="line">    ret.zero();</span><br><span class="line">    <span class="keyword">int</span> n = a.n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; n; k++)</span><br><span class="line">                ret.a[i][j] = (ret.a[i][j] + a.a[i][k] * b.a[k][j]) % MOD;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">mat <span class="title">powm</span><span class="params">(mat a, <span class="keyword">long</span> <span class="keyword">long</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    mat ret;</span><br><span class="line">    ret.n = a.n;</span><br><span class="line">    ret.one();</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>)</span><br><span class="line">            ret = ret * a;</span><br><span class="line">        a = a * a;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">powm</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ret = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (b &amp; <span class="number">1</span>)</span><br><span class="line">            ret = ret * a % MOD;</span><br><span class="line">        a = a * a % MOD;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">inv</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    x %= MOD;</span><br><span class="line">    <span class="keyword">return</span> powm(x, MOD - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> tmp[MAXN][MAXN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    <span class="keyword">while</span> (t--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> n, k;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span>, &amp;k, &amp;n);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k * <span class="number">2</span>; i++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, f + i);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= k; j++)</span><br><span class="line">                tmp[i][j] = f[i + k - j];</span><br><span class="line">            tmp[i][k + <span class="number">1</span>] = f[k + i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">long</span> <span class="keyword">long</span> ii = inv(tmp[i][i]);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt;= k + <span class="number">1</span>; j++)</span><br><span class="line">                tmp[i][j] = tmp[i][j] * ii % MOD;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= k; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">long</span> <span class="keyword">long</span> tt = tmp[j][i];</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> t = i; t &lt;= k + <span class="number">1</span>; t++)</span><br><span class="line">                    tmp[j][t] = (tmp[j][t] - tt * tmp[i][t]) % MOD;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = k; i &gt;= <span class="number">1</span>; i--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">1</span>; j--)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp[j][k + <span class="number">1</span>] = (MOD + (tmp[j][k + <span class="number">1</span>] - tmp[j][i] * tmp[i][k + <span class="number">1</span>]) % MOD) % MOD;</span><br><span class="line">                tmp[j][i] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)</span><br><span class="line">            p[i] = tmp[i][k + <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// cerr &lt;&lt; "p begin" &lt;&lt; endl;</span></span><br><span class="line">        <span class="comment">// for (int i = 1; i &lt;= k; i++)</span></span><br><span class="line">        <span class="comment">//     cerr &lt;&lt; p[i] &lt;&lt; " ";</span></span><br><span class="line">        <span class="comment">// cerr &lt;&lt; endl;</span></span><br><span class="line">        <span class="comment">// cerr &lt;&lt; "p end" &lt;&lt; endl;</span></span><br><span class="line">        mat y;</span><br><span class="line">        y.n = k + <span class="number">1</span>;</span><br><span class="line">        y.zero();</span><br><span class="line">        y.a[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        y.a[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)</span><br><span class="line">            y.a[<span class="number">1</span>][i] = p[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= k; i++)</span><br><span class="line">            y.a[i][i - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">auto</span> t = powm(y, n - k);</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">0</span>;</span><br><span class="line">        f[k + <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)</span><br><span class="line">            f[k + <span class="number">1</span>] += f[i];</span><br><span class="line">        f[k + <span class="number">1</span>] %= MOD;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= k; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = (ans + t.a[<span class="number">0</span>][i] * f[k + <span class="number">1</span> - i]) % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/算法/" rel="tag"># 算法</a>
+            
+              <a href="/tags/题解/" rel="tag"># 题解</a>
+            
+              <a href="/tags/高斯消元/" rel="tag"># 高斯消元</a>
+            
+              <a href="/tags/矩阵快速幂/" rel="tag"># 矩阵快速幂</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/12/euler-sieve/" rel="next" title="线性筛">
+                  <i class="fa fa-chevron-left"></i> 线性筛
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhaoyiping</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://back007.github.io/" title="https://back007.github.io/" rel="noopener" target="_blank">WA_King</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/fsahfgsadhsakndas" title="https://blog.csdn.net/fsahfgsadhsakndas" rel="noopener" target="_blank">ACoder</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://ch2-carbene.github.io/" title="https://ch2-carbene.github.io/" rel="noopener" target="_blank">TD06</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhaoyiping</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+    
+  
+
+  
+
+  
+
+</body>
+</html>
