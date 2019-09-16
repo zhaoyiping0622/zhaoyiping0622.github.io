@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="快速求解$\binom{n}{m}\%p\ (p较小)$理论 \binom{n}{m}=\prod_{i=0}^{k}\binom{n_i}{m_i}(mod\ p)\\ 其中\\ m=m_kp^k+m_{k-1}p^{k-1}+m_{k-2}p^{k-2}+\dots+m_1p+m_0\\ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0">
-<meta name="keywords" content="算法,模板,数论">
+  <meta name="description" content="求解n元一次方程组">
+<meta name="keywords" content="算法,模板,数学">
 <meta property="og:type" content="article">
-<meta property="og:title" content="卢卡斯定理">
-<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/12/lucas/index.html">
+<meta property="og:title" content="高斯消元">
+<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/16/Gaussian-Elimination/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="快速求解$\binom{n}{m}\%p\ (p较小)$理论 \binom{n}{m}=\prod_{i=0}^{k}\binom{n_i}{m_i}(mod\ p)\\ 其中\\ m=m_kp^k+m_{k-1}p^{k-1}+m_{k-2}p^{k-2}+\dots+m_1p+m_0\\ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0">
+<meta property="og:description" content="求解n元一次方程组">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-12T13:32:27.999Z">
+<meta property="og:updated_time" content="2019-09-16T08:27:36.689Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="卢卡斯定理">
-<meta name="twitter:description" content="快速求解$\binom{n}{m}\%p\ (p较小)$理论 \binom{n}{m}=\prod_{i=0}^{k}\binom{n_i}{m_i}(mod\ p)\\ 其中\\ m=m_kp^k+m_{k-1}p^{k-1}+m_{k-2}p^{k-2}+\dots+m_1p+m_0\\ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0">
-  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/12/lucas/">
+<meta name="twitter:title" content="高斯消元">
+<meta name="twitter:description" content="求解n元一次方程组">
+  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/16/Gaussian-Elimination/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>卢卡斯定理 | zhaoyiping's blog</title>
+  <title>高斯消元 | zhaoyiping's blog</title>
   
 
 
@@ -218,7 +218,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/12/lucas/">
+    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/16/Gaussian-Elimination/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoyiping">
@@ -230,7 +230,7 @@
       <meta itemprop="name" content="zhaoyiping's blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">卢卡斯定理
+        <h1 class="post-title" itemprop="name headline">高斯消元
 
           
         </h1>
@@ -246,12 +246,8 @@
                 
               
 
-              <time title="Created: 2019-09-12 21:15:33 / Modified: 21:32:27" itemprop="dateCreated datePublished" datetime="2019-09-12T21:15:33+08:00">2019-09-12</time>
+              <time title="Created: 2019-09-16 16:27:36" itemprop="dateCreated datePublished" datetime="2019-09-16T16:27:36+08:00">2019-09-16</time>
             </span>
-          
-            
-
-            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -285,18 +281,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>快速求解$\binom{n}{m}\%p\ (p较小)$</p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><script type="math/tex; mode=display">
-\binom{n}{m}=\prod_{i=0}^{k}\binom{n_i}{m_i}(mod\ p)\\
-其中\\
-m=m_kp^k+m_{k-1}p^{k-1}+m_{k-2}p^{k-2}+\dots+m_1p+m_0\\
-n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0\\
-当n<m时，\binom{n}{m}=0</script><a id="more"></a>
-<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>不会</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>快速求解$\binom{n}{m}\%p\ (p较小，因为要预处理阶乘)$</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> fac[MAXN];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> invfac[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fac[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    fac[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    invfac[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    invfac[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; p; i++)</span><br><span class="line">        fac[i] = i * fac[i - <span class="number">1</span>] % p, invfac[i] = ((<span class="keyword">long</span> <span class="keyword">long</span>)p - p / i) * invfac[p % i] % p;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; p; i++)</span><br><span class="line">        invfac[i] = invfac[i] * invfac[i - <span class="number">1</span>] % p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">c</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> n, <span class="keyword">long</span> <span class="keyword">long</span> m, <span class="keyword">long</span> <span class="keyword">long</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (m &gt; n)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (m == n || m == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; p)</span><br><span class="line">        <span class="keyword">return</span> fac[n] * invfac[m] % p * invfac[n - m] % p;</span><br><span class="line">    <span class="keyword">return</span> c(n / p, m / p, p) * c(n % p, m % p, p) % p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lucas</span><span class="params">(p)</span>:</span></span><br><span class="line">    fac = [<span class="number">0</span>]*p</span><br><span class="line">    invfac = [<span class="number">0</span>]*p</span><br><span class="line">    fac[<span class="number">0</span>] = fac[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    invfac[<span class="number">0</span>] = invfac[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, p):</span><br><span class="line">        fac[i] = i*fac[i<span class="number">-1</span>] % p</span><br><span class="line">        invfac[i] = (p-p//i)*invfac[p % i] % p</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, p):</span><br><span class="line">        invfac[i] = invfac[i]*invfac[i<span class="number">-1</span>] % p</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(n, m, p)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> n &lt; m:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> n == m <span class="keyword">or</span> m == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> n &lt; p:</span><br><span class="line">            <span class="keyword">return</span> fac[n]*invfac[n-m]*invfac[m] % p</span><br><span class="line">        <span class="keyword">return</span> cal(n//p, m//p, p)*cal(n % p, m % p, p) % p</span><br><span class="line">    <span class="keyword">return</span> cal</span><br></pre></td></tr></table></figure>
-<h2 id="扩展卢卡斯定理"><a href="#扩展卢卡斯定理" class="headerlink" title="扩展卢卡斯定理"></a>扩展卢卡斯定理</h2><p>就是卢卡斯定理加上扩展欧几里得，占坑，待补</p>
-<h2 id="模板题"><a href="#模板题" class="headerlink" title="模板题"></a>模板题</h2><p><a href="https://www.luogu.org/problem/P3807" target="_blank" rel="noopener">luogu P3807 【模板】卢卡斯定理</a></p>
+        <p>求解n元一次方程组</p>
+<a id="more"></a>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>线性代数知识，通过行与行之间的加减法消元</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>求解n元一次方程组</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>因为需要用<code>double</code>或者在C++里用模运算，所以在竞赛中国用python写意义不大，就没写。或许以后可以加一个<code>numpy</code>版本的。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">gauss</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&gt; &amp;in)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(in.size() + <span class="number">1</span> == in[<span class="number">0</span>].size());</span><br><span class="line">    <span class="keyword">int</span> n = in.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 列主元消去法 提高精度</span></span><br><span class="line">        <span class="comment">// int lo = i;</span></span><br><span class="line">        <span class="comment">// double nmax = abs(in[i][i]);</span></span><br><span class="line">        <span class="comment">// for (int j = i; j &lt; n; j++)</span></span><br><span class="line">        <span class="comment">//     if (abs(in[j][i]) &gt; nmax)</span></span><br><span class="line">        <span class="comment">//         nmax = in[j][i], lo = j;</span></span><br><span class="line">        <span class="comment">// if (i != lo)</span></span><br><span class="line">        <span class="comment">//     for (int j = i; j &lt;= n; j++)</span></span><br><span class="line">        <span class="comment">//         swap(in[i][j], in[lo][j]);</span></span><br><span class="line">        <span class="keyword">double</span> t = in[i][i];</span><br><span class="line">        <span class="keyword">if</span> (t == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt;= n; j++)</span><br><span class="line">            in[i][j] /= t;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = i + <span class="number">1</span>; k &lt;= n; k++)</span><br><span class="line">                in[j][k] -= in[j][i] * in[i][k];</span><br><span class="line">            in[j][i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (in[i][i] == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = i - <span class="number">1</span>; k &gt;= <span class="number">0</span>; k--)</span><br><span class="line">            in[k][n] -= in[k][i] * in[i][n], in[k][i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
     </div>
 
@@ -316,7 +305,7 @@ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0\\
             
               <a href="/tags/模板/" rel="tag"># 模板</a>
             
-              <a href="/tags/数论/" rel="tag"># 数论</a>
+              <a href="/tags/数学/" rel="tag"># 数学</a>
             
           </div>
         
@@ -326,8 +315,8 @@ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0\\
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/09/12/excrt/" rel="next" title="扩展中国剩余定理">
-                  <i class="fa fa-chevron-left"></i> 扩展中国剩余定理
+                <a href="/2019/09/16/2019-shenyang-online-K/" rel="next" title="Guanguan's Happy water(2019沈阳网络赛K)">
+                  <i class="fa fa-chevron-left"></i> Guanguan's Happy water(2019沈阳网络赛K)
                 </a>
               
             </div>
@@ -335,10 +324,6 @@ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0\\
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/09/12/euler-sieve/" rel="prev" title="线性筛">
-                  线性筛 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -387,7 +372,7 @@ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0\\
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理论"><span class="nav-number">1.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#证明"><span class="nav-number">1.1.</span> <span class="nav-text">证明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展卢卡斯定理"><span class="nav-number">4.</span> <span class="nav-text">扩展卢卡斯定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板题"><span class="nav-number">5.</span> <span class="nav-text">模板题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
