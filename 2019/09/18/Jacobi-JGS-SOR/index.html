@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="迭代法解线性方程组。本文主要实现Jacobi迭代法，JGS，SOR迭代法。定义n元线性方程组为$Ax=b$。 A= \left[     \begin{matrix}         a_{11}&amp;a_{12}&amp;a_{13}&amp;\dots&amp;a_{1n}\\         a_{21}&amp;a_{22}&amp;a_{23}&amp;\dots&amp;a_{2n}\\         a_{31}&amp;a_{32}&amp;a_{33}">
+  <meta name="description" content="迭代法解线性方程组。本文主要实现Jacobi迭代法，JGS，SOR迭代法。">
 <meta name="keywords" content="数学,学习,python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="迭代法解线性方程组(python版)">
 <meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/18/Jacobi-JGS-SOR/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="迭代法解线性方程组。本文主要实现Jacobi迭代法，JGS，SOR迭代法。定义n元线性方程组为$Ax=b$。 A= \left[     \begin{matrix}         a_{11}&amp;a_{12}&amp;a_{13}&amp;\dots&amp;a_{1n}\\         a_{21}&amp;a_{22}&amp;a_{23}&amp;\dots&amp;a_{2n}\\         a_{31}&amp;a_{32}&amp;a_{33}">
+<meta property="og:description" content="迭代法解线性方程组。本文主要实现Jacobi迭代法，JGS，SOR迭代法。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-18T13:51:17.317Z">
+<meta property="og:updated_time" content="2019-09-18T13:53:00.251Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迭代法解线性方程组(python版)">
-<meta name="twitter:description" content="迭代法解线性方程组。本文主要实现Jacobi迭代法，JGS，SOR迭代法。定义n元线性方程组为$Ax=b$。 A= \left[     \begin{matrix}         a_{11}&amp;a_{12}&amp;a_{13}&amp;\dots&amp;a_{1n}\\         a_{21}&amp;a_{22}&amp;a_{23}&amp;\dots&amp;a_{2n}\\         a_{31}&amp;a_{32}&amp;a_{33}">
+<meta name="twitter:description" content="迭代法解线性方程组。本文主要实现Jacobi迭代法，JGS，SOR迭代法。">
   <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/18/Jacobi-JGS-SOR/">
 
 
@@ -246,8 +246,12 @@
                 
               
 
-              <time title="Created: 2019-09-18 21:51:17" itemprop="dateCreated datePublished" datetime="2019-09-18T21:51:17+08:00">2019-09-18</time>
+              <time title="Created: 2019-09-18 21:51:17 / Modified: 21:53:00" itemprop="dateCreated datePublished" datetime="2019-09-18T21:51:17+08:00">2019-09-18</time>
             </span>
+          
+            
+
+            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,7 +286,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>迭代法解线性方程组。本文主要实现<code>Jacobi迭代法</code>，<code>JGS</code>，<code>SOR</code>迭代法。</p><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>n元线性方程组为$Ax=b$。</p><script type="math/tex; mode=display">
+        <p>迭代法解线性方程组。本文主要实现<code>Jacobi迭代法</code>，<code>JGS</code>，<code>SOR</code>迭代法。</p>
+<a id="more"></a>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>n元线性方程组为$Ax=b$。</p>
+<script type="math/tex; mode=display">
 A=
 \left[
     \begin{matrix}
@@ -312,9 +319,7 @@ b=
         \dots\\
         b_{n}\\
     \end{matrix}
-\right]</script><a id="more"></a>
-
-<script type="math/tex; mode=display">
+\right]</script><script type="math/tex; mode=display">
 A=
 \left[
     \begin{matrix}
