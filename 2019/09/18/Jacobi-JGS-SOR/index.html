@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="求解线性同余方程组理论问题求解满足下列同余方程组的最小的x. x \equiv a_0\ (mod\ m_0)\\ x \equiv a_1\ (mod\ m_1)\\ x \equiv a_2\ (mod\ m_2)\\ \dots\\ x \equiv a_n\ (mod\ m_n)\\解法如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。">
-<meta name="keywords" content="算法,模板,数论">
+  <meta name="description" content="迭代法解线性方程组。本文主要实现Jacobi迭代法，JGS，SOR迭代法。定义n元线性方程组为$Ax=b$。 A= \left[     \begin{matrix}         a_{11}&amp;a_{12}&amp;a_{13}&amp;\dots&amp;a_{1n}\\         a_{21}&amp;a_{22}&amp;a_{23}&amp;\dots&amp;a_{2n}\\         a_{31}&amp;a_{32}&amp;a_{33}">
+<meta name="keywords" content="数学,学习,python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="扩展中国剩余定理">
-<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/12/excrt/index.html">
+<meta property="og:title" content="迭代法解线性方程组(python版)">
+<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/18/Jacobi-JGS-SOR/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="求解线性同余方程组理论问题求解满足下列同余方程组的最小的x. x \equiv a_0\ (mod\ m_0)\\ x \equiv a_1\ (mod\ m_1)\\ x \equiv a_2\ (mod\ m_2)\\ \dots\\ x \equiv a_n\ (mod\ m_n)\\解法如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。">
+<meta property="og:description" content="迭代法解线性方程组。本文主要实现Jacobi迭代法，JGS，SOR迭代法。定义n元线性方程组为$Ax=b$。 A= \left[     \begin{matrix}         a_{11}&amp;a_{12}&amp;a_{13}&amp;\dots&amp;a_{1n}\\         a_{21}&amp;a_{22}&amp;a_{23}&amp;\dots&amp;a_{2n}\\         a_{31}&amp;a_{32}&amp;a_{33}">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-12T12:13:34.992Z">
+<meta property="og:updated_time" content="2019-09-18T13:51:17.317Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="扩展中国剩余定理">
-<meta name="twitter:description" content="求解线性同余方程组理论问题求解满足下列同余方程组的最小的x. x \equiv a_0\ (mod\ m_0)\\ x \equiv a_1\ (mod\ m_1)\\ x \equiv a_2\ (mod\ m_2)\\ \dots\\ x \equiv a_n\ (mod\ m_n)\\解法如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。">
-  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/12/excrt/">
+<meta name="twitter:title" content="迭代法解线性方程组(python版)">
+<meta name="twitter:description" content="迭代法解线性方程组。本文主要实现Jacobi迭代法，JGS，SOR迭代法。定义n元线性方程组为$Ax=b$。 A= \left[     \begin{matrix}         a_{11}&amp;a_{12}&amp;a_{13}&amp;\dots&amp;a_{1n}\\         a_{21}&amp;a_{22}&amp;a_{23}&amp;\dots&amp;a_{2n}\\         a_{31}&amp;a_{32}&amp;a_{33}">
+  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/18/Jacobi-JGS-SOR/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>扩展中国剩余定理 | zhaoyiping's blog</title>
+  <title>迭代法解线性方程组(python版) | zhaoyiping's blog</title>
   
 
 
@@ -218,7 +218,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/12/excrt/">
+    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/18/Jacobi-JGS-SOR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoyiping">
@@ -230,7 +230,7 @@
       <meta itemprop="name" content="zhaoyiping's blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">扩展中国剩余定理
+        <h1 class="post-title" itemprop="name headline">迭代法解线性方程组(python版)
 
           
         </h1>
@@ -246,12 +246,8 @@
                 
               
 
-              <time title="Created: 2019-09-12 20:03:53 / Modified: 20:13:34" itemprop="dateCreated datePublished" datetime="2019-09-12T20:03:53+08:00">2019-09-12</time>
+              <time title="Created: 2019-09-18 21:51:17" itemprop="dateCreated datePublished" datetime="2019-09-18T21:51:17+08:00">2019-09-18</time>
             </span>
-          
-            
-
-            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,14 +255,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/模板/" itemprop="url" rel="index"><span itemprop="name">模板</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
 
                 
                 
@@ -275,7 +264,7 @@
           
 
           
-            <span id="/2019/09/12/excrt/" class="post-meta-item leancloud_visitors" data-flag-title="扩展中国剩余定理" title="Views">
+            <span id="/2019/09/18/Jacobi-JGS-SOR/" class="post-meta-item leancloud_visitors" data-flag-title="迭代法解线性方程组(python版)" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -293,21 +282,74 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>求解线性同余方程组</p><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>求解满足下列同余方程组的最小的<code>x</code>.</p><script type="math/tex; mode=display">
-x \equiv a_0\ (mod\ m_0)\\
-x \equiv a_1\ (mod\ m_1)\\
-x \equiv a_2\ (mod\ m_2)\\
-\dots\\
-x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>如果模数两两互质，则可以直接使用中国剩余定理求解，当模数不两两互质时，使用扩展欧几里得求解。</p><a id="more"></a>
+        <p>迭代法解线性方程组。本文主要实现<code>Jacobi迭代法</code>，<code>JGS</code>，<code>SOR</code>迭代法。</p><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>n元线性方程组为$Ax=b$。</p><script type="math/tex; mode=display">
+A=
+\left[
+    \begin{matrix}
+        a_{11}&a_{12}&a_{13}&\dots&a_{1n}\\
+        a_{21}&a_{22}&a_{23}&\dots&a_{2n}\\
+        a_{31}&a_{32}&a_{33}&\dots&a_{3n}\\
+        \dots&\dots&\dots&\dots&\dots\\
+        a_{n1}&a_{n2}&a_{n3}&\dots&a_{nn}\\
+    \end{matrix}
+\right],
+x=
+\left[
+    \begin{matrix}
+        x_{1}\\
+        x_{2}\\
+        x_{3}\\
+        \dots\\
+        x_{n}\\
+    \end{matrix}
+\right],
+b=
+\left[
+    \begin{matrix}
+        b_{1}\\
+        b_{2}\\
+        b_{3}\\
+        \dots\\
+        b_{n}\\
+    \end{matrix}
+\right]</script><a id="more"></a>
 
-
-<p>假设前<code>k-1</code>个方程的解为$x \equiv\ A(mod\ M)$，考虑扩展到第<code>k</code>个方程。</p>
-<p>设$\ x=t \ast M+A$，由$x \equiv a_k(mod\ m_k)$可得$t \ast M \equiv a_k - A (mod\ m_k)$，然后可使用扩展欧几里得求解$t$，因此可令$A’=t*M+A$，$x \equiv A’(mod\ lcm(M,m_k))$，因此前<code>k</code>个方程的解为$x \equiv A’(mod\ lcm(M,m_k))$</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>解线性同余方程组</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">exgcd</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b, <span class="keyword">long</span> <span class="keyword">long</span> &amp;x, <span class="keyword">long</span> <span class="keyword">long</span> &amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!a &amp;&amp; !b)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x = <span class="number">1</span>;</span><br><span class="line">        y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> d = exgcd(b, a % b, y, x);</span><br><span class="line">    y -= a / b * x;</span><br><span class="line">    <span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">excrt</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; &amp;a, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; &amp;m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> M = m[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> A = a[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; a.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> k, t;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> d = exgcd(M, m[i], k, t);</span><br><span class="line">        t = (a[i] - A) % m[i];</span><br><span class="line">        <span class="keyword">if</span> (t &lt; <span class="number">0</span>)</span><br><span class="line">            t += m[i];</span><br><span class="line">        <span class="keyword">if</span> (t % d)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> x = M;</span><br><span class="line">        M *= m[i] / d;</span><br><span class="line">        A = (A + t / d * (<span class="keyword">__int128_t</span>)k % M * x) % M;</span><br><span class="line">        <span class="keyword">if</span> (A &lt; <span class="number">0</span>)</span><br><span class="line">            A += M;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> A;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exgcd</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">0</span> <span class="keyword">and</span> b == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    <span class="keyword">if</span> b == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> (a, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">    d, y, x = exgcd(b, a % b)</span><br><span class="line">    y -= a//b*x</span><br><span class="line">    <span class="keyword">return</span> d, x, y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">excrt</span><span class="params">(a, m)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(a) != len(m):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    M = m[<span class="number">0</span>]</span><br><span class="line">    A = a[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(a)):</span><br><span class="line">        d, x, y = exgcd(M, m[i])</span><br><span class="line">        t = (a[i]-A) % m[i]</span><br><span class="line">        <span class="keyword">if</span> t &lt; <span class="number">0</span>:</span><br><span class="line">            t += m[i]</span><br><span class="line">        <span class="keyword">if</span> t % d != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        A += t//d*x*M</span><br><span class="line">        M *= m[i]//d</span><br><span class="line">        A %= M</span><br><span class="line">    <span class="keyword">return</span> A</span><br></pre></td></tr></table></figure>
-<h2 id="模板题"><a href="#模板题" class="headerlink" title="模板题"></a>模板题</h2><p><a href="https://www.luogu.org/problem/P4777" target="_blank" rel="noopener">luogu P4777 【模板】扩展中国剩余定理（EXCRT）</a></p>
-
+<script type="math/tex; mode=display">
+A=
+\left[
+    \begin{matrix}
+        0&0&0&\dots&0\\
+        a_{21}&0&0&\dots&0\\
+        a_{31}&a_{32}&0&\dots&0\\
+        \dots&\dots&\dots&\dots&\dots\\
+        a_{n1}&a_{n2}&a_{n3}&\dots&0\\
+    \end{matrix}
+\right]</script><script type="math/tex; mode=display">
+D=
+\left[
+    \begin{matrix}
+        a_{11}&0&0&\dots&0\\
+        0&a_{22}&0&\dots&0\\
+        0&0&a_{33}&\dots&0\\
+        \dots&\dots&\dots&\dots&\dots\\
+        0&0&0&\dots&a_{nn}\\
+    \end{matrix}
+\right]</script><script type="math/tex; mode=display">
+U=
+\left[
+    \begin{matrix}
+        0&a_{12}&a_{13}&\dots&a_{1n}\\
+        0&0&a_{23}&\dots&a_{2n}\\
+        0&0&0&\dots&a_{3n}\\
+        \dots&\dots&\dots&\dots&\dots\\
+        0&0&0&\dots&0\\
+    \end{matrix}
+\right]</script><p>迭代方程为$x^{(n+1)}=Bx^{(n)}+g$</p>
+<h2 id="Jacobi"><a href="#Jacobi" class="headerlink" title="Jacobi"></a>Jacobi</h2><script type="math/tex; mode=display">
+B=D^{-1}(L+U)\ , g=D^{-1}b</script><h2 id="JGS"><a href="#JGS" class="headerlink" title="JGS"></a>JGS</h2><script type="math/tex; mode=display">
+B=-(D+L)^{-1}U\ ,g=(D+L)^{-1}b</script><h2 id="SOR"><a href="#SOR" class="headerlink" title="SOR"></a>SOR</h2><p>$w$为松弛因子。</p>
+<script type="math/tex; mode=display">
+B=(D+wL)((1-w)D-wU)\ ,g=(D+wL)Bw</script><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输入</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> system</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">diedai</span><span class="params">(B, g, x, eps)</span>:</span></span><br><span class="line">    step = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        pre = x</span><br><span class="line">        x = B.dot(x)+g</span><br><span class="line">        tmp = np.max(np.abs(x-pre))</span><br><span class="line">        print(<span class="string">f"step=<span class="subst">&#123;step&#125;</span>"</span>)</span><br><span class="line">        print(x, tmp, sep=<span class="string">"\n"</span>)</span><br><span class="line">        <span class="keyword">if</span> tmp &lt; eps <span class="keyword">or</span> step &gt; <span class="number">1000</span>:</span><br><span class="line">            system(<span class="string">"pause"</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        step += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">n = int(input())</span><br><span class="line">A = []</span><br><span class="line">b = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">    aa = list(map(int, input().split()))</span><br><span class="line">    A.append(aa[:<span class="number">-1</span>])</span><br><span class="line">    b.append(aa[<span class="number">-1</span>])</span><br><span class="line">eps = float(input())</span><br><span class="line">x = list(map(int, input().split()))</span><br><span class="line"></span><br><span class="line">x = np.array(x).reshape(n, <span class="number">-1</span>)</span><br><span class="line">A = np.array(A).reshape(n, <span class="number">-1</span>)</span><br><span class="line">b = np.array(b).reshape(n, <span class="number">-1</span>)</span><br><span class="line">u = np.triu(A, <span class="number">1</span>)</span><br><span class="line">l = np.tril(A, <span class="number">-1</span>)</span><br><span class="line">d = A-(l+u)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Jacobi</span></span><br><span class="line">B = -np.linalg.inv(d).dot(l+u)</span><br><span class="line">g = np.linalg.inv(d).dot(b)</span><br><span class="line">diedai(B, g, x, eps)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JGS</span></span><br><span class="line">B = -np.linalg.inv(d+l).dot(u)</span><br><span class="line">g = np.linalg.inv(d+l).dot(b)</span><br><span class="line">diedai(B, g, x, eps)</span><br><span class="line"></span><br><span class="line"><span class="comment"># SOR</span></span><br><span class="line">w = float(input())</span><br><span class="line">B = np.linalg.inv(d + w * l).dot((<span class="number">1</span> - w) * d - w * u)</span><br><span class="line">g = np.linalg.inv(d + w * l).dot(b) * w</span><br><span class="line">diedai(B, g, x, eps)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">9 -2 1 6</span></span><br><span class="line"><span class="string">-1 8 -1 8</span></span><br><span class="line"><span class="string">-1 1 8 -8</span></span><br><span class="line"><span class="string">1e-3</span></span><br><span class="line"><span class="string">1 0 0</span></span><br><span class="line"><span class="string">0.1</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">4 -1 0 1</span></span><br><span class="line"><span class="string">-1 4 -1 4</span></span><br><span class="line"><span class="string">0 -1 4 -3</span></span><br><span class="line"><span class="string">0.5e-2</span></span><br><span class="line"><span class="string">0 1 1</span></span><br><span class="line"><span class="string">0.8</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -322,11 +364,11 @@ x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="head
           
           <div class="post-tags">
             
-              <a href="/tags/算法/" rel="tag"># 算法</a>
+              <a href="/tags/数学/" rel="tag"># 数学</a>
             
-              <a href="/tags/模板/" rel="tag"># 模板</a>
+              <a href="/tags/学习/" rel="tag"># 学习</a>
             
-              <a href="/tags/数论/" rel="tag"># 数论</a>
+              <a href="/tags/python/" rel="tag"># python</a>
             
           </div>
         
@@ -336,8 +378,8 @@ x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="head
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/09/11/linear-inv/" rel="next" title="线性求逆元">
-                  <i class="fa fa-chevron-left"></i> 线性求逆元
+                <a href="/2019/09/16/Gaussian-Elimination/" rel="next" title="高斯消元">
+                  <i class="fa fa-chevron-left"></i> 高斯消元
                 </a>
               
             </div>
@@ -345,10 +387,6 @@ x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="head
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/09/12/lucas/" rel="prev" title="卢卡斯定理">
-                  卢卡斯定理 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -397,7 +435,7 @@ x \equiv a_n\ (mod\ m_n)\\</script><h3 id="解法"><a href="#解法" class="head
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#理论"><span class="nav-number">1.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">1.2.</span> <span class="nav-text">解法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板题"><span class="nav-number">4.</span> <span class="nav-text">模板题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jacobi"><span class="nav-number">2.</span> <span class="nav-text">Jacobi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JGS"><span class="nav-number">3.</span> <span class="nav-text">JGS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SOR"><span class="nav-number">4.</span> <span class="nav-text">SOR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">5.</span> <span class="nav-text">代码</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
