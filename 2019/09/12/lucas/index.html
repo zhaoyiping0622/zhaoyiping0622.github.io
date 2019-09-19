@@ -29,8 +29,8 @@
     version: '7.4.0',
     exturl: false,
     sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: false,
     mediumzoom: false,
@@ -83,6 +83,16 @@
 
   <title>卢卡斯定理 | zhaoyiping's blog</title>
   
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148337124-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148337124-1');
+    }
+  </script>
 
 
 
@@ -198,10 +208,6 @@
     </header>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 
     <main id="main" class="main">
@@ -470,6 +476,11 @@ n=n_kp^k+n_{k-1}p^{k-1}+n_{k-2}p^{k-2}+\dots+n_1p+n_0\\
   </div>
 
       </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
 
     </div>
   </aside>
