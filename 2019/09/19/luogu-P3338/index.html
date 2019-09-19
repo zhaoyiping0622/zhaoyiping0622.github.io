@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="线性筛素数、欧拉函数、莫比乌斯函数 原理时间复杂度$O(n)$ 对每个数筛去它最小的质因数，因此几乎可以筛所有的积性函数（但是有的时候推公式太复杂，我直接埃式筛筛积性函数） 应用线性筛素数、欧拉函数、莫比乌斯函数">
-<meta name="keywords" content="算法,模板,数论">
+  <meta name="description" content="题意题目链接 给你$n$个数$q_i$，定义  F_j=\sum_{ij}^{}\frac{q_iq_j}{(i-j)^2}\\ E_i=F_i/q_i求$E_i$">
+<meta name="keywords" content="算法,题解,FFT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线性筛">
-<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/12/euler-sieve/index.html">
+<meta property="og:title" content="luogu-P3338">
+<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/19/luogu-P3338/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="线性筛素数、欧拉函数、莫比乌斯函数 原理时间复杂度$O(n)$ 对每个数筛去它最小的质因数，因此几乎可以筛所有的积性函数（但是有的时候推公式太复杂，我直接埃式筛筛积性函数） 应用线性筛素数、欧拉函数、莫比乌斯函数">
+<meta property="og:description" content="题意题目链接 给你$n$个数$q_i$，定义  F_j=\sum_{ij}^{}\frac{q_iq_j}{(i-j)^2}\\ E_i=F_i/q_i求$E_i$">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-16T06:10:33.618Z">
+<meta property="og:updated_time" content="2019-09-19T04:51:02.224Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线性筛">
-<meta name="twitter:description" content="线性筛素数、欧拉函数、莫比乌斯函数 原理时间复杂度$O(n)$ 对每个数筛去它最小的质因数，因此几乎可以筛所有的积性函数（但是有的时候推公式太复杂，我直接埃式筛筛积性函数） 应用线性筛素数、欧拉函数、莫比乌斯函数">
-  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/12/euler-sieve/">
+<meta name="twitter:title" content="luogu-P3338">
+<meta name="twitter:description" content="题意题目链接 给你$n$个数$q_i$，定义  F_j=\sum_{ij}^{}\frac{q_iq_j}{(i-j)^2}\\ E_i=F_i/q_i求$E_i$">
+  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/19/luogu-P3338/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>线性筛 | zhaoyiping's blog</title>
+  <title>luogu-P3338 | zhaoyiping's blog</title>
   
 
 
@@ -218,7 +218,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/12/euler-sieve/">
+    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/19/luogu-P3338/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoyiping">
@@ -230,7 +230,7 @@
       <meta itemprop="name" content="zhaoyiping's blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">线性筛
+        <h1 class="post-title" itemprop="name headline">luogu-P3338
 
           
         </h1>
@@ -246,20 +246,8 @@
                 
               
 
-              <time title="Created: 2019-09-12 22:19:20" itemprop="dateCreated datePublished" datetime="2019-09-12T22:19:20+08:00">2019-09-12</time>
+              <time title="Created: 2019-09-19 12:51:02" itemprop="dateCreated datePublished" datetime="2019-09-19T12:51:02+08:00">2019-09-19</time>
             </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-16 14:10:33" itemprop="dateModified" datetime="2019-09-16T14:10:33+08:00">2019-09-16</time>
-              </span>
-            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,7 +262,7 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/模板/" itemprop="url" rel="index"><span itemprop="name">模板</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/题解/" itemprop="url" rel="index"><span itemprop="name">题解</span></a></span>
 
                 
                 
@@ -283,7 +271,7 @@
           
 
           
-            <span id="/2019/09/12/euler-sieve/" class="post-meta-item leancloud_visitors" data-flag-title="线性筛" title="Views">
+            <span id="/2019/09/19/luogu-P3338/" class="post-meta-item leancloud_visitors" data-flag-title="luogu-P3338" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -301,13 +289,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>线性筛素数、欧拉函数、莫比乌斯函数</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>时间复杂度$O(n)$</p>
-<p>对每个数筛去它最小的质因数，因此几乎可以筛所有的积性函数（但是有的时候推公式太复杂，我直接埃式筛筛积性函数）</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>线性筛素数、欧拉函数、莫比乌斯函数</p>
+        <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p><a href="https://www.luogu.org/problem/P3338" target="_blank" rel="noopener">题目链接</a></p>
+<p>给你$n$个数$q_i$，定义</p>
+<script type="math/tex; mode=display">
+F_j=\sum_{i<j}^{}\frac{q_iq_j}{(i-j)^2}-\sum_{i>j}^{}\frac{q_iq_j}{(i-j)^2}\\
+E_i=F_i/q_i</script><p>求$E_i$</p>
 <a id="more"></a>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e7</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> prime[MAXN];</span><br><span class="line"><span class="keyword">bool</span> isprime[MAXN];</span><br><span class="line"><span class="keyword">int</span> mu[MAXN];</span><br><span class="line"><span class="keyword">int</span> phi[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">euler</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(isprime, <span class="literal">true</span>, <span class="keyword">sizeof</span> isprime);</span><br><span class="line">    isprime[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line">    mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    phi[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; MAXN; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (isprime[i])</span><br><span class="line">            prime[++prime[<span class="number">0</span>]] = i, mu[i] = <span class="number">-1</span>, phi[i] = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= prime[<span class="number">0</span>] &amp;&amp; i * prime[j] &lt; MAXN; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> t = i * prime[j];</span><br><span class="line">            isprime[t] = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                mu[t] = <span class="number">0</span>;</span><br><span class="line">                phi[t] = prime[j] * phi[i];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            mu[t] = -mu[i];</span><br><span class="line">            phi[t] = (prime[j] - <span class="number">1</span>) * phi[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 容易MLE </span></span><br><span class="line"><span class="comment"># pypy codeforces</span></span><br><span class="line"><span class="comment"># 1e6约20M 202ms</span></span><br><span class="line"><span class="comment"># 2e6约38M 280ms</span></span><br><span class="line"><span class="comment"># 3e6约57M 389ms</span></span><br><span class="line"><span class="comment"># 4e6约75M 452ms</span></span><br><span class="line"><span class="comment"># 5e6约93M 561ms</span></span><br><span class="line"><span class="comment"># 6e6约111M 670ms</span></span><br><span class="line"><span class="comment"># 7e6约128M 779ms</span></span><br><span class="line"><span class="comment"># 8e6约148M 810ms</span></span><br><span class="line"><span class="comment"># 9e6约164M 920ms</span></span><br><span class="line"><span class="comment"># 1e7约183M 998ms</span></span><br><span class="line">isprime = []</span><br><span class="line">prime = []</span><br><span class="line">mu = []</span><br><span class="line">phi = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> isprime, prime, mu, phi</span><br><span class="line">    isprime = [<span class="literal">True</span>]*(n+<span class="number">1</span>)</span><br><span class="line">    mu = [<span class="number">0</span>]*(n+<span class="number">1</span>)</span><br><span class="line">    phi = [<span class="number">0</span>]*(n+<span class="number">1</span>)</span><br><span class="line">    isprime[<span class="number">1</span>] = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, n+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> isprime[i]:</span><br><span class="line">            prime.append(i)</span><br><span class="line">            mu[i] = <span class="number">-1</span></span><br><span class="line">            phi[i] = i<span class="number">-1</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> prime:</span><br><span class="line">            t = i*j</span><br><span class="line">            <span class="keyword">if</span> t &gt; n:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            isprime[t] = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> i % j == <span class="number">0</span>:</span><br><span class="line">                mu[t] = <span class="number">0</span></span><br><span class="line">                phi[t] = j*phi[i]</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            mu[t] = -mu[i]</span><br><span class="line">            phi[t] = (j<span class="number">-1</span>)*phi[i]</span><br></pre></td></tr></table></figure>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>显然$ E_j=\sum_{i<j}^{}\frac{q_i}{(i-j)^2}-\sum_{i>j}^{}\frac{q_i}{(i-j)^2} $，将这个式子展开找规律：</j}^{}\frac{q_i}{(i-j)^2}-\sum_{i></p>
+<script type="math/tex; mode=display">
+E_0=-(\frac{q_1}{1^2}+\frac{q_2}{2^2}+\frac{q_3}{3^2}+\dots+\frac{q_{n-1}}{(n-1)^2})\\
+E_1=\frac{q_0}{1^2}-(\frac{q_2}{1^2}+\frac{q_3}{2^2}+\frac{q_4}{3^2}+\dots+\frac{q_{n-1}}{(n-2)^2})\\
+E_2=\frac{q_0}{2^2}+\frac{q_1}{1^2}-(\frac{q_3}{1^2}+\frac{q_4}{2^2}+\frac{q_5}{3^2}+\dots+\frac{q_{n-1}}{(n-3)^2})\\
+\dots</script><p>然后就可以构造序列$b$：</p>
+<script type="math/tex; mode=display">
+b_i=\left\{
+    \begin{aligned}
+        0&,&i=0||i=n,\\
+        -\frac{1}{(n-i)^2}&,&0<i<n\\
+        \frac{1}{(n-i)^2}&,&n<i<2n
+    \end{aligned}
+\right.</script><p>就可以发现$E_j= \sum_{i=0}^{n-1}q_i*b_{n+j-i} $，那么只要将$q$和$b$卷积一下就好了。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> PI = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">131072</span>&lt;&lt;<span class="number">1</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Complex</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">double</span> x, y;</span><br><span class="line">    Complex(<span class="keyword">double</span> _x = <span class="number">0.0</span>, <span class="keyword">double</span> _y = <span class="number">0.0</span>) : x(_x), y(_y) &#123;&#125; <span class="comment">//x+yi</span></span><br><span class="line">    Complex <span class="keyword">operator</span>+(<span class="keyword">const</span> Complex &amp;other) <span class="keyword">const</span> &#123; <span class="keyword">return</span> Complex(x + other.x, y + other.y); &#125;</span><br><span class="line">    Complex <span class="keyword">operator</span>-(<span class="keyword">const</span> Complex &amp;other) <span class="keyword">const</span> &#123; <span class="keyword">return</span> Complex(x - other.x, y - other.y); &#125;</span><br><span class="line">    Complex <span class="keyword">operator</span>*(<span class="keyword">const</span> Complex &amp;other) <span class="keyword">const</span> &#123; <span class="keyword">return</span> Complex(x * other.x - y * other.y, x * other.y + y * other.x); &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">(Complex y[], <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, j = len / <span class="number">2</span>; i &lt; len - <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; j)</span><br><span class="line">            swap(y[i], y[j]);</span><br><span class="line">        <span class="keyword">int</span> k = len / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span> (j &gt;= k)</span><br><span class="line">        &#123;</span><br><span class="line">            j -= k;</span><br><span class="line">            k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        j += k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fft</span><span class="params">(Complex x[], <span class="keyword">int</span> len, <span class="keyword">int</span> on = <span class="number">1</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    change(x, len);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> h = <span class="number">2</span>; h &lt;= len; h &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">Complex <span class="title">wn</span><span class="params">(<span class="built_in">cos</span>(-on * <span class="number">2</span> * PI / h), <span class="built_in">sin</span>(-on * <span class="number">2</span> * PI / h))</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; j += h)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="function">Complex <span class="title">w</span><span class="params">(<span class="number">1</span>)</span></span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = j; k &lt; j + h / <span class="number">2</span>; k++)</span><br><span class="line">            &#123;</span><br><span class="line">                Complex u = x[k];</span><br><span class="line">                Complex t = w * x[k + h / <span class="number">2</span>];</span><br><span class="line">                x[k] = u + t;</span><br><span class="line">                x[k + h / <span class="number">2</span>] = u - t;</span><br><span class="line">                w = w * wn;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (on == <span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">            x[i].x /= len;</span><br><span class="line">&#125;</span><br><span class="line">Complex q[MAXN];</span><br><span class="line">Complex b[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;q[i].x;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)</span><br><span class="line">        b[i]=<span class="number">-1.</span>/(n-i)/(n-i);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+<span class="number">1</span>;i&lt;n*<span class="number">2</span>;i++)</span><br><span class="line">        b[i]=<span class="number">1.</span>/(n-i)/(n-i);</span><br><span class="line">    <span class="keyword">int</span> len=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(len&lt;n*<span class="number">2</span>)</span><br><span class="line">        len&lt;&lt;=<span class="number">1</span>;</span><br><span class="line">    fft(q,len);</span><br><span class="line">    fft(b,len);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)</span><br><span class="line">        q[i]=q[i]*b[i];</span><br><span class="line">    fft(q,len,<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;fixed&lt;&lt;setprecision(<span class="number">2</span>)&lt;&lt;q[i+n].x&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -324,9 +326,9 @@
             
               <a href="/tags/算法/" rel="tag"># 算法</a>
             
-              <a href="/tags/模板/" rel="tag"># 模板</a>
+              <a href="/tags/题解/" rel="tag"># 题解</a>
             
-              <a href="/tags/数论/" rel="tag"># 数论</a>
+              <a href="/tags/FFT/" rel="tag"># FFT</a>
             
           </div>
         
@@ -336,8 +338,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/09/12/lucas/" rel="next" title="卢卡斯定理">
-                  <i class="fa fa-chevron-left"></i> 卢卡斯定理
+                <a href="/2019/09/18/Jacobi-JGS-SOR/" rel="next" title="迭代法解线性方程组(python版)">
+                  <i class="fa fa-chevron-left"></i> 迭代法解线性方程组(python版)
                 </a>
               
             </div>
@@ -346,8 +348,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2019/09/16/2019-shenyang-online-K/" rel="prev" title="Guanguan's Happy water(2019沈阳网络赛K)">
-                  Guanguan's Happy water(2019沈阳网络赛K) <i class="fa fa-chevron-right"></i>
+                <a href="/2019/09/19/luogu-P3723/" rel="prev" title="luogu-P3723 礼物">
+                  luogu-P3723 礼物 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -397,7 +399,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
