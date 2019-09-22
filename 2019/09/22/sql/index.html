@@ -62,7 +62,7 @@
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
 <meta property="og:description" content="综述    对象 创建 删除 修改     模式 CREATE SCHEMA DROP SCHEMA    表 CREATE TABLE DROP TABLE ALTER TABLE   模式 CREATE VIEW DROP VIEW    模式 CREATE INDEX DROP INDEX ALTER INDEX">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-22T15:01:52.987Z">
+<meta property="og:updated_time" content="2019-09-22T15:51:02.855Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL学习笔记">
 <meta name="twitter:description" content="综述    对象 创建 删除 修改     模式 CREATE SCHEMA DROP SCHEMA    表 CREATE TABLE DROP TABLE ALTER TABLE   模式 CREATE VIEW DROP VIEW    模式 CREATE INDEX DROP INDEX ALTER INDEX">
@@ -251,7 +251,7 @@
                 
               
 
-              <time title="Created: 2019-09-22 23:01:24 / Modified: 23:01:52" itemprop="dateCreated datePublished" datetime="2019-09-22T23:01:24+08:00">2019-09-22</time>
+              <time title="Created: 2019-09-22 23:01:24 / Modified: 23:51:02" itemprop="dateCreated datePublished" datetime="2019-09-22T23:01:24+08:00">2019-09-22</time>
             </span>
           
             
@@ -472,12 +472,14 @@
 <li>[&lt;表名&gt;.]&lt;属性列名表达式&gt;[,[&lt;表名&gt;.]&lt;属性列名表达式&gt;]…</li>
 </ul>
 <p>&lt;属性列名表达式&gt;可由属性列、作用于属性列的聚集函数和常量的任意算术运算组成的运算公式。</p>
-<p>WHERE子句的条件表达式的可选格式</p>
+<p>WHERE子句的条件表达式的可选格式：</p>
+<hr>
 <script type="math/tex; mode=display"><属性列名>\begin{Bmatrix}
         <属性列名>\\
         <常量>\\
         [ANY|ALL](SELECT语句)\\
-\end{Bmatrix}</script><script type="math/tex; mode=display"><属性列名>[NOT]BETWEEN\begin{Bmatrix}
+\end{Bmatrix}</script><hr>
+<script type="math/tex; mode=display"><属性列名>[NOT]BETWEEN\begin{Bmatrix}
     <属性列名>\\
     <常量>\\
     (SELECT语句)
@@ -487,12 +489,17 @@ AND
    <属性列名>\\
    <常量>\\
    (SELECT语句) 
-\end{Bmatrix}</script><script type="math/tex; mode=display"><属性列名>[NOT]IN\begin{Bmatrix}
+\end{Bmatrix}</script><hr>
+<script type="math/tex; mode=display"><属性列名>[NOT]IN\begin{Bmatrix}
     (<值1>[,<值2>]\dots)\\
     (SELECT语句)
-\end{Bmatrix}</script><p>&lt;属性列名&gt;[NOT]LIKE&lt;匹配串&gt;</p>
-<p>&lt;属性列名&gt;IS [NOT] NULL</p>
-<p>[NOT] EXISTS (SELECT语句)</p>
+\end{Bmatrix}</script><hr>
+<script type="math/tex; mode=display">
+<属性列名>[NOT]LIKE<匹配串></script><hr>
+<script type="math/tex; mode=display">
+<属性列名>IS [NOT] NULL</script><hr>
+<script type="math/tex; mode=display">
+[NOT] EXISTS (SELECT语句)</script><hr>
 <script type="math/tex; mode=display">
 <条件表达式>\begin{Bmatrix}
     AND\\
@@ -505,7 +512,8 @@ AND
         OR
     \end{Bmatrix}
     <条件表达式>\dots
-\end{pmatrix}</script><h3 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h3><p>例子：</p>
+\end{pmatrix}</script><hr>
+<h3 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h3><p>例子：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Sno,Sname <span class="keyword">FROM</span> Student;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> Student;<span class="comment">-- 所有记录</span></span><br><span class="line"><span class="keyword">SELECT</span> Sname,<span class="number">2014</span>-Sage <span class="keyword">FROM</span> Student;<span class="comment">-- 表达式</span></span><br><span class="line"><span class="keyword">SELECT</span> Sname,<span class="string">"Year of Birth:"</span>,<span class="number">2014</span>-Sage,<span class="keyword">LOWER</span>(Sdept) <span class="keyword">FROM</span> Student;<span class="comment">-- 常量、表达式</span></span><br><span class="line"><span class="keyword">SELECT</span> Sname <span class="keyword">NAME</span>,<span class="string">"Year of Birth:"</span> BIRTH,<span class="number">2014</span>-Sage BIRTHDAY,<span class="keyword">LOWER</span>(Sdept) DEPRTMENT <span class="keyword">FROM</span> Student;<span class="comment">-- 设置别名</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> Sno <span class="keyword">FROM</span> SC;<span class="comment">-- 去除重复行</span></span><br></pre></td></tr></table></figure>
 <div class="table-container">
 <table>
