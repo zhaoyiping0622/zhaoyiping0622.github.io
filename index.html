@@ -276,14 +276,6 @@
           
 
           
-            <span id="/2019/09/25/assembly-language/" class="post-meta-item leancloud_visitors" data-flag-title="汇编语言" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-          
 
         </div>
       </header>
@@ -464,14 +456,6 @@
           
 
           
-            <span id="/2019/09/25/linux-software-install/" class="post-meta-item leancloud_visitors" data-flag-title="Linux软件部署及应用" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-          
 
         </div>
       </header>
@@ -575,14 +559,6 @@
           
 
           
-            <span id="/2019/09/23/vim/" class="post-meta-item leancloud_visitors" data-flag-title="vim使用" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-          
 
         </div>
       </header>
@@ -683,14 +659,6 @@
             </span>
           
 
-          
-            <span id="/2019/09/23/linux-shell/" class="post-meta-item leancloud_visitors" data-flag-title="linux shell学习笔记" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
           
 
         </div>
@@ -799,14 +767,6 @@
             </span>
           
 
-          
-            <span id="/2019/09/23/os-learning-general/" class="post-meta-item leancloud_visitors" data-flag-title="计算机操作系统实验作业" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
           
 
         </div>
@@ -926,14 +886,6 @@
             </span>
           
 
-          
-            <span id="/2019/09/22/sql/" class="post-meta-item leancloud_visitors" data-flag-title="SQL学习笔记" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
           
 
         </div>
@@ -1081,14 +1033,6 @@
           
 
           
-            <span id="/2019/09/22/django-knowledge/" class="post-meta-item leancloud_visitors" data-flag-title="Django知识整理(持续更新)" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-          
 
         </div>
       </header>
@@ -1202,14 +1146,6 @@
           
 
           
-            <span id="/2019/09/21/django-test/" class="post-meta-item leancloud_visitors" data-flag-title="Django初探——一次安装折腾记录" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-          
 
         </div>
       </header>
@@ -1306,14 +1242,6 @@
             </span>
           
 
-          
-            <span id="/2019/09/19/luogu-P3723/" class="post-meta-item leancloud_visitors" data-flag-title="luogu-P3723 礼物" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
           
 
         </div>
@@ -1412,14 +1340,6 @@
             </span>
           
 
-          
-            <span id="/2019/09/19/luogu-P3338/" class="post-meta-item leancloud_visitors" data-flag-title="luogu-P3338" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
           
 
         </div>
@@ -1618,106 +1538,6 @@ E_i=F_i/q_i</script><p>求$E_i$</p>
 
 
 
-  
-  <script>
-  function leancloudSelector(url) {
-    return document.getElementById(url).querySelector('.leancloud-visitors-count');
-  }
-  if (CONFIG.page.isPost) {
-    function addCount(Counter) {
-      var visitors = document.querySelector('.leancloud_visitors');
-      var url = visitors.getAttribute('id').trim();
-      var title = visitors.getAttribute('data-flag-title').trim();
-
-      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
-        .then(response => response.json())
-        .then(({ results }) => {
-          if (results.length > 0) {
-            var counter = results[0];
-            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
-              .then(response => response.json())
-              .then(() => {
-                leancloudSelector(url).innerText = counter.time + 1;
-              })
-            
-              .catch(error => {
-                console.log('Failed to save visitor count', error);
-              })
-          } else {
-              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
-                .then(response => response.json())
-                .then(() => {
-                  leancloudSelector(url).innerText = 1;
-                })
-                .catch(error => {
-                  console.log('Failed to create', error);
-                });
-            
-          }
-        })
-        .catch(error => {
-          console.log('LeanCloud Counter Error', error);
-        });
-    }
-  } else {
-    function showTime(Counter) {
-      var visitors = document.querySelectorAll('.leancloud_visitors');
-      var entries = [...visitors].map(element => {
-        return element.getAttribute('id').trim();
-      });
-
-      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
-        .then(response => response.json())
-        .then(({ results }) => {
-          if (results.length === 0) {
-            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
-              element.innerText = 0;
-            });
-            return;
-          }
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.url;
-            var time = item.time;
-            leancloudSelector(url).innerText = time;
-          }
-          for (var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = leancloudSelector(url);
-            if (element.innerText == '') {
-              element.innerText = 0;
-            }
-          }
-        })
-        .catch(error => {
-          console.log('LeanCloud Counter Error', error);
-        });
-    }
-  }
-
-  fetch('https://app-router.leancloud.cn/2/route?appId=yFTG7WGtcyo5OSNoNfIUNo48-gzGzoHsz')
-    .then(response => response.json())
-    .then(({ api_server }) => {
-      var Counter = (method, url, data) => {
-        return fetch(`https://${api_server}/1.1${url}`, {
-          method: method,
-          headers: {
-            'X-LC-Id': 'yFTG7WGtcyo5OSNoNfIUNo48-gzGzoHsz',
-            'X-LC-Key': 'fLABWocIrltcJgAniVdAuOF2',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-      if (CONFIG.page.isPost) {
-        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
-        if (localhost.test(document.URL)) return;
-        addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
 
 
 
