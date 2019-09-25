@@ -63,20 +63,20 @@
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
 <meta property="og:description" content="不是很清楚软件部署具体指什么，根据我的理解是安装的意思。 Linux上安装文件有两种方式：  安装二进制文件 源代码编译安装  本文就从这两个方面讲具体做法。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/apt-install.jpg">
-<meta property="og:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/apt-remove.jpg">
-<meta property="og:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/apt-autoremove.jpg">
-<meta property="og:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/apt-update.jpg">
-<meta property="og:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/apt-upgrade1.jpg">
-<meta property="og:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/vscode-deb.jpg">
-<meta property="og:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/dpkg-fail.jpg">
-<meta property="og:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/apt-install-f.jpg">
-<meta property="og:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/dpkg-success.jpg">
-<meta property="og:updated_time" content="2019-09-25T02:07:14.889Z">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install.jpg">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-remove.jpg">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-autoremove.jpg">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-update.jpg">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-upgrade1.jpg">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/vscode-deb.jpg">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/dpkg-fail.jpg">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install-f.jpg">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/dpkg-success.jpg">
+<meta property="og:updated_time" content="2019-09-25T08:04:53.285Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux软件部署及应用">
 <meta name="twitter:description" content="不是很清楚软件部署具体指什么，根据我的理解是安装的意思。 Linux上安装文件有两种方式：  安装二进制文件 源代码编译安装  本文就从这两个方面讲具体做法。">
-<meta name="twitter:image" content="https://zhaoyiping0622.github.io/images/linux-software-install/apt-install.jpg">
+<meta name="twitter:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install.jpg">
   <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/25/linux-software-install/">
 
 
@@ -262,8 +262,12 @@
                 
               
 
-              <time title="Created: 2019-09-25 10:07:14" itemprop="dateCreated datePublished" datetime="2019-09-25T10:07:14+08:00">2019-09-25</time>
+              <time title="Created: 2019-09-25 10:07:14 / Modified: 16:04:53" itemprop="dateCreated datePublished" datetime="2019-09-25T10:07:14+08:00">2019-09-25</time>
             </span>
+          
+            
+
+            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -350,25 +354,25 @@
 <p>源更改完成后需运行<code>apt update</code>更新，以获取新添加的源中的软件。</p>
 <h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>在Ubuntu下安装软件大致流程就是先去官方源看一下有没有对应的软件包，如果有则直接<code>apt install 软件名</code>，否则需要上网搜索包含相应软件的源，将其添加到源列表后安装。</p>
 <p>例子：</p>
-<p><img src="/images/linux-software-install/apt-install.jpg" alt="install"></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install.jpg" alt="install"></p>
 <h4 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h4><p>卸载常用的两个命令是<code>remove</code>和<code>autoremove</code>。<code>remove</code>命令删除所有软件数据，但会留下一些用户配置文件。<code>autoremove</code>命令在删除软件的同时会移除当前软件包所有不被他人使用的依赖，由于这是递归删除，可能一不小心就删除了一大片，所以使用时应极为小心，此命令会提示删除哪些文件，需反复确认。</p>
 <p>例子：</p>
-<p><img src="/images/linux-software-install/apt-remove.jpg" alt="remove"></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-remove.jpg" alt="remove"></p>
 <p>可以看到，在使用<code>remove</code>删除软件时，他会提醒你还有几个依赖没有删干净，想删除可以使用<code>autoremove</code>命令。</p>
-<p><img src="/images/linux-software-install/apt-autoremove.jpg" alt="autoremove"></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-autoremove.jpg" alt="autoremove"></p>
 <p>在使用<code>autoremove</code>时，他会告知你将要删除的文件及其依赖，需要进一步确认。</p>
 <h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>使用<code>update</code>可以更新本地软件列表，使用<code>upgrade</code>命令可以将本地所有未升级到最新版的软件升级。</p>
-<p><img src="/images/linux-software-install/apt-update.jpg" alt="update"><br><img src="/images/linux-software-install/apt-upgrade1.jpg" alt="upgrade"></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-update.jpg" alt="update"><br><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-upgrade1.jpg" alt="upgrade"></p>
 <p>可以看到<code>upgrade</code>会将所有可升级的软件列出来让你确认。</p>
 <h4 id="使用包管理工具的优点"><a href="#使用包管理工具的优点" class="headerlink" title="使用包管理工具的优点"></a>使用包管理工具的优点</h4><p>我觉得最大的优点是安装管理软件更方便，软件自动解决依赖，不用考虑太多东西。</p>
 <h3 id="从官网下载二进制包"><a href="#从官网下载二进制包" class="headerlink" title="从官网下载二进制包"></a>从官网下载二进制包</h3><p>以<code>vscode</code>为例，从官网下载<code>deb</code>安装包</p>
-<p><img src="/images/linux-software-install/vscode-deb.jpg" alt="vscode官网下载安装包"></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/vscode-deb.jpg" alt="vscode官网下载安装包"></p>
 <p>然后使用<code>dpkg</code>命令即可安装。</p>
-<p><img src="/images/linux-software-install/dpkg-fail.jpg" alt="第一次dpkg"></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/dpkg-fail.jpg" alt="第一次dpkg"></p>
 <p>然后他就报了一个错，说是没有安装依赖。使用<code>apt install -f</code>即可安装缺少的依赖。</p>
-<p><img src="/images/linux-software-install/apt-install-f.jpg" alt="install -f"></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install-f.jpg" alt="install -f"></p>
 <p>然后再运行<code>dpkg</code>命令即可安装完成。</p>
-<p><img src="/images/linux-software-install/dpkg-success.jpg" alt="第二次dpkg"></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/dpkg-success.jpg" alt="第二次dpkg"></p>
 <p>使用官网下的二进制包很容易出现依赖问题，一般不建议这么做。</p>
 <h2 id="源代码编译安装"><a href="#源代码编译安装" class="headerlink" title="源代码编译安装"></a>源代码编译安装</h2><p>源代码安装大部分情况是先去某个托管平台(例如GitHub)找到源代码，然后下载下来，<code>./configure</code>，<code>make</code>，<code>make install</code>三步走，就装完了。</p>
 <p><code>./configure</code>是配置环境，检查依赖。</p>
@@ -501,7 +505,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
