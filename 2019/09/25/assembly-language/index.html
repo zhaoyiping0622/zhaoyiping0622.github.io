@@ -55,22 +55,22 @@
   };
 </script>
 
-  <meta name="description" content="寄存器通用寄存器 (E)AX (E)BX (E)CX (E)DX (E)SP (E)BP (E)DI (E)SI     寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数">
+  <meta name="description" content="寄存器通用寄存器    寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数   数据寄存器 EDX DX DH DL 保存数据，乘/除法专用寄存器   基址指针 EBP BP -">
 <meta name="keywords" content="汇编">
 <meta property="og:type" content="article">
 <meta property="og:title" content="汇编语言">
-<meta property="og:url" content="https://zhaoyiping0622.github.io/2019/09/25/assembly-language/index.html">
+<meta property="og:url" content="http://blog.zhaoyiping.xyz/2019/09/25/assembly-language/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="寄存器通用寄存器 (E)AX (E)BX (E)CX (E)DX (E)SP (E)BP (E)DI (E)SI     寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数">
+<meta property="og:description" content="寄存器通用寄存器    寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数   数据寄存器 EDX DX DH DL 保存数据，乘/除法专用寄存器   基址指针 EBP BP -">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/选择符.png">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/mov.png">
-<meta property="og:updated_time" content="2019-09-25T11:42:00.295Z">
+<meta property="og:updated_time" content="2019-09-25T13:17:02.141Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言">
-<meta name="twitter:description" content="寄存器通用寄存器 (E)AX (E)BX (E)CX (E)DX (E)SP (E)BP (E)DI (E)SI     寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数">
+<meta name="twitter:description" content="寄存器通用寄存器    寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数   数据寄存器 EDX DX DH DL 保存数据，乘/除法专用寄存器   基址指针 EBP BP -">
 <meta name="twitter:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/选择符.png">
-  <link rel="canonical" href="https://zhaoyiping0622.github.io/2019/09/25/assembly-language/">
+  <link rel="canonical" href="http://blog.zhaoyiping.xyz/2019/09/25/assembly-language/">
 
 
 <script id="page-configurations">
@@ -227,7 +227,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://zhaoyiping0622.github.io/2019/09/25/assembly-language/">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyiping.xyz/2019/09/25/assembly-language/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoyiping">
@@ -255,7 +255,7 @@
                 
               
 
-              <time title="Created: 2019-09-25 16:47:28 / Modified: 19:42:00" itemprop="dateCreated datePublished" datetime="2019-09-25T16:47:28+08:00">2019-09-25</time>
+              <time title="Created: 2019-09-25 16:47:28 / Modified: 21:17:02" itemprop="dateCreated datePublished" datetime="2019-09-25T16:47:28+08:00">2019-09-25</time>
             </span>
           
             
@@ -294,16 +294,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><ul>
-<li>(E)AX</li>
-<li>(E)BX</li>
-<li>(E)CX</li>
-<li>(E)DX</li>
-<li>(E)SP</li>
-<li>(E)BP</li>
-<li>(E)DI</li>
-<li>(E)SI</li>
-</ul><div class="table-container">
+        <h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -374,7 +365,6 @@
 </tbody>
 </table>
 </div><a id="more"></a>
-
 <h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><div class="table-container">
 <table>
 <thead>
@@ -535,6 +525,7 @@
 <li>堆栈操作指令</li>
 <li>地址传送指令</li>
 <li>标志寄存器传送指令</li>
+<li>查表指令</li>
 <li>符号扩展指令</li>
 <li>符号传送指令</li>
 </ul>
@@ -575,6 +566,47 @@
 <p>PUSHAD将32位通用寄存器压入堆栈，压栈顺序为EAX，ECX，EDX，EBX，ESP，EBP，ESI，EDI。</p>
 <h5 id="出栈指令"><a href="#出栈指令" class="headerlink" title="出栈指令"></a>出栈指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POP</span> DEST</span><br></pre></td></tr></table></figure>
 <p>功能：从栈顶弹出操作数送入目的操作数。目的操作数允许为16或32位通用寄存器、存储器和16位段寄存器（CS 除外）。</p>
+<p>例子：<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POP</span> <span class="built_in">AX</span><span class="comment">;SP加2</span></span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">ECX</span><span class="comment">;ESP加4</span></span><br><span class="line"><span class="keyword">POP</span> [<span class="built_in">BX</span>]</span><br><span class="line"><span class="keyword">POP</span> <span class="built_in">DWORD</span> <span class="built_in">PTR</span>[<span class="built_in">SI</span>]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POPA</span></span><br><span class="line"><span class="keyword">POPAD</span></span><br></pre></td></tr></table></figure>
+<p>功能：POPA从堆栈移出16字节数据，并且按顺序存入寄存器DI，SI，BP，SP，BX，DX，CX，AX中。</p>
+<p>POPAD从堆栈移出32字节数据，按顺序存入8个32位寄存器中。</p>
+<p>注意：</p>
+<ul>
+<li>出栈指令的目的操作数不允许为CS以及立即数。</li>
+<li>堆栈操作指令不影响标志位。</li>
+</ul>
+<h4 id="地址传送指令"><a href="#地址传送指令" class="headerlink" title="地址传送指令"></a>地址传送指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LEA</span> REG,MEM</span><br></pre></td></tr></table></figure>
+<p>功能：将源操作数的有效地址传送到通用寄存器（取有效地址）。</p>
+<p>REG为16位或32位通用寄存器，源操作数为16位或32位存储器操作数。</p>
+<p>例子：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LEA</span> <span class="built_in">BX</span>,BLOCK<span class="comment">;将BLOCK的有效地址传送到BX中(16位)</span></span><br><span class="line"><span class="keyword">LEA</span> <span class="built_in">EAX</span>,[<span class="built_in">EBX</span>]<span class="comment">;将EBX内容(有效地址)传送到EAX中(32位)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LDS</span>(<span class="built_in">ES</span>,<span class="built_in">FS</span>,<span class="built_in">GS</span>,<span class="built_in">SS</span>)REG,MEM</span><br></pre></td></tr></table></figure>
+<p>功能：根据源操作数指定的偏移地址，在数据段中取出段地址(高字)和偏移地址(低字)分别送指定的段寄存器和指定的通用寄存器。(取偏移地址中的内容)。</p>
+<p>例子：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LES</span> <span class="built_in">BX</span>,[<span class="built_in">SI</span>]<span class="comment">;将[SI]所间址的32位地址指针分别送ES和BX</span></span><br><span class="line"><span class="keyword">LSS</span> <span class="built_in">EAX</span>,[<span class="built_in">EDI</span>]<span class="comment">;将[EDI]所间址的48位地址指针分别送SS和EAX</span></span><br></pre></td></tr></table></figure>
+<h4 id="查表指令"><a href="#查表指令" class="headerlink" title="查表指令"></a>查表指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">XLAT</span></span><br></pre></td></tr></table></figure>
+<p>功能：将寄存器AL中的内容转换成存储器表格中的对应值。实现直接查表功能。</p>
+<p>XLAT指令规定：BX寄存器存放表的首地址，AL寄存器中存放表内偏移量，</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">.MODEL</span> SMALL</span><br><span class="line"><span class="meta">.DATA</span></span><br><span class="line">TABLE <span class="built_in">DB</span> <span class="number">11H</span>,<span class="number">22H</span>,<span class="number">33H</span>,<span class="number">44H</span>,<span class="number">55H</span><span class="comment">;</span></span><br><span class="line"><span class="meta">.CODE</span></span><br><span class="line"><span class="meta">.STARTUP</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">AL</span>,<span class="number">4</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">BX</span>,OFFSET TABLE<span class="comment">;BX&lt;-TABLE首地址</span></span><br><span class="line"><span class="keyword">XLAT</span><span class="comment">;结果在AL中，AL=55H</span></span><br><span class="line"><span class="meta">.EXIT</span></span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+<h4 id="符号扩展指令"><a href="#符号扩展指令" class="headerlink" title="符号扩展指令"></a>符号扩展指令</h4><p>符号扩展是指：对正数高位扩展为全0，对负数高位扩展为全1.</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CBW</span><span class="comment">; 将AL中8位带符号数，进行带符号扩展为16位，送AX中。</span></span><br><span class="line"><span class="keyword">CWD</span><span class="comment">; 将AX中l6位带符号数，进行带符号扩展为32位，送DX(高16位)和AX(低16位)中。</span></span><br><span class="line"><span class="keyword">CWDE</span><span class="comment">; 将AX中16位带符号数，进行带符号扩展为32位，送EAX中。</span></span><br><span class="line"><span class="keyword">CDQ</span><span class="comment">; 将EAX中32位带符号数，进行带符号扩展为64位，送EDX(高32位)和EAX(低32位)中。</span></span><br></pre></td></tr></table></figure>
+<h3 id="算术运算指令"><a href="#算术运算指令" class="headerlink" title="算术运算指令"></a>算术运算指令</h3><h4 id="加法指令"><a href="#加法指令" class="headerlink" title="加法指令"></a>加法指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span> DEST,SRC<span class="comment">;DEST&lt;-SRC+DEST</span></span><br><span class="line"><span class="keyword">ADC</span> DEST,SRC<span class="comment">;DEST&lt;-SRC+DEST+CF</span></span><br></pre></td></tr></table></figure>
+<p>运算结果影响标志位OF、SF、ZF、AF、PF、CF</p>
+<h4 id="减法指令"><a href="#减法指令" class="headerlink" title="减法指令"></a>减法指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SUB</span> DEST,SRC<span class="comment">;DEST&lt;-DEST-SRC</span></span><br><span class="line"><span class="keyword">SBB</span> DEST,SRC<span class="comment">;DEST&lt;-DEST-SRC-CF</span></span><br></pre></td></tr></table></figure>
+<p>SUB，SBB指令影响标志位为OF、SF、ZF、AF、PF、CF。</p>
+<h4 id="加1减1指令"><a href="#加1减1指令" class="headerlink" title="加1减1指令"></a>加1减1指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INC</span> DEST<span class="comment">;DEST&lt;-DEST+1</span></span><br><span class="line"><span class="keyword">DEC</span> DEST<span class="comment">;DEST&lt;-DEST-1</span></span><br></pre></td></tr></table></figure>
+<p>INC、DEC指令影响标志位为OF、SF、ZF、AF、PF。</p>
+<h4 id="比较指令"><a href="#比较指令" class="headerlink" title="比较指令"></a>比较指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CMP</span> DEST,SRC</span><br></pre></td></tr></table></figure>
+<p>功能：目的操作数减源操作数，结果不回送。影响标志位OF、SF、ZF、AF、PF、CF。</p>
+<h4 id="求补指令"><a href="#求补指令" class="headerlink" title="求补指令"></a>求补指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">NEG</span> DEST</span><br></pre></td></tr></table></figure>
+<p>功能：对目的操作数求补，用零减去目的操作数，结果送目的操作数。NEG指令影响标志位为OF、SF、ZF、AF、PF、CF。</p>
+<h4 id="乘法指令"><a href="#乘法指令" class="headerlink" title="乘法指令"></a>乘法指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MUL</span> SRC<span class="comment">;无符号乘法</span></span><br><span class="line"><span class="keyword">IMUL</span> SRC<span class="comment">;带符号乘法</span></span><br></pre></td></tr></table></figure>
+<p>源操作数为通用寄存器或存储器操作数(不能是立即数)，目的操作数缺省存放在AL、AX或EAX中，乘积存AX、DX:AX或EDX:EAX中（IMUL指令，积采用补码形式表示）。</p>
+<p>字节乘：AL×SRC-&gt;AX</p>
+<p>字乘：AX×SRC-&gt;DX:AX</p>
+<p>双字乘：EAX×SRC-&gt;EDX:EAX</p>
+<p>MUL、IMUL指令执行后，如果CF＝OF＝0，表示乘积高位无有效数据，如果CF＝OF＝1，表示乘积高位含有效数据，对其它标志位无定义。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IMUL</span> DEST,SRC<span class="comment">;DEST&lt;-DEST*SRC</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -591,7 +623,7 @@
     <strong>Post author:  </strong>zhaoyiping</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://zhaoyiping0622.github.io/2019/09/25/assembly-language/" title="汇编语言">https://zhaoyiping0622.github.io/2019/09/25/assembly-language/</a>
+    <a href="http://blog.zhaoyiping.xyz/2019/09/25/assembly-language/" title="汇编语言">http://blog.zhaoyiping.xyz/2019/09/25/assembly-language/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
@@ -673,7 +705,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">1.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用寄存器"><span class="nav-number">1.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段寄存器"><span class="nav-number">1.2.</span> <span class="nav-text">段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#专用寄存器"><span class="nav-number">1.3.</span> <span class="nav-text">专用寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实模式存储器寻址"><span class="nav-number">2.</span> <span class="nav-text">实模式存储器寻址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保护模式存贮器分段管理"><span class="nav-number">3.</span> <span class="nav-text">保护模式存贮器分段管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择符"><span class="nav-number">3.1.</span> <span class="nav-text">选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符"><span class="nav-number">3.2.</span> <span class="nav-text">描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符表"><span class="nav-number">3.3.</span> <span class="nav-text">描述符表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟空间"><span class="nav-number">3.4.</span> <span class="nav-text">虚拟空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特权级和特权保护"><span class="nav-number">3.5.</span> <span class="nav-text">特权级和特权保护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#80x86指令系统"><span class="nav-number">4.</span> <span class="nav-text">80x86指令系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传送指令"><span class="nav-number">4.1.</span> <span class="nav-text">数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用数据传送指令"><span class="nav-number">4.1.1.</span> <span class="nav-text">通用数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#传送指令"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">传送指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#交换指令"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">交换指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆栈操作指令"><span class="nav-number">4.1.2.</span> <span class="nav-text">堆栈操作指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#压栈指令"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">压栈指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出栈指令"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">出栈指令</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">1.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用寄存器"><span class="nav-number">1.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段寄存器"><span class="nav-number">1.2.</span> <span class="nav-text">段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#专用寄存器"><span class="nav-number">1.3.</span> <span class="nav-text">专用寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实模式存储器寻址"><span class="nav-number">2.</span> <span class="nav-text">实模式存储器寻址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保护模式存贮器分段管理"><span class="nav-number">3.</span> <span class="nav-text">保护模式存贮器分段管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择符"><span class="nav-number">3.1.</span> <span class="nav-text">选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符"><span class="nav-number">3.2.</span> <span class="nav-text">描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符表"><span class="nav-number">3.3.</span> <span class="nav-text">描述符表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟空间"><span class="nav-number">3.4.</span> <span class="nav-text">虚拟空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特权级和特权保护"><span class="nav-number">3.5.</span> <span class="nav-text">特权级和特权保护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#80x86指令系统"><span class="nav-number">4.</span> <span class="nav-text">80x86指令系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传送指令"><span class="nav-number">4.1.</span> <span class="nav-text">数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用数据传送指令"><span class="nav-number">4.1.1.</span> <span class="nav-text">通用数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#传送指令"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">传送指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#交换指令"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">交换指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆栈操作指令"><span class="nav-number">4.1.2.</span> <span class="nav-text">堆栈操作指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#压栈指令"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">压栈指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出栈指令"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">出栈指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#地址传送指令"><span class="nav-number">4.1.3.</span> <span class="nav-text">地址传送指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查表指令"><span class="nav-number">4.1.4.</span> <span class="nav-text">查表指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#符号扩展指令"><span class="nav-number">4.1.5.</span> <span class="nav-text">符号扩展指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术运算指令"><span class="nav-number">4.2.</span> <span class="nav-text">算术运算指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加法指令"><span class="nav-number">4.2.1.</span> <span class="nav-text">加法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减法指令"><span class="nav-number">4.2.2.</span> <span class="nav-text">减法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加1减1指令"><span class="nav-number">4.2.3.</span> <span class="nav-text">加1减1指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较指令"><span class="nav-number">4.2.4.</span> <span class="nav-text">比较指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求补指令"><span class="nav-number">4.2.5.</span> <span class="nav-text">求补指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乘法指令"><span class="nav-number">4.2.6.</span> <span class="nav-text">乘法指令</span></a></li></ol></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
