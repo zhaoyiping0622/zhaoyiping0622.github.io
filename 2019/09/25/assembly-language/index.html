@@ -64,7 +64,8 @@
 <meta property="og:description" content="寄存器通用寄存器 (E)AX (E)BX (E)CX (E)DX (E)SP (E)BP (E)DI (E)SI     寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/选择符.png">
-<meta property="og:updated_time" content="2019-09-25T08:47:28.854Z">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/mov.png">
+<meta property="og:updated_time" content="2019-09-25T09:01:28.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言">
 <meta name="twitter:description" content="寄存器通用寄存器 (E)AX (E)BX (E)CX (E)DX (E)SP (E)BP (E)DI (E)SI     寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数">
@@ -254,8 +255,12 @@
                 
               
 
-              <time title="Created: 2019-09-25 16:47:28" itemprop="dateCreated datePublished" datetime="2019-09-25T16:47:28+08:00">2019-09-25</time>
+              <time title="Created: 2019-09-25 16:47:28 / Modified: 17:01:28" itemprop="dateCreated datePublished" datetime="2019-09-25T16:47:28+08:00">2019-09-25</time>
             </span>
+          
+            
+
+            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -505,8 +510,11 @@
 <li>符号扩展指令</li>
 <li>符号传送指令</li>
 </ul>
-<h4 id="通用数据传送指令"><a href="#通用数据传送指令" class="headerlink" title="通用数据传送指令"></a>通用数据传送指令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MOV DEST,SRC </span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">功能：把一个字节、字或双字从源操作数SRC传送至目的操作数DEST。</span><br><span class="line"></span><br><span class="line">![传送指令数据流](http://cdn.zhaoyiping.xyz/static/images/assembly-language/mov.png)</span><br><span class="line"></span><br><span class="line">例子：</span><br></pre></td></tr></table></figure>
-<p>MOV AL,DH<br>MOV DS,AX<br>MOV EAX,ESI<br>```</p>
+<h4 id="通用数据传送指令"><a href="#通用数据传送指令" class="headerlink" title="通用数据传送指令"></a>通用数据传送指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MOV</span> DEST,SRC</span><br></pre></td></tr></table></figure>
+<p>功能：把一个字节、字或双字从源操作数SRC传送至目的操作数DEST。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/assembly-language/mov.png" alt="传送指令数据流"></p>
+<p>例子：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MOV</span> <span class="built_in">AL</span>,<span class="number">DH</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">DS</span>,<span class="built_in">AX</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">ESI</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
