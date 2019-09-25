@@ -28,7 +28,7 @@
     scheme: 'Pisces',
     version: '7.4.0',
     exturl: false,
-    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     copycode: {"enable":true,"show_result":true,"style":null},
     back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
@@ -65,7 +65,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/选择符.png">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/mov.png">
-<meta property="og:updated_time" content="2019-09-25T09:01:28.681Z">
+<meta property="og:updated_time" content="2019-09-25T11:42:00.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言">
 <meta name="twitter:description" content="寄存器通用寄存器 (E)AX (E)BX (E)CX (E)DX (E)SP (E)BP (E)DI (E)SI     寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数">
@@ -255,7 +255,7 @@
                 
               
 
-              <time title="Created: 2019-09-25 16:47:28 / Modified: 17:01:28" itemprop="dateCreated datePublished" datetime="2019-09-25T16:47:28+08:00">2019-09-25</time>
+              <time title="Created: 2019-09-25 16:47:28 / Modified: 19:42:00" itemprop="dateCreated datePublished" datetime="2019-09-25T16:47:28+08:00">2019-09-25</time>
             </span>
           
             
@@ -375,14 +375,49 @@
 </table>
 </div><a id="more"></a>
 
-<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><ul>
-<li>CS</li>
-<li>DS</li>
-<li>SS</li>
-<li>ES</li>
-<li>FS</li>
-<li>GS</li>
-</ul>
+<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>段名</th>
+<th>功能</th>
+<th>段寄存器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码段</td>
+<td>用于存放程序地址</td>
+<td>CS</td>
+</tr>
+<tr>
+<td>数据段</td>
+<td>用于存放程序数据</td>
+<td>DS</td>
+</tr>
+<tr>
+<td>堆栈段</td>
+<td>用于存放程序执行的中间结果</td>
+<td>SS</td>
+</tr>
+<tr>
+<td>附加段</td>
+<td>用于存放数据</td>
+<td>ES</td>
+</tr>
+<tr>
+<td>附加段</td>
+<td>用于存放数据</td>
+<td>FS</td>
+</tr>
+<tr>
+<td>附加段</td>
+<td>用于存放数据</td>
+<td>GS</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3 id="专用寄存器"><a href="#专用寄存器" class="headerlink" title="专用寄存器"></a>专用寄存器</h3><ol>
 <li>指令指针EIP/IP:存放储存器代码段下一段代码</li>
 <li>标志寄存器EFLAGS/FLAGS:指示微处理器的控制状态和运算状态</li>
@@ -497,16 +532,49 @@
 </ul>
 <h3 id="数据传送指令"><a href="#数据传送指令" class="headerlink" title="数据传送指令"></a>数据传送指令</h3><ul>
 <li>通用数据传送指令</li>
+<li>堆栈操作指令</li>
 <li>地址传送指令</li>
 <li>标志寄存器传送指令</li>
 <li>符号扩展指令</li>
 <li>符号传送指令</li>
 </ul>
-<h4 id="通用数据传送指令"><a href="#通用数据传送指令" class="headerlink" title="通用数据传送指令"></a>通用数据传送指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MOV</span> DEST,SRC</span><br></pre></td></tr></table></figure>
+<h4 id="通用数据传送指令"><a href="#通用数据传送指令" class="headerlink" title="通用数据传送指令"></a>通用数据传送指令</h4><h5 id="传送指令"><a href="#传送指令" class="headerlink" title="传送指令"></a>传送指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MOV</span> DEST,SRC</span><br></pre></td></tr></table></figure>
 <p>功能：把一个字节、字或双字从源操作数SRC传送至目的操作数DEST。</p>
 <p><img src="http://cdn.zhaoyiping.xyz/static/images/assembly-language/mov.png" alt="传送指令数据流"></p>
 <p>例子：</p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MOV</span> <span class="built_in">AL</span>,<span class="number">DH</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">DS</span>,<span class="built_in">AX</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">ESI</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;MPU内部寄存器之间的数据传送</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">AL</span>,<span class="number">DH</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">DS</span>,<span class="built_in">AX</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="built_in">ESI</span></span><br><span class="line"><span class="comment">;MPU内部寄存器和存储器之间的数据传送</span></span><br><span class="line"><span class="keyword">MOV</span> [<span class="built_in">BX</span>],<span class="built_in">AX</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,[<span class="built_in">EBX</span>+<span class="built_in">ESI</span>]</span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">AL</span>,BLOCK</span><br><span class="line"><span class="comment">;立即数送通用寄存器、存储器</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">EAX</span>,<span class="number">12345678H</span></span><br><span class="line"><span class="keyword">MOV</span> [<span class="built_in">BX</span>],<span class="number">12H</span></span><br><span class="line"><span class="keyword">MOV</span> <span class="built_in">AX</span>,<span class="number">123</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用传送指令应注意以下问题：</p>
+<ul>
+<li>源和目的操作数不允许同时为存储器操作数；</li>
+<li>源和目的操作数数据类型必须一致；</li>
+<li>源和目的操作数不允许同时为段寄存器；</li>
+<li>目的操作数不允许为CS和立即数；</li>
+<li>当源操作数为立即数时，目的操作数不允许为段寄存器；</li>
+<li>传送操作不影响标志位。</li>
+</ul>
+</blockquote>
+<h5 id="交换指令"><a href="#交换指令" class="headerlink" title="交换指令"></a>交换指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">XCHG</span> XPR1,OPR2</span><br></pre></td></tr></table></figure>
+<p>功能：交换操作数OPR1和OPR2的值，操作数数据类型为字节、字或双字。允许通用寄存器之间、通用寄存器和存储器之间交换数据。</p>
+<p>例子：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">XCHG</span> <span class="built_in">AX</span>,<span class="built_in">BX</span></span><br><span class="line"><span class="keyword">XCHG</span> <span class="built_in">ESI</span>,<span class="built_in">EDI</span></span><br><span class="line"><span class="keyword">XCHG</span> <span class="built_in">BX</span>,[<span class="built_in">SI</span>]</span><br><span class="line"><span class="keyword">XCHG</span> <span class="built_in">AL</span>,[<span class="built_in">BX</span>]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>使用该指令应注意以下问题：</li>
+<li>操作数OPR1和OPR2不允许同为存储器操作数；</li>
+<li>操作数数据类型必须一致；</li>
+<li>交换指令不影响标志位。</li>
+</ul>
+</blockquote>
+<h4 id="堆栈操作指令"><a href="#堆栈操作指令" class="headerlink" title="堆栈操作指令"></a>堆栈操作指令</h4><h5 id="压栈指令"><a href="#压栈指令" class="headerlink" title="压栈指令"></a>压栈指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PUSH</span> SRC</span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PUSH</span> <span class="built_in">AX</span><span class="comment">;SP值减2</span></span><br><span class="line"><span class="keyword">PUSH</span> <span class="built_in">EBX</span><span class="comment">;ESP值减4</span></span><br><span class="line"><span class="keyword">PUSH</span> [<span class="built_in">SI</span>]</span><br><span class="line"><span class="keyword">PUSH</span> <span class="built_in">DWORD</span> <span class="built_in">PTR</span>[<span class="built_in">DI</span>]</span><br><span class="line">PUSHW <span class="number">0A123H</span><span class="comment">;立即数入栈(16位)</span></span><br><span class="line">PUSHD <span class="number">20H</span><span class="comment">;立即数入栈(32位)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PUSHA</span></span><br><span class="line"><span class="keyword">PUSHAD</span></span><br></pre></td></tr></table></figure>
+<p>功能：</p>
+<p>PUSHA将16位通用寄存器压入堆栈，压栈顺序为AX，CX，DX，BX，SP，BP，SI，DI。</p>
+<p>PUSHAD将32位通用寄存器压入堆栈，压栈顺序为EAX，ECX，EDX，EBX，ESP，EBP，ESI，EDI。</p>
+<h5 id="出栈指令"><a href="#出栈指令" class="headerlink" title="出栈指令"></a>出栈指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POP</span> DEST</span><br></pre></td></tr></table></figure>
+<p>功能：从栈顶弹出操作数送入目的操作数。目的操作数允许为16或32位通用寄存器、存储器和16位段寄存器（CS 除外）。</p>
 
     </div>
 
@@ -605,7 +673,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">1.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用寄存器"><span class="nav-number">1.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段寄存器"><span class="nav-number">1.2.</span> <span class="nav-text">段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#专用寄存器"><span class="nav-number">1.3.</span> <span class="nav-text">专用寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实模式存储器寻址"><span class="nav-number">2.</span> <span class="nav-text">实模式存储器寻址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保护模式存贮器分段管理"><span class="nav-number">3.</span> <span class="nav-text">保护模式存贮器分段管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择符"><span class="nav-number">3.1.</span> <span class="nav-text">选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符"><span class="nav-number">3.2.</span> <span class="nav-text">描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符表"><span class="nav-number">3.3.</span> <span class="nav-text">描述符表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟空间"><span class="nav-number">3.4.</span> <span class="nav-text">虚拟空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特权级和特权保护"><span class="nav-number">3.5.</span> <span class="nav-text">特权级和特权保护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#80x86指令系统"><span class="nav-number">4.</span> <span class="nav-text">80x86指令系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传送指令"><span class="nav-number">4.1.</span> <span class="nav-text">数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用数据传送指令"><span class="nav-number">4.1.1.</span> <span class="nav-text">通用数据传送指令</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">1.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用寄存器"><span class="nav-number">1.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段寄存器"><span class="nav-number">1.2.</span> <span class="nav-text">段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#专用寄存器"><span class="nav-number">1.3.</span> <span class="nav-text">专用寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实模式存储器寻址"><span class="nav-number">2.</span> <span class="nav-text">实模式存储器寻址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保护模式存贮器分段管理"><span class="nav-number">3.</span> <span class="nav-text">保护模式存贮器分段管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择符"><span class="nav-number">3.1.</span> <span class="nav-text">选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符"><span class="nav-number">3.2.</span> <span class="nav-text">描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符表"><span class="nav-number">3.3.</span> <span class="nav-text">描述符表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟空间"><span class="nav-number">3.4.</span> <span class="nav-text">虚拟空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特权级和特权保护"><span class="nav-number">3.5.</span> <span class="nav-text">特权级和特权保护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#80x86指令系统"><span class="nav-number">4.</span> <span class="nav-text">80x86指令系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传送指令"><span class="nav-number">4.1.</span> <span class="nav-text">数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用数据传送指令"><span class="nav-number">4.1.1.</span> <span class="nav-text">通用数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#传送指令"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">传送指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#交换指令"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">交换指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆栈操作指令"><span class="nav-number">4.1.2.</span> <span class="nav-text">堆栈操作指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#压栈指令"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">压栈指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出栈指令"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">出栈指令</span></a></li></ol></li></ol></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
