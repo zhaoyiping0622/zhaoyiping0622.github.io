@@ -65,7 +65,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/选择符.png-watermark">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/mov.png-watermark">
-<meta property="og:updated_time" content="2019-09-27T15:39:04.402Z">
+<meta property="og:updated_time" content="2019-09-27T15:50:39.743Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言">
 <meta name="twitter:description" content="寄存器通用寄存器    寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数   数据寄存器 EDX DX DH DL 保存数据，乘/除法专用寄存器   基址指针 EBP BP -">
@@ -266,7 +266,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-27 23:39:04" itemprop="dateModified" datetime="2019-09-27T23:39:04+08:00">2019-09-27</time>
+                <time title="Modified: 2019-09-27 23:50:39" itemprop="dateModified" datetime="2019-09-27T23:50:39+08:00">2019-09-27</time>
               </span>
             
           
@@ -882,7 +882,47 @@ BP，默认SS之内容位段基址\\
 <li>FAR 指示远程(段间)标号，该标号可以为其他段指令使用</li>
 </ul>
 <p>变量：定义数据的逻辑地址，具有段、偏移地址和类型属性。</p>
-<p>类型属性定义如下：<br>| 类型  | 含义                           |<br>| ——- | ——————————————— |<br>| BIT   | 定义位，但分配一个字节存储空间 |<br>| BYTE  | 定义字节存储空间               |<br>| WORD  | 定义字存储空间                 |<br>| DWORD | 定义双字存储空间               |<br>| FWORD | 定义三字存储空间               |<br>| QWORD | 定义四字存储空间               |<br>| TBYTE | 定义五字存储空间               |</p>
+<p>类型属性定义如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIT</td>
+<td>定义位，但分配一个字节存储空间</td>
+</tr>
+<tr>
+<td>BYTE</td>
+<td>定义字节存储空间</td>
+</tr>
+<tr>
+<td>WORD</td>
+<td>定义字存储空间</td>
+</tr>
+<tr>
+<td>DWORD</td>
+<td>定义双字存储空间</td>
+</tr>
+<tr>
+<td>FWORD</td>
+<td>定义三字存储空间</td>
+</tr>
+<tr>
+<td>QWORD</td>
+<td>定义四字存储空间</td>
+</tr>
+<tr>
+<td>TBYTE</td>
+<td>定义五字存储空间</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3 id="简化的段定义伪指令"><a href="#简化的段定义伪指令" class="headerlink" title="简化的段定义伪指令"></a>简化的段定义伪指令</h3><p>pass</p>
 <h3 id="常用伪指令"><a href="#常用伪指令" class="headerlink" title="常用伪指令"></a>常用伪指令</h3><ol>
 <li><p>[变量名]DB/BYTE 表达式[,表达式…表达式]</p>
