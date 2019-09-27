@@ -65,7 +65,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/选择符.png-watermark">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/assembly-language/mov.png-watermark">
-<meta property="og:updated_time" content="2019-09-26T05:41:26.818Z">
+<meta property="og:updated_time" content="2019-09-27T15:39:04.402Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言">
 <meta name="twitter:description" content="寄存器通用寄存器    寄存器定义 32位寄存器 16位寄存器 8位寄存器 功能     累加器 EAX AX AH AL 保存数据和作为某些指令的专用寄存器   基址寄存器 EBX BX BH BL 保存数据，16/32位可保存地址   计数器 ECX CX CH CL 保存数据和用于指令计数   数据寄存器 EDX DX DH DL 保存数据，乘/除法专用寄存器   基址指针 EBP BP -">
@@ -266,7 +266,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-26 13:41:26" itemprop="dateModified" datetime="2019-09-26T13:41:26+08:00">2019-09-26</time>
+                <time title="Modified: 2019-09-27 23:39:04" itemprop="dateModified" datetime="2019-09-27T23:39:04+08:00">2019-09-27</time>
               </span>
             
           
@@ -615,6 +615,385 @@
 <p>双字乘：EAX×SRC-&gt;EDX:EAX</p>
 <p>MUL、IMUL指令执行后，如果CF＝OF＝0，表示乘积高位无有效数据，如果CF＝OF＝1，表示乘积高位含有效数据，对其它标志位无定义。</p>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IMUL</span> DEST,SRC<span class="comment">;DEST&lt;-DEST*SRC</span></span><br></pre></td></tr></table></figure>
+<h4 id="除法指令"><a href="#除法指令" class="headerlink" title="除法指令"></a>除法指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DIV</span> SRC<span class="comment">;</span></span><br><span class="line"><span class="keyword">IDIV</span> SRC<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>源操作数作为除数（通用寄存器或存储器操作数）。被除数缺省在目的操作数AX、DX:AX、EDX:EAX中。</p>
+<p>执行除法指令后标志位无定义。</p>
+<h4 id="组合BCD码算术运算"><a href="#组合BCD码算术运算" class="headerlink" title="组合BCD码算术运算"></a>组合BCD码算术运算</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DAA</span><span class="comment">;调整AL中的二进制和数为组合BCD码形式。</span></span><br><span class="line"><span class="keyword">DAS</span><span class="comment">;调整AL中的二进制差数为组合BCD码形式。</span></span><br></pre></td></tr></table></figure>
+<p>DAA和DAS指令影响标志位为SF、ZF、AF、PF、CF，OF无定义。</p>
+<blockquote>
+<p>使用算术运算类指令应注意：</p>
+<ul>
+<li>如果没有特别规定，参与运算的两个操作数数据类型必须一致，且只允许一个为存储器操作数；</li>
+<li>如果参与运算的操作数只有一个，且为存储器操作数，必须使用PTR伪指令说明数据类型;</li>
+<li>操作数不允许为段寄存器。</li>
+<li>目的操作数不允许为立即数;</li>
+<li>如果是存储器寻址，则存储器各种寻址方式均可使用。</li>
+</ul>
+</blockquote>
+<h3 id="逻辑运算指令"><a href="#逻辑运算指令" class="headerlink" title="逻辑运算指令"></a>逻辑运算指令</h3><ul>
+<li>逻辑指令</li>
+<li>移位指令</li>
+<li>位操作指令</li>
+</ul>
+<h4 id="逻辑指令"><a href="#逻辑指令" class="headerlink" title="逻辑指令"></a>逻辑指令</h4><h5 id="逻辑与指令"><a href="#逻辑与指令" class="headerlink" title="逻辑与指令"></a>逻辑与指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">AND</span> DEST,SRC<span class="comment">;目的操作数和源操作数按位进行逻辑与运算，结果存目的操作数中。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">AND</span> <span class="built_in">AL</span>,<span class="built_in">BL</span></span><br><span class="line"><span class="keyword">AND</span> <span class="built_in">EBX</span>,<span class="built_in">ECX</span></span><br><span class="line"><span class="keyword">AND</span> [<span class="built_in">DI</span>],<span class="number">1101H</span></span><br></pre></td></tr></table></figure>
+<p>AND指令影响标志位为SF、ZF、PF。并且使OF＝CF＝0。</p>
+<h5 id="逻辑或指令"><a href="#逻辑或指令" class="headerlink" title="逻辑或指令"></a>逻辑或指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">OR</span> DEST,SRC<span class="comment">;目的操作数和源操作数按位进行逻辑或运算，结果存目的操作数中。</span></span><br></pre></td></tr></table></figure>
+<p>OR指令影响标志位为SF、ZF、PF。并且使OF＝CF＝0。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">OR</span> <span class="built_in">AX</span>,<span class="built_in">BX</span></span><br><span class="line"><span class="keyword">OR</span> <span class="built_in">ECX</span>,[<span class="built_in">EAX</span>]</span><br></pre></td></tr></table></figure>
+<h5 id="逻辑异或指令"><a href="#逻辑异或指令" class="headerlink" title="逻辑异或指令"></a>逻辑异或指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">XOR</span> DEST,SRC<span class="comment">;目的操作数和源操作数按位进行逻辑异或运算，结果送目的操作数。</span></span><br></pre></td></tr></table></figure>
+<p>XOR指令影响标志位为SF、ZF、PF，并且使OF＝CF＝0。</p>
+<h5 id="逻辑非指令"><a href="#逻辑非指令" class="headerlink" title="逻辑非指令"></a>逻辑非指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">NOT</span> DEST<span class="comment">;对目的操作数按位取反，结果回送目的操作数。</span></span><br></pre></td></tr></table></figure>
+<p>NOT指令对标志位无影响。</p>
+<h5 id="测试指令"><a href="#测试指令" class="headerlink" title="测试指令"></a>测试指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TEST</span> DEST,SRC<span class="comment">;目的操作数和源操作数按位进行逻辑与操作，结果不回送目的操作数。</span></span><br></pre></td></tr></table></figure>
+<p>TEST指令常用于测试操作数中某位是否为1，而且不会影响目的操作数。欲测试某位的状态，将该位与1逻辑与，其它位与0逻辑与。ZF=l，结果为0，表示被测试位为0；否则ZF=0，表示被测试位为1。</p>
+<h4 id="移位指令"><a href="#移位指令" class="headerlink" title="移位指令"></a>移位指令</h4><p>对操作数按某种方式左移或右移，移位位数由立即数直接给出，或由CL间接给出。</p>
+<ul>
+<li>一般yiweizhiling</li>
+<li>循环移位指令</li>
+</ul>
+<h5 id="算术-逻辑左移指令"><a href="#算术-逻辑左移指令" class="headerlink" title="算术/逻辑左移指令"></a>算术/逻辑左移指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SAL</span> DEST,OPRD<span class="comment">;对目的操作数DEST左移OPRD规定的位数，最高位移入CF中。每移动一位，右边补一位0。</span></span><br><span class="line"><span class="keyword">SHL</span> DEST,OPRD<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>例子：<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHL</span> <span class="built_in">BYTE</span> <span class="built_in">PTR</span>[<span class="built_in">DI</span>],<span class="number">2</span> </span><br><span class="line"><span class="keyword">SAL</span> <span class="built_in">BX</span>,<span class="built_in">CL</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="算术右移指令"><a href="#算术右移指令" class="headerlink" title="算术右移指令"></a>算术右移指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SAR</span> DEST,OPRD<span class="comment">;对目的操作数右移OPRD规定的次数，最低位移至CF中，最高位(即符号位)保持不变。</span></span><br></pre></td></tr></table></figure>
+<p>SAR指令影响标志位OF、SF、ZF、PF、CF。</p>
+<p>例子：<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SAR</span> <span class="built_in">AL</span>,<span class="number">5</span></span><br><span class="line"><span class="keyword">SAR</span> <span class="built_in">WORD</span> <span class="built_in">PTR</span>[<span class="built_in">ECX</span>],<span class="built_in">CL</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="逻辑右移指令"><a href="#逻辑右移指令" class="headerlink" title="逻辑右移指令"></a>逻辑右移指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHR</span> DEST,OPRD<span class="comment">;对目的操作数右移OPRD规定的次数，最低位移至CF中。每移动一位，左边补一位0。</span></span><br></pre></td></tr></table></figure>
+<p>SHR指令影响标志位OF、SF、ZF、PF、CF。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHR</span> <span class="built_in">BYTE</span> <span class="built_in">PTR</span>[<span class="built_in">SI</span>],<span class="number">3</span></span><br><span class="line"><span class="keyword">SHR</span> <span class="built_in">EDX</span>,<span class="built_in">CL</span></span><br></pre></td></tr></table></figure>
+<p>算术/逻辑左移，只要结果未超出目的操作数所能表达的范围，每左移一次相当于原数乘2。算术右移只要无溢出，每右移一次相当于原数除以2。</p>
+<h5 id="循环移位指令"><a href="#循环移位指令" class="headerlink" title="循环移位指令"></a>循环移位指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ROL</span> DEST,OPRD<span class="comment">;循环左移指令</span></span><br><span class="line"><span class="keyword">ROR</span> DEST，OPRD<span class="comment">;循环右移指令</span></span><br><span class="line"><span class="keyword">RCL</span> DEST，OPRD<span class="comment">;带进位循环左移</span></span><br><span class="line"><span class="keyword">RCR</span> DEST，OPRD<span class="comment">;带进位循环右移</span></span><br></pre></td></tr></table></figure>
+<h5 id="进位标志指令"><a href="#进位标志指令" class="headerlink" title="进位标志指令"></a>进位标志指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CLC</span><span class="comment">;清除进位标志</span></span><br><span class="line"><span class="keyword">STC</span><span class="comment">;设置进位标志</span></span><br><span class="line"><span class="keyword">CMC</span><span class="comment">;进位标志取反</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用逻辑运算类指令应注意：</p>
+<ul>
+<li>如果没有特别规定，参与运算的两个操作数类型必须一致，且只允许一个为存储器操作数；</li>
+<li>如果参与运算的操作数只有一个，且为存储器操作数，必须使用PTR伪指令说明其数据类型；</li>
+<li>操作数不允许为段寄存器；</li>
+<li>目的操作数不允许为立即数；</li>
+<li>如果是存储器寻址，则前面介绍的各种存储器寻址方式均可使用。</li>
+</ul>
+</blockquote>
+<h3 id="控制转移指令"><a href="#控制转移指令" class="headerlink" title="控制转移指令"></a>控制转移指令</h3><h4 id="转移指令"><a href="#转移指令" class="headerlink" title="转移指令"></a>转移指令</h4><ul>
+<li>无条件指令(段内、段间)</li>
+<li>条件转移指令(段内)</li>
+</ul>
+<h5 id="无条件转移指令"><a href="#无条件转移指令" class="headerlink" title="无条件转移指令"></a>无条件转移指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">JMP</span> TARGET<span class="comment">;使程序无条件地转移到指令规定的目的地址TARGET去执行指令。</span></span><br></pre></td></tr></table></figure>
+<p>分为(段内)短转移、段内转移(近程转移)和段间转移(远程转移)。</p>
+<h6 id="段内直接转移"><a href="#段内直接转移" class="headerlink" title="段内直接转移"></a>段内直接转移</h6><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">JMP</span> SHORT TARGET<span class="comment">;短转移(指令偏移量为8位)</span></span><br><span class="line"><span class="keyword">JMP</span> <span class="built_in">NEAR</span> <span class="built_in">PTR</span> TARGET<span class="comment">;近程转移(指令偏移量为16位或32位)</span></span><br></pre></td></tr></table></figure>
+<p>采用相对寻址将当前IP值(即JMP指令下一条指令的地址)与JMP指令中给出的偏移量之和送IP中。</p>
+<h6 id="段内间接转移"><a href="#段内间接转移" class="headerlink" title="段内间接转移"></a>段内间接转移</h6><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">JMP</span> REG<span class="comment">;指令地址在通用寄存器中，将其内容直接送IP实现程序转移。</span></span><br><span class="line"><span class="keyword">JMP</span> <span class="built_in">NEAR</span> <span class="built_in">PTR</span>[REG]<span class="comment">;指令地址在存储器中，默认段寄存器根据参与寻址的通用寄存器来确定，将指定存储单元的字取出直接送IP实现程序转移。</span></span><br></pre></td></tr></table></figure>
+<p>在16位指令模式，转移偏移值范围为$-2^{15}$~$(2^{15}-1)$。在32位指令模式,转移偏移值范围为$-2^{31}$~$(2^{31}-1)$。</p>
+<h6 id="段间直接转移"><a href="#段间直接转移" class="headerlink" title="段间直接转移"></a>段间直接转移</h6><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">JMP</span> <span class="built_in">FAR</span> <span class="built_in">PTR</span> TARGET<span class="comment">;FAR PTR说明标号TARGET具有远程属性。将指令中由TARGET指定的段值送CS，偏移地址送IP。</span></span><br></pre></td></tr></table></figure>
+<h6 id="段间间接转移"><a href="#段间间接转移" class="headerlink" title="段间间接转移"></a>段间间接转移</h6><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">JMP</span> <span class="built_in">FAR</span> <span class="built_in">PTR</span>[Reg]<span class="comment">;由FAR PTR[Reg]指定的存储器操作数作为转移地址。</span></span><br></pre></td></tr></table></figure>
+<h5 id="条件转移指令"><a href="#条件转移指令" class="headerlink" title="条件转移指令"></a>条件转移指令</h5><p>该类指令是根据上一条指令对标志寄存器中标志位的影响来决定程序执行的流程，若满足指令规定的条件，则程序转移；否则程序顺序执行。</p>
+<p>条件转移指令的转移范围为段内短转移或段内近程转移，不允许段间转移。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Jcc TARGET<span class="comment">;若测试条件'cc'为真，则转移到目标地址TARGET处执行程序。否则顺序执行。</span></span><br></pre></td></tr></table></figure>
+<p>条件转移指令包括四类：</p>
+<ul>
+<li>单标志位条件转移</li>
+<li>无符号数比较条件转移</li>
+<li>带符号数比较条件转移</li>
+<li>测试CX条件转移</li>
+</ul>
+<p>条件转移指令一般紧跟在CMP或TEST指令之后，判断执行CMP或TEST指令对标志位的影响来决定是否转移。</p>
+<h4 id="循环控制指令"><a href="#循环控制指令" class="headerlink" title="循环控制指令"></a>循环控制指令</h4><p>这类指令用(E)CX计数器中的内容控制循环次数，先将循环计数值存放在(E)CX中，每循环一次(E)CX内容减1，直到(E)CX为0时循环结束。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOOPcc TARGET<span class="comment">;将(E)CX内容减1，不影响标志位，若(E)CX不等于0，且测试条件‘cc’成立，则转移到目标地址TARGET处执行程序。</span></span><br></pre></td></tr></table></figure>
+<p>转移范围为-128~+127。</p>
+<h3 id="串操作指令"><a href="#串操作指令" class="headerlink" title="串操作指令"></a>串操作指令</h3><p>串指连续存放在存储器中的一些数据字节、字或双字。</p>
+<blockquote>
+<ul>
+<li>串操作通常以DS:(E)SI来寻址源串(允许段超越)，以ES:(E)DI来寻址目的串。</li>
+<li>每次串操作后，地址指针(E)SI或(E)DI在都自动进行修改，以指向串中下一个串元素。</li>
+<li>方向标志决定地址指针修改是增量还是减量：<br>当DF=0，(E)SI及(E)DI的修改为增量(加1、2、4);<br>当DF=1，(E)SI及(E)DI的修改为减量(减1、2、4);</li>
+</ul>
+</blockquote>
+<h4 id="重复前缀指令"><a href="#重复前缀指令" class="headerlink" title="重复前缀指令"></a>重复前缀指令</h4><p>加重复前缀可以对串进行连续操作。</p>
+<p>重复前缀可以和任何串操作指令组合，形成复合指令。</p>
+<p>重复前缀指令REP、REPZ、REPNZ((E)CX-1操作不影响标志位)</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>助记符</th>
+<th>判断条件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REP</td>
+<td>(E)CX$\ne$0</td>
+<td>成立，(E)CX＝(E)CX－1，重复；否则退出</td>
+</tr>
+<tr>
+<td>REPE/Z</td>
+<td>(E)CX$\ne$0&amp;&amp;ZF=1</td>
+<td>成立，(E)CX＝(E)CX－1，重复；否则退出</td>
+</tr>
+<tr>
+<td>REPNE/NZ</td>
+<td>(E)CX$\ne$0&amp;&amp;ZF=1</td>
+<td>成立，(E)CX＝(E)CX－1，重复；否则退出</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="方向标志指令"><a href="#方向标志指令" class="headerlink" title="方向标志指令"></a>方向标志指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CLD</span><span class="comment">;CLD为清除方向指令，即将DF置0</span></span><br><span class="line"><span class="keyword">STD</span><span class="comment">;STD为清除方向指令，即将DF置1</span></span><br></pre></td></tr></table></figure>
+<h4 id="串传送指令"><a href="#串传送指令" class="headerlink" title="串传送指令"></a>串传送指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">REP</span>]MOVS DESTS,SRCS</span><br><span class="line">[<span class="keyword">REP</span>]<span class="keyword">MOVSB</span>/<span class="keyword">MOVSW</span>/<span class="keyword">MOVSD</span></span><br></pre></td></tr></table></figure>
+<p>将DS:(E)SI规定的源串元素复制到ES:(E)DI规定的目的串单元中。</p>
+<h4 id="串比较指令"><a href="#串比较指令" class="headerlink" title="串比较指令"></a>串比较指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">REPE</span>/Z][<span class="keyword">REPNZ</span>/NE]CMPS DESTS,SRCS</span><br><span class="line">[<span class="keyword">REPE</span>/Z][<span class="keyword">REPNZ</span>/NE]CMOVSB/CMOVSW/CMOVSD</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>DS:(E)SI规定的源串元素减去ES:(E)DI指出的目的串元素，结果不回送，仅影响标志位CF、AF、PF、OF、ZF、SF。<br>当源串元素与目的串元素值相同时，ZF＝1；否则ZF＝0。<br>每执行一次串比较指令，根据DF的值和串元素数据类型自动修改(E)SI和(E)DI。</p>
+</blockquote>
+<h4 id="串扫描指令"><a href="#串扫描指令" class="headerlink" title="串扫描指令"></a>串扫描指令</h4><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">REPE</span>/Z][<span class="keyword">REPNZ</span>/NE]SRCS DESTS</span><br><span class="line">[<span class="keyword">REPE</span>/Z][<span class="keyword">REPNZ</span>/NE]<span class="keyword">SCASB</span>/<span class="keyword">SCASW</span>/<span class="keyword">SCASD</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>由AL、AX或EAX的内容减去ES:(E)DI规定的目的串元素，结果不回送，仅影响标志位CF、AF、PF、SF、OF、ZF。<br>当AL、AX或EAX的值与目的串元素值相同时，ZF=l；否则ZF=0。<br>每执行一次串扫描指令，根据DF的值和串元素数据类型自动修改(E)DI。<br>目的串DESTS为存储器操作数，如使用需定义数据类型。<br>重复前缀REPE/Z，表示目的串元素值和累加器值相同(ZF=1)时重复扫描，直到CX/ECX=0为止，否则结束扫描。<br>重复前缀REPNE/NZ，表示当目的串元素值与累加器值不相等(ZF=0)时，重复扫描直到CX/ECX=0时为止，否则结束扫描。</p>
+</blockquote>
+<h3 id="输入-输出指令"><a href="#输入-输出指令" class="headerlink" title="输入/输出指令"></a>输入/输出指令</h3><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IN</span> DEST,SRC<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>DEST为AL、AX或EAX;<br>SRC是端口地址，可以直接形式给出8位端口地址（0-255），或由DX寄存器以间接形式给出。<br>功能：根据源操作数SRC给出的端口地址，将操作数从指定端口传送到目的操作数DEST处。</p>
+</blockquote>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">OUT</span> DEST,SRC<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>功能：将源操作数SRC送到目的操作数DEST所指定的端口。<br>其中源操作数SRC为AL，AX或EAX，目的操作数可以8位端口地址方式直接给出或以DX寄存器间接方式给出。</p>
+<p>使用输入、输出指令应注意：</p>
+<ul>
+<li>直接寻址方式端口地址为8位，共有0～255个端口地址;</li>
+<li>间接寻址方式，只能用DX作为地址寄存器，寻址范围为64K字节;</li>
+<li>每个I/O地址对应的端口的数据长度为8位，传送8位数据占用一个端口地址，传送16位数据占用2个端口地址，传送32位数据占用4个端口地址。 </li>
+</ul>
+</blockquote>
+<h3 id="处理器控制"><a href="#处理器控制" class="headerlink" title="处理器控制"></a>处理器控制</h3><h4 id="总线封锁前缀"><a href="#总线封锁前缀" class="headerlink" title="总线封锁前缀"></a>总线封锁前缀</h4><p>待更</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LOCK</span></span><br></pre></td></tr></table></figure>
+<h3 id="中断指令与DOS调用"><a href="#中断指令与DOS调用" class="headerlink" title="中断指令与DOS调用"></a>中断指令与DOS调用</h3><blockquote>
+<p>中断是指由于某种事件的发生（硬件的或软件），计算机暂停执行当前的程序，转而执行另一程序，去处理发生的事件，处理完毕后又返回原程序继续执行的过程。</p>
+</blockquote>
+<p>中断指令格式</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INT</span> n<span class="comment">;产生中断类型码为n的软中断，该指令包含中断操作码和中断类型码两部分。中断类型码n为8位，取值范围为0～255 (00H～FFH)。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>中断指令引发的中断执行过程为：</p>
+<ul>
+<li>将标志寄存器FLAGS (或EFLAGS) 压入堆栈；</li>
+<li>清除TF和IF标志位；</li>
+<li>CS，IP/EIP压入堆栈；</li>
+<li>实模式下，n×4获取中断矢量表地址指针；保护模式下，n×8获取中断描述符表地址指针；</li>
+<li>根据地址指针，从中断矢量表或中断描述符表中取出中断服务程序地址送IP/EIP和CS中，控制程序转移去执行中断服务程序。  </li>
+</ul>
+</blockquote>
+<p>中断返回指令格式</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">IRET</span>/<span class="keyword">IRETD</span><span class="comment">;该指令实现在中断服务程序结束后，返回到主程序中断断点处，继续执行主程序。</span></span><br></pre></td></tr></table></figure>
+<p>中断返回执行过程：</p>
+<ul>
+<li>IRET指令弹出堆栈中数据送IP，CS，FLAGS；</li>
+<li>IRETD指令弹出堆栈中数据送EIP，CS，EFLAGS。</li>
+</ul>
+<blockquote>
+<p>系统功能调用是MS－DOS为程序员编写汇编语言源程序提供的一组子程序，包括设备管理、文件管理和目录管理等。<br>DOS规定：使用软中断指令INT21H作为进入各功能子程序的总入口，再为每个功能调用规定一个功能号，引用功能号即可进入相应的子程序入口。</p>
+<p>DOS系统功能调用的使用方法：</p>
+<ul>
+<li>传送入口参数到指定的寄存器中；</li>
+<li>把要调用功能的功能号送入AH寄存器中；</li>
+<li>用INT21H指令转入子程序入口；</li>
+<li>相应的子程序运行结束后，可以按照规定取得出口参数。</li>
+</ul>
+<p><strong>常用系统功能调用：</strong></p>
+<p>1．键盘输入单字符<br>这是1号系统功能调用，其调用格式为<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">MOV</span> <span class="number">AH</span>，<span class="number">1</span></span><br><span class="line">&gt; <span class="keyword">INT</span> <span class="number">21H</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>该功能调用无入口参数。其功能为系统等待键盘输入，如是Ctrl+Break键则退出；否则将键入字符的ASCII码送入AL寄存器中，并且通过显示器显示该字符。</p>
+<p>2．键盘输入字符串<br>0AH号系统功能调用，<br>功能：将键盘输入的字符串写入内存单元中。</p>
+<ul>
+<li>首先在内存中定义一个缓冲区，</li>
+<li>缓冲区第一个字节存放规定字符串的最大字节数，</li>
+<li>第二个字节由系统送入实际键入的字符数，</li>
+<li>从第三个字节开始用于存放键入的字符串，</li>
+<li>最后通过键入回车键来表示字符串的结束。<br>如果实际键入的字符数未达到最大规定数，其缓冲区的空余区间填0；如果实际键入数超过缓冲区的容量，则超出的字符自动丢失，而且响铃警告。注意，回车键值也存于缓冲区中。 </li>
+</ul>
+<p>3．输出单字符<br>是2号系统功能调用，其使用格式为：<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">MOV</span> <span class="built_in">DL</span>,<span class="string">'A'</span></span><br><span class="line">&gt; <span class="keyword">MOV</span> <span class="number">AH</span>,<span class="number">2</span></span><br><span class="line">&gt; <span class="keyword">INT</span> <span class="number">21H</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>功能：将DL寄存器中的字符 (以ASCII码形式表示) 通过显示器显示出来 (或从打印机输出)。</p>
+<p>4．输出字符串<br>是9号系统功能调用，<br>功能：是将指定的内存缓冲区中的字符串从显示器显示输出(或从打印机输出)，缓冲区中的字符串以字符‘$’作为结束标志。</p>
+<p>5．返回操作系统<br>这是4CH号系统功能调用，使用格式为<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">MOV</span> <span class="number">AH</span>，<span class="number">4CH</span></span><br><span class="line">&gt; <span class="keyword">INT</span> <span class="number">21H</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在用户程序结束处插入此调用，则返回到DOS操作系统，显示器显示系统提示符。</p>
+<p>6.从标准I/O设备输入或输出字符<br>这是6号系统功能调用，其功能是从标准I/O设备输入或输出字符。<br>若DL= 0FFH，从键盘输入字符，<br>ZF=0，AL中为键入的字符值，<br>ZF=1，尚无键按下；<br>若DL$\ne$0FFH，将DL中的ASCⅡ码值对应的字符输出到屏幕上。</p>
+</blockquote>
+<h2 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h2><h3 id="数据寻址方式"><a href="#数据寻址方式" class="headerlink" title="数据寻址方式"></a>数据寻址方式</h3><h4 id="立即寻址"><a href="#立即寻址" class="headerlink" title="立即寻址"></a>立即寻址</h4><p>操作数包含在指令中。操作数存放形式为低字节在前，高字节在后。<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MOV</span> <span class="built_in">AX</span>,<span class="number">1234H</span><span class="comment">;AX&lt;-1234H</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="寄存器寻址"><a href="#寄存器寻址" class="headerlink" title="寄存器寻址"></a>寄存器寻址</h4><p>操作数在寄存器中，操作数可以是8、16、32位通用寄存器、16位段寄存器。<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MOV</span> <span class="built_in">AX</span>,<span class="built_in">BX</span><span class="comment">;AX&lt;-BX</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="存储器寻址"><a href="#存储器寻址" class="headerlink" title="存储器寻址"></a>存储器寻址</h4><p>操作数在存储器中，指令以某种方式给出操作数在存储器的地址。操作数地址可以在指令里面直接给出，也可以放在寄存器中间接给出。存放地址的寄存器，可以是规定的16位或32位通用寄存器。</p>
+<h5 id="16位指令模式下的存储器寻址方式"><a href="#16位指令模式下的存储器寻址方式" class="headerlink" title="16位指令模式下的存储器寻址方式"></a>16位指令模式下的存储器寻址方式</h5><p>80x86实模式为16位指令模式。</p>
+<p>当用寄存器间接给出操作数地址时，可使用的寄存器为BX，BP，SI，DI。</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+BX,SI或DI，默认DS之内容位段基址\\
+BP，默认SS之内容位段基址\\
+\end{cases}</script><p>段超越前缀(CS: ES: DS: SS: FS: GS:)操作数可以放在指定段，如：ES:[BX]</p>
+<p>16位指令模式寻址结构由四部分组成：</p>
+<p>段基址*10H+基址+变址+位移量</p>
+<p>即：</p>
+<script type="math/tex; mode=display">
+段基址\times 10H+
+\begin{Bmatrix}
+    BX\\BP
+\end{Bmatrix}
++\begin{Bmatrix}
+    SI\\DI
+\end{Bmatrix}
++\begin{Bmatrix}
+    8位补码\\16位补码
+\end{Bmatrix}</script><h5 id="直接寻址"><a href="#直接寻址" class="headerlink" title="直接寻址"></a>直接寻址</h5><p>操作数在存储器中，指令直接包含操作数有效地址。</p>
+<h5 id="寄存器间接寻址"><a href="#寄存器间接寻址" class="headerlink" title="寄存器间接寻址"></a>寄存器间接寻址</h5><p>操作数在存储器中，地址寄存器BX,BP,SI,DI存放操作数的有效地址。</p>
+<h5 id="寄存器相对寻址"><a href="#寄存器相对寻址" class="headerlink" title="寄存器相对寻址"></a>寄存器相对寻址</h5><p>操作数在寄存器中，操作数的有效地址为基址或变址加上偏移量，即8位或16位偏移量采用补码形式表示。</p>
+<ul>
+<li>寻址寄存器位BX,BP，称相对基址寻址</li>
+<li>寻址寄存器位SI,DI，称相对变址寻址</li>
+</ul>
+<h5 id="基址变址寻址"><a href="#基址变址寻址" class="headerlink" title="基址变址寻址"></a>基址变址寻址</h5><p>操作数在寄存器中，操作数的有效地址位基址和变址之和，即有效地址所在的段基址由基址寄存器BX,BP决定。</p>
+<ul>
+<li>基址寄存器为BX时，缺省段寄存器为DS</li>
+<li>基址寄存器为BP时，缺省段寄存器为SS</li>
+</ul>
+<p>也可以使用段超越前缀，指定段寄存器。</p>
+<h5 id="相对基址变址寻址"><a href="#相对基址变址寻址" class="headerlink" title="相对基址变址寻址"></a>相对基址变址寻址</h5><p>操作数在存储器中，操作数的有效地址为基址、变址和位移量之和。</p>
+<p>缺省段寄存器以基址寄存器为准。</p>
+<h3 id="程序地址寻址方式"><a href="#程序地址寻址方式" class="headerlink" title="程序地址寻址方式"></a>程序地址寻址方式</h3><p>表示指令转移地址所在的方式称程序地址寻址方式。</p>
+<p>用于转移类指令和过程调用类指令的程序地址寻址方式有三种：</p>
+<ul>
+<li>相对寻址</li>
+<li>直接寻址</li>
+<li>间接寻址</li>
+</ul>
+<h4 id="相对寻址-段内"><a href="#相对寻址-段内" class="headerlink" title="相对寻址(段内)"></a>相对寻址(段内)</h4><p>指令中给出带符号的相对偏移量，程序目标地址为当前IP值加上相对偏移量作为偏移地址。</p>
+<h4 id="直接寻址-段间"><a href="#直接寻址-段间" class="headerlink" title="直接寻址(段间)"></a>直接寻址(段间)</h4><p>直接寻址是指指令中直接给出转移指令的目标地址。</p>
+<h4 id="间接寻址-段内、段间"><a href="#间接寻址-段内、段间" class="headerlink" title="间接寻址(段内、段间)"></a>间接寻址(段内、段间)</h4><p>间接寻址分段内和段间间接寻址。指令中以间接方式给出转移指令的目标地址，转移指令的目标地址，通常存放在数据段。若采用(E)BP寻址，指令目标地址放在堆栈段。使用段超越前缀，也可以存放在其他段。</p>
+<h3 id="堆栈地址寻址"><a href="#堆栈地址寻址" class="headerlink" title="堆栈地址寻址"></a>堆栈地址寻址</h3><p>堆栈用于暂存数据，并且为程序保存返回地址。堆栈的存取方式不同于一般数据段，独占采用先进后出的存取方式。<br>使用PUSH指令将操作数压入堆栈，使用POP指令从堆栈中弹出操作数。堆栈栈顶指针为(E)SP。<br>在16位指令模式下，堆栈地址由SS×10H＋SP形式。<br>在32位指令模式下，段寄存器SS存放段选择符，通过段选择符访问段描述符，获取32位段址，ESP存放偏移地址。</p>
+<h2 id="汇编语言及程序设计"><a href="#汇编语言及程序设计" class="headerlink" title="汇编语言及程序设计"></a>汇编语言及程序设计</h2><p>汇编语言的语句一般有两类：</p>
+<ul>
+<li>指令语句：有其对应的机器指令，汇编程序在对源程序进行汇编时，把指令语句翻译成机器指令。</li>
+<li>伪指令语句：伪指令一般没有其对应的机器指令(简化的个别伪指令除外)，只是指示汇编程序如何汇编源程序，包括符号的定义、变量的定义及段的定义等。</li>
+</ul>
+<p>指令语句格式：[标号:]助记符 操作数[;注释]</p>
+<p>伪指令语句格式：[名字]定义符 参数[;注释]</p>
+<ul>
+<li>名字可以使用英文字母(大小写)，不超过31个字符。第一个字符不允许为数字，另外可以使用特殊字符’？’、’_’、’$’、’@’(不能作为第一个字符)。名字不允许使用指令助记符及伪指令定义符。名字可以是代码段、数据段、或堆栈段的逻辑段名、变量名、过程或符号名等。</li>
+<li>定义符 规定了伪指令的功能，汇编和连接时有意义。</li>
+<li>参数 参数可以为0～n个。</li>
+</ul>
+<h3 id="标号和变量类型"><a href="#标号和变量类型" class="headerlink" title="标号和变量类型"></a>标号和变量类型</h3><p>标号：定义指令的逻辑地址，具有段地址、偏移地址和类型属性</p>
+<p>类型属性如下：</p>
+<ul>
+<li>NEAR 指示近程(段内)标号，该标号只能为本段内指令使用</li>
+<li>FAR 指示远程(段间)标号，该标号可以为其他段指令使用</li>
+</ul>
+<p>变量：定义数据的逻辑地址，具有段、偏移地址和类型属性。</p>
+<p>类型属性定义如下：<br>| 类型  | 含义                           |<br>| ——- | ——————————————— |<br>| BIT   | 定义位，但分配一个字节存储空间 |<br>| BYTE  | 定义字节存储空间               |<br>| WORD  | 定义字存储空间                 |<br>| DWORD | 定义双字存储空间               |<br>| FWORD | 定义三字存储空间               |<br>| QWORD | 定义四字存储空间               |<br>| TBYTE | 定义五字存储空间               |</p>
+<h3 id="简化的段定义伪指令"><a href="#简化的段定义伪指令" class="headerlink" title="简化的段定义伪指令"></a>简化的段定义伪指令</h3><p>pass</p>
+<h3 id="常用伪指令"><a href="#常用伪指令" class="headerlink" title="常用伪指令"></a>常用伪指令</h3><ol>
+<li><p>[变量名]DB/BYTE 表达式[,表达式…表达式]</p>
+<p> 例子：</p>
+ <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ONE <span class="built_in">DB</span> <span class="number">10H</span>,<span class="string">'ABC'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[变量名]DW/WORD 表达式[,表达式…表达式]</p>
+</li>
+<li><p>[变量名]DD/DWORD 表达式[,表达式…表达式]</p>
+</li>
+<li><p>[变量名]DF/FWORD 表达式[,表达式…表达式]</p>
+</li>
+<li><p>[变量名]DQ/QWORD 表达式[,表达式…表达式]</p>
+</li>
+<li><p>[变量名]DT/TBYTE 表达式[,表达式…表达式]</p>
+</li>
+<li><p>[变量名]SBYTE 表达式[,表达式…表达式]</p>
+</li>
+<li><p>[变量名]SWORD 表达式[,表达式…表达式]</p>
+</li>
+<li><p>[变量名]SDWORD 表达式[,表达式…表达式]</p>
+</li>
+<li><p>COUNT DUP(表达式[,表达式…表达式]) </p>
+<p>DUP为重复操作符，COUNT为重复次数，表达式可以为常数、字符(用于初始化内存单元)和 ? (用于保留内存单元)，在表达式中DUP还可以嵌套使用。</p>
+<p>例子：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ONE <span class="built_in">DB</span> <span class="number">256</span> DUP(<span class="number">1</span>,<span class="number">2</span>,4DUP(?))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类型PTR地址表达式</p>
+<p>类型可以是BYTE,WORD,DWORD,FWORD,QWORD,TBYTE,NEAR,FAR，PTR规定了地址表达式的类型</p>
+<p>例子：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INC</span> <span class="built_in">DWORD</span> <span class="built_in">PTR</span>[<span class="built_in">BX</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SEG 变量名或标号名:规定传送标号或变量名的段值</p>
+</li>
+<li><p>OFFSET 变量名或标号名:规定传送标号或变量名的偏移地址值</p>
+</li>
+<li><p>TYPE 变量名或标号名:规定传送标号距离类型的值或变量数据类型的值</p>
+</li>
+<li><p>LENGTHOF 数组名:返回数组的长度(元素个数)</p>
+</li>
+<li><p>SIZEOF 数组名:返回数组所包含的总字节数</p>
+</li>
+<li><p>变量名[偏移值]:索引值表示指定类型元素的偏移值</p>
+</li>
+<li><p>LABEL 标号名或变量名:为下一条语句定义的标号或变量取别名</p>
+</li>
+<li><p>符号名 EQU 表达式:指定的符号名表示一个指定值，该符号名可在程序中使用。</p>
+</li>
+<li><p>变量名 EQU THIS 属性 | 标号名 EQU THIS 类型 :将THIS右边指定的数据类型或距离类型赋予EQU左边的变量或标号。</p>
+</li>
+<li><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HIGH data<span class="comment">;传送data的高位字节。</span></span><br><span class="line">LOW data<span class="comment">;传送data的低位字节。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SHORT 标号名:指定转移指令是在下一条指令地址的127个字节范围内</p>
+</li>
+<li><p>地址计数器\$:汇编时，地址计数器\$代表当前指令在程序中的偏移地址用\$来表示，即计数到该指令的计数值。</p>
+</li>
+<li><p>USES REG:指定执行过程时需要保护的寄存器，在过程执行开始，将指定的寄存器保存到堆栈，在过程结束返回前，从堆栈弹出数据恢复原寄存器内容。</p>
+</li>
+<li><p>USE16:指定使用16位的指令模式和数据尺寸。</p>
+</li>
+<li><p>USE32:指定使用32位的指令模式和数据尺寸。</p>
+</li>
+<li><p>类型名 TYPEDEF [距离属性] PTR 类型属性:用于定义指针变量的类型</p>
+</li>
+<li><p>ORG offset addr:指定段内的起始地址</p>
+</li>
+</ol>
+<h3 id="子程序设计"><a href="#子程序设计" class="headerlink" title="子程序设计"></a>子程序设计</h3><p>将程序中经常出现或者具有通用性的某一段指令组定义为子程序，可以缩短程序长度，节省内存空间，在80x86汇编程序中，子程序常常以过程的形式出现（过程的定义与调用）。</p>
+<h4 id="过程定义"><a href="#过程定义" class="headerlink" title="过程定义"></a>过程定义</h4><p>过程名  PROC [TYPE][USES REG]<br>        …<br>        RET[n n]<br>过程名 ENDP</p>
+<p>TYPE:为过程类型，分为近程NEAR(本段调用)和远程FAR(跨段调用)<br>USES REG:规定需要保护的通用寄存器</p>
+<p>例子：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SUB1 PROC <span class="built_in">NEAR</span></span><br><span class="line">    <span class="keyword">ADD</span> <span class="built_in">AX</span>,<span class="built_in">BX</span></span><br><span class="line">    <span class="keyword">MOV</span> <span class="built_in">SI</span>,<span class="built_in">CX</span></span><br><span class="line">    <span class="keyword">MOV</span> <span class="built_in">AX</span>,<span class="built_in">DX</span></span><br><span class="line">    <span class="keyword">RET</span></span><br><span class="line">SUB1 ENDP</span><br><span class="line"></span><br><span class="line">SUB2 PROC <span class="built_in">FAR</span></span><br><span class="line">    <span class="keyword">MOV</span> <span class="built_in">BX</span>,<span class="built_in">AX</span></span><br><span class="line">    <span class="keyword">MOV</span> <span class="built_in">CL</span>,<span class="number">3</span></span><br><span class="line">    <span class="keyword">SHL</span> <span class="built_in">BX</span>,<span class="built_in">CL</span></span><br><span class="line">    <span class="keyword">ADD</span> <span class="built_in">AX</span>,<span class="built_in">BX</span></span><br><span class="line">    <span class="keyword">RET</span></span><br><span class="line">SUB2 ENDP</span><br></pre></td></tr></table></figure>
+<h4 id="调用指令-直接调用和间接调用"><a href="#调用指令-直接调用和间接调用" class="headerlink" title="调用指令(直接调用和间接调用)"></a>调用指令(直接调用和间接调用)</h4><h5 id="段内直接调用"><a href="#段内直接调用" class="headerlink" title="段内直接调用"></a>段内直接调用</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CALL</span> <span class="built_in">NEAR</span> <span class="built_in">PTR</span> PROC NAME</span><br></pre></td></tr></table></figure>
+<p>功能：</p>
+<ul>
+<li><p>将当前IP/EIP寄存器内容进栈(即保存CALL下一条指令的偏移地址)。 </p>
+</li>
+<li><p>将过程名为PROC NAME的16位/32位偏移地址和当前IP/EIP值相加后，送IP/EIP寄存器中，采用相对寻址控制程序转移到过程。在16位模式下，转移位移量为$-2^{15}$~$2^{15}-1$字节内。在32位模式下，转移位移量为$-2^{31}$~$2^{31}-1$字节内。</p>
+</li>
+</ul>
+<p>例子：<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CALL</span> SUB1<span class="comment">;NEAR可以忽略</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="段内间接调用"><a href="#段内间接调用" class="headerlink" title="段内间接调用"></a>段内间接调用</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CALL</span> <span class="built_in">NEAR</span> <span class="built_in">PTR</span>[REG]</span><br><span class="line"><span class="keyword">CALL</span> REG</span><br></pre></td></tr></table></figure>
+<p>功能：</p>
+<ul>
+<li><p>将当前IP/EIP寄存器内容进栈(即保存CALL的下一条指令的偏移地址)。</p>
+</li>
+<li><p>将过程的入口偏移地址送IP/EIP寄存器中，在寄存器寻址方式下，偏移地址在16位或32位REG中。在存储器寻址方式下，间接给出存放在数据段的偏移地址。</p>
+</li>
+</ul>
+<h5 id="段间直接调用"><a href="#段间直接调用" class="headerlink" title="段间直接调用"></a>段间直接调用</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CALL</span> <span class="built_in">FAR</span> <span class="built_in">PTR</span> PROC NAME</span><br></pre></td></tr></table></figure>
+<p>功能：</p>
+<ul>
+<li>将当前CS、IP/EIP寄存器内容进栈(即保存CALL的下一条指令的偏移地址)。</li>
+<li>将过程名为PROC NAME的段基址或段选择符送CS，16位或32位偏移地址送IP/EIP寄存器中。</li>
+</ul>
+<h5 id="段间间接调用"><a href="#段间间接调用" class="headerlink" title="段间间接调用"></a>段间间接调用</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CALL</span> <span class="built_in">FAR</span> <span class="built_in">PTR</span>[REG]</span><br></pre></td></tr></table></figure>
+<p>功能：</p>
+<ul>
+<li>当前CS、IP/EIP寄存器内容进栈(即保存CALL指令下一条指令的偏移地址)。</li>
+<li>指令以存储器间接寻址方式给出过程的偏移地址、段基址或段选择符，将段基址或段选择符和偏移地址取出送CS及IP/EIP寄存器中。</li>
+</ul>
+<h5 id="返回指令"><a href="#返回指令" class="headerlink" title="返回指令"></a>返回指令</h5><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RET</span></span><br><span class="line"><span class="keyword">RET</span> OPR<span class="comment">;OPR为偶数</span></span><br></pre></td></tr></table></figure>
+<p>功能：</p>
+<ul>
+<li>根据过程类型（ NEAR、 FAR）确定返回类型。<ul>
+<li>近程返回是从堆栈弹出调用时保存的偏移地址送IP/EIP。</li>
+<li>远程返回是从堆栈弹出调用时保存的偏移地址送IP/EIP，再弹出段基址或段选择符送CS，控制程序返回。</li>
+</ul>
+</li>
+<li>指定OPR的作用：完成RET操作后根据OPR的值修改堆栈指针SP/ESP，用于清除过程调用时入栈的参数。</li>
+</ul>
 
     </div>
 
@@ -713,7 +1092,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">1.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用寄存器"><span class="nav-number">1.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段寄存器"><span class="nav-number">1.2.</span> <span class="nav-text">段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#专用寄存器"><span class="nav-number">1.3.</span> <span class="nav-text">专用寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实模式存储器寻址"><span class="nav-number">2.</span> <span class="nav-text">实模式存储器寻址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保护模式存贮器分段管理"><span class="nav-number">3.</span> <span class="nav-text">保护模式存贮器分段管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择符"><span class="nav-number">3.1.</span> <span class="nav-text">选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符"><span class="nav-number">3.2.</span> <span class="nav-text">描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符表"><span class="nav-number">3.3.</span> <span class="nav-text">描述符表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟空间"><span class="nav-number">3.4.</span> <span class="nav-text">虚拟空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特权级和特权保护"><span class="nav-number">3.5.</span> <span class="nav-text">特权级和特权保护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#80x86指令系统"><span class="nav-number">4.</span> <span class="nav-text">80x86指令系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传送指令"><span class="nav-number">4.1.</span> <span class="nav-text">数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用数据传送指令"><span class="nav-number">4.1.1.</span> <span class="nav-text">通用数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#传送指令"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">传送指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#交换指令"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">交换指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆栈操作指令"><span class="nav-number">4.1.2.</span> <span class="nav-text">堆栈操作指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#压栈指令"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">压栈指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出栈指令"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">出栈指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#地址传送指令"><span class="nav-number">4.1.3.</span> <span class="nav-text">地址传送指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查表指令"><span class="nav-number">4.1.4.</span> <span class="nav-text">查表指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#符号扩展指令"><span class="nav-number">4.1.5.</span> <span class="nav-text">符号扩展指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术运算指令"><span class="nav-number">4.2.</span> <span class="nav-text">算术运算指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加法指令"><span class="nav-number">4.2.1.</span> <span class="nav-text">加法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减法指令"><span class="nav-number">4.2.2.</span> <span class="nav-text">减法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加1减1指令"><span class="nav-number">4.2.3.</span> <span class="nav-text">加1减1指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较指令"><span class="nav-number">4.2.4.</span> <span class="nav-text">比较指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求补指令"><span class="nav-number">4.2.5.</span> <span class="nav-text">求补指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乘法指令"><span class="nav-number">4.2.6.</span> <span class="nav-text">乘法指令</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#寄存器"><span class="nav-number">1.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用寄存器"><span class="nav-number">1.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#段寄存器"><span class="nav-number">1.2.</span> <span class="nav-text">段寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#专用寄存器"><span class="nav-number">1.3.</span> <span class="nav-text">专用寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实模式存储器寻址"><span class="nav-number">2.</span> <span class="nav-text">实模式存储器寻址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保护模式存贮器分段管理"><span class="nav-number">3.</span> <span class="nav-text">保护模式存贮器分段管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择符"><span class="nav-number">3.1.</span> <span class="nav-text">选择符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符"><span class="nav-number">3.2.</span> <span class="nav-text">描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符表"><span class="nav-number">3.3.</span> <span class="nav-text">描述符表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟空间"><span class="nav-number">3.4.</span> <span class="nav-text">虚拟空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特权级和特权保护"><span class="nav-number">3.5.</span> <span class="nav-text">特权级和特权保护</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#80x86指令系统"><span class="nav-number">4.</span> <span class="nav-text">80x86指令系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传送指令"><span class="nav-number">4.1.</span> <span class="nav-text">数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用数据传送指令"><span class="nav-number">4.1.1.</span> <span class="nav-text">通用数据传送指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#传送指令"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">传送指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#交换指令"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">交换指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆栈操作指令"><span class="nav-number">4.1.2.</span> <span class="nav-text">堆栈操作指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#压栈指令"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">压栈指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出栈指令"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">出栈指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#地址传送指令"><span class="nav-number">4.1.3.</span> <span class="nav-text">地址传送指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查表指令"><span class="nav-number">4.1.4.</span> <span class="nav-text">查表指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#符号扩展指令"><span class="nav-number">4.1.5.</span> <span class="nav-text">符号扩展指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术运算指令"><span class="nav-number">4.2.</span> <span class="nav-text">算术运算指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加法指令"><span class="nav-number">4.2.1.</span> <span class="nav-text">加法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减法指令"><span class="nav-number">4.2.2.</span> <span class="nav-text">减法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加1减1指令"><span class="nav-number">4.2.3.</span> <span class="nav-text">加1减1指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较指令"><span class="nav-number">4.2.4.</span> <span class="nav-text">比较指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求补指令"><span class="nav-number">4.2.5.</span> <span class="nav-text">求补指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乘法指令"><span class="nav-number">4.2.6.</span> <span class="nav-text">乘法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#除法指令"><span class="nav-number">4.2.7.</span> <span class="nav-text">除法指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合BCD码算术运算"><span class="nav-number">4.2.8.</span> <span class="nav-text">组合BCD码算术运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑运算指令"><span class="nav-number">4.3.</span> <span class="nav-text">逻辑运算指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑指令"><span class="nav-number">4.3.1.</span> <span class="nav-text">逻辑指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑与指令"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">逻辑与指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑或指令"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">逻辑或指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑异或指令"><span class="nav-number">4.3.1.3.</span> <span class="nav-text">逻辑异或指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑非指令"><span class="nav-number">4.3.1.4.</span> <span class="nav-text">逻辑非指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试指令"><span class="nav-number">4.3.1.5.</span> <span class="nav-text">测试指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移位指令"><span class="nav-number">4.3.2.</span> <span class="nav-text">移位指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#算术-逻辑左移指令"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">算术/逻辑左移指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算术右移指令"><span class="nav-number">4.3.2.2.</span> <span class="nav-text">算术右移指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑右移指令"><span class="nav-number">4.3.2.3.</span> <span class="nav-text">逻辑右移指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环移位指令"><span class="nav-number">4.3.2.4.</span> <span class="nav-text">循环移位指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进位标志指令"><span class="nav-number">4.3.2.5.</span> <span class="nav-text">进位标志指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制转移指令"><span class="nav-number">4.4.</span> <span class="nav-text">控制转移指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#转移指令"><span class="nav-number">4.4.1.</span> <span class="nav-text">转移指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#无条件转移指令"><span class="nav-number">4.4.1.1.</span> <span class="nav-text">无条件转移指令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#段内直接转移"><span class="nav-number">4.4.1.1.1.</span> <span class="nav-text">段内直接转移</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#段内间接转移"><span class="nav-number">4.4.1.1.2.</span> <span class="nav-text">段内间接转移</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#段间直接转移"><span class="nav-number">4.4.1.1.3.</span> <span class="nav-text">段间直接转移</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#段间间接转移"><span class="nav-number">4.4.1.1.4.</span> <span class="nav-text">段间间接转移</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#条件转移指令"><span class="nav-number">4.4.1.2.</span> <span class="nav-text">条件转移指令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环控制指令"><span class="nav-number">4.4.2.</span> <span class="nav-text">循环控制指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#串操作指令"><span class="nav-number">4.5.</span> <span class="nav-text">串操作指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重复前缀指令"><span class="nav-number">4.5.1.</span> <span class="nav-text">重复前缀指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方向标志指令"><span class="nav-number">4.5.2.</span> <span class="nav-text">方向标志指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串传送指令"><span class="nav-number">4.5.3.</span> <span class="nav-text">串传送指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串比较指令"><span class="nav-number">4.5.4.</span> <span class="nav-text">串比较指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串扫描指令"><span class="nav-number">4.5.5.</span> <span class="nav-text">串扫描指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入-输出指令"><span class="nav-number">4.6.</span> <span class="nav-text">输入/输出指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理器控制"><span class="nav-number">4.7.</span> <span class="nav-text">处理器控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总线封锁前缀"><span class="nav-number">4.7.1.</span> <span class="nav-text">总线封锁前缀</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断指令与DOS调用"><span class="nav-number">4.8.</span> <span class="nav-text">中断指令与DOS调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻址方式"><span class="nav-number">5.</span> <span class="nav-text">寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据寻址方式"><span class="nav-number">5.1.</span> <span class="nav-text">数据寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#立即寻址"><span class="nav-number">5.1.1.</span> <span class="nav-text">立即寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寄存器寻址"><span class="nav-number">5.1.2.</span> <span class="nav-text">寄存器寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储器寻址"><span class="nav-number">5.1.3.</span> <span class="nav-text">存储器寻址</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#16位指令模式下的存储器寻址方式"><span class="nav-number">5.1.3.1.</span> <span class="nav-text">16位指令模式下的存储器寻址方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#直接寻址"><span class="nav-number">5.1.3.2.</span> <span class="nav-text">直接寻址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#寄存器间接寻址"><span class="nav-number">5.1.3.3.</span> <span class="nav-text">寄存器间接寻址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#寄存器相对寻址"><span class="nav-number">5.1.3.4.</span> <span class="nav-text">寄存器相对寻址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基址变址寻址"><span class="nav-number">5.1.3.5.</span> <span class="nav-text">基址变址寻址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#相对基址变址寻址"><span class="nav-number">5.1.3.6.</span> <span class="nav-text">相对基址变址寻址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序地址寻址方式"><span class="nav-number">5.2.</span> <span class="nav-text">程序地址寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相对寻址-段内"><span class="nav-number">5.2.1.</span> <span class="nav-text">相对寻址(段内)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#直接寻址-段间"><span class="nav-number">5.2.2.</span> <span class="nav-text">直接寻址(段间)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#间接寻址-段内、段间"><span class="nav-number">5.2.3.</span> <span class="nav-text">间接寻址(段内、段间)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆栈地址寻址"><span class="nav-number">5.3.</span> <span class="nav-text">堆栈地址寻址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#汇编语言及程序设计"><span class="nav-number">6.</span> <span class="nav-text">汇编语言及程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标号和变量类型"><span class="nav-number">6.1.</span> <span class="nav-text">标号和变量类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简化的段定义伪指令"><span class="nav-number">6.2.</span> <span class="nav-text">简化的段定义伪指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用伪指令"><span class="nav-number">6.3.</span> <span class="nav-text">常用伪指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子程序设计"><span class="nav-number">6.4.</span> <span class="nav-text">子程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#过程定义"><span class="nav-number">6.4.1.</span> <span class="nav-text">过程定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用指令-直接调用和间接调用"><span class="nav-number">6.4.2.</span> <span class="nav-text">调用指令(直接调用和间接调用)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#段内直接调用"><span class="nav-number">6.4.2.1.</span> <span class="nav-text">段内直接调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#段内间接调用"><span class="nav-number">6.4.2.2.</span> <span class="nav-text">段内间接调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#段间直接调用"><span class="nav-number">6.4.2.3.</span> <span class="nav-text">段间直接调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#段间间接调用"><span class="nav-number">6.4.2.4.</span> <span class="nav-text">段间间接调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#返回指令"><span class="nav-number">6.4.2.5.</span> <span class="nav-text">返回指令</span></a></li></ol></li></ol></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
