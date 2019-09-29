@@ -289,6 +289,20 @@
           
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/09/11/linear-inv/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/09/11/linear-inv/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -383,6 +397,9 @@ t*i \equiv -k (mod\ m)\\
 
           </div>
           
+    
+    <div class="comments" id="comments"></div>
+  
 
         </div>
           
@@ -629,6 +646,38 @@ t*i \equiv -k (mod\ m)\\
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
     MathJax.Hub.Typeset();
   }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Fj5YJT4c0qFIEUHIqJlgsc77-gzGzoHsz',
+    appKey: 'afziiJKFdmUaBPbb4MGDlQDU',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
 </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
@@ -647,13 +696,6 @@ t*i \equiv -k (mod\ m)\\
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-
-    
-  
-
-  
-
-  
 
 </body>
 </html>

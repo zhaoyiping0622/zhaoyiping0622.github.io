@@ -281,6 +281,20 @@
           
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/09/16/2019-shenyang-online-K/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/09/16/2019-shenyang-online-K/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -468,6 +482,9 @@ F_t=\sum_{i=1}^{t-1}f_i</script><p>改一下上面那个方程(1)</p>
 
           </div>
           
+    
+    <div class="comments" id="comments"></div>
+  
 
         </div>
           
@@ -714,6 +731,38 @@ F_t=\sum_{i=1}^{t-1}f_i</script><p>改一下上面那个方程(1)</p>
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
     MathJax.Hub.Typeset();
   }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Fj5YJT4c0qFIEUHIqJlgsc77-gzGzoHsz',
+    appKey: 'afziiJKFdmUaBPbb4MGDlQDU',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
 </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
@@ -732,13 +781,6 @@ F_t=\sum_{i=1}^{t-1}f_i</script><p>改一下上面那个方程(1)</p>
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-
-    
-  
-
-  
-
-  
 
 </body>
 </html>
