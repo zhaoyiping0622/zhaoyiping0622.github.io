@@ -55,29 +55,26 @@
   };
 </script>
 
-  <meta name="description" content="不是很清楚软件部署具体指什么，根据我的理解是安装的意思。 Linux上安装文件有两种方式：  安装二进制文件 源代码编译安装  本文就从这两个方面讲具体做法。">
+  <meta name="description" content="本文介绍了常用的文件和目录操作命令以及权限控制知识。">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux软件部署及应用">
-<meta property="og:url" content="https://blog.zhaoyiping.xyz/2019/09/25/linux-software-install/index.html">
+<meta property="og:title" content="Linux 文件管理及目录与权限控制">
+<meta property="og:url" content="https://blog.zhaoyiping.xyz/2019/09/30/linux-file-and-directory/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="不是很清楚软件部署具体指什么，根据我的理解是安装的意思。 Linux上安装文件有两种方式：  安装二进制文件 源代码编译安装  本文就从这两个方面讲具体做法。">
+<meta property="og:description" content="本文介绍了常用的文件和目录操作命令以及权限控制知识。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install.jpg-watermark">
-<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-remove.jpg-watermark">
-<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-autoremove.jpg-watermark">
-<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-update.jpg-watermark">
-<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-upgrade1.jpg-watermark">
-<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/vscode-deb.jpg-watermark">
-<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/dpkg-fail.jpg-watermark">
-<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install-f.jpg-watermark">
-<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/dpkg-success.jpg-watermark">
-<meta property="og:updated_time" content="2019-09-26T05:44:33.432Z">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/create-dir-and-copy-file.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/create-links.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/ls-l.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/chmod-r.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/chmod-w.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/chmod-x.jpg-watermark">
+<meta property="og:updated_time" content="2019-09-30T06:28:39.766Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux软件部署及应用">
-<meta name="twitter:description" content="不是很清楚软件部署具体指什么，根据我的理解是安装的意思。 Linux上安装文件有两种方式：  安装二进制文件 源代码编译安装  本文就从这两个方面讲具体做法。">
-<meta name="twitter:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install.jpg-watermark">
-  <link rel="canonical" href="https://blog.zhaoyiping.xyz/2019/09/25/linux-software-install/">
+<meta name="twitter:title" content="Linux 文件管理及目录与权限控制">
+<meta name="twitter:description" content="本文介绍了常用的文件和目录操作命令以及权限控制知识。">
+<meta name="twitter:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/create-dir-and-copy-file.jpg-watermark">
+  <link rel="canonical" href="https://blog.zhaoyiping.xyz/2019/09/30/linux-file-and-directory/">
 
 
 <script id="page-configurations">
@@ -91,7 +88,7 @@
   };
 </script>
 
-  <title>Linux软件部署及应用 | zhaoyiping's blog</title>
+  <title>Linux 文件管理及目录与权限控制 | zhaoyiping's blog</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148337124-1"></script>
   <script>
@@ -234,7 +231,7 @@
   
   
   <div class="post-block post">
-    <link itemprop="mainEntityOfPage" href="https://blog.zhaoyiping.xyz/2019/09/25/linux-software-install/">
+    <link itemprop="mainEntityOfPage" href="https://blog.zhaoyiping.xyz/2019/09/30/linux-file-and-directory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhaoyiping">
@@ -246,7 +243,7 @@
       <meta itemprop="name" content="zhaoyiping's blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Linux软件部署及应用
+        <h1 class="post-title" itemprop="name headline">Linux 文件管理及目录与权限控制
 
           
         </h1>
@@ -262,20 +259,8 @@
                 
               
 
-              <time title="Created: 2019-09-25 10:07:14" itemprop="dateCreated datePublished" datetime="2019-09-25T10:07:14+08:00">2019-09-25</time>
+              <time title="Created: 2019-09-30 14:28:39" itemprop="dateCreated datePublished" datetime="2019-09-30T14:28:39+08:00">2019-09-30</time>
             </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-26 13:44:33" itemprop="dateModified" datetime="2019-09-26T13:44:33+08:00">2019-09-26</time>
-              </span>
-            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -309,7 +294,7 @@
       
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2019/09/25/linux-software-install/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/09/25/linux-software-install/" itemprop="commentCount"></span></a>
+    <a title="valine" href="/2019/09/30/linux-file-and-directory/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/09/30/linux-file-and-directory/" itemprop="commentCount"></span></a>
   </span>
   
   
@@ -323,76 +308,134 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>不是很清楚软件部署具体指什么，根据我的理解是安装的意思。</p>
-<p>Linux上安装文件有两种方式：</p>
-<ul>
-<li>安装二进制文件</li>
-<li>源代码编译安装</li>
-</ul>
-<p>本文就从这两个方面讲具体做法。</p>
+        <p>本文介绍了常用的文件和目录操作命令以及权限控制知识。</p>
 <a id="more"></a>
-<h2 id="安装二进制文件"><a href="#安装二进制文件" class="headerlink" title="安装二进制文件"></a>安装二进制文件</h2><p>二进制文件就是软件发布者或其他第三方预编译好的软件。安装二进制文件有两种方式：</p>
+<h2 id="Linux文件-目录管理"><a href="#Linux文件-目录管理" class="headerlink" title="Linux文件/目录管理"></a>Linux文件/目录管理</h2><h3 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h3><h4 id="touch-命令"><a href="#touch-命令" class="headerlink" title="touch 命令"></a>touch 命令</h4><blockquote>
+<p>touch <em>filename</em></p>
+</blockquote>
+<h4 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h4><p>打开一个文本编辑器，然后保存文件。</p>
+<h4 id="内容重定向"><a href="#内容重定向" class="headerlink" title="内容重定向"></a>内容重定向</h4><p>某一个程序的输出，重定向到某个文件。</p>
+<blockquote>
+<p>echo helloworld &gt; <em>filename</em></p>
+</blockquote>
+<h3 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h3><h4 id="mkdir命令"><a href="#mkdir命令" class="headerlink" title="mkdir命令"></a>mkdir命令</h4><p>创建一个目录</p>
+<blockquote>
+<p>mkdir <em>dirname</em></p>
+</blockquote>
+<p>创建目录及其子目录</p>
+<blockquote>
+<p>mkdir -p <em>dir1/dir2/dir3/…</em></p>
+</blockquote>
+<h3 id="复制文件和目录"><a href="#复制文件和目录" class="headerlink" title="复制文件和目录"></a>复制文件和目录</h3><blockquote>
+<p>cp <em>src</em> <em>dest</em></p>
+</blockquote>
+<p><em>src</em>是源文件的位置</p>
+<p><em>dest</em>是目标位置</p>
+<p>注意：</p>
 <ul>
-<li>使用包管理工具</li>
-<li>从官网下载二进制包</li>
+<li>目录是递归复制</li>
+<li>如果目标位置有同名文件，会覆盖</li>
 </ul>
-<p>几个主流操作系统对应的二进制包：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>操作系统</th>
-<th>对应的二进制包</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Debian/Ubuntu</td>
-<td>.deb</td>
-</tr>
-<tr>
-<td>Red Hat Linux</td>
-<td>.rpm</td>
-</tr>
-<tr>
-<td>Arch Linux</td>
-<td>.pkg.tar.xz</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="使用包管理工具"><a href="#使用包管理工具" class="headerlink" title="使用包管理工具"></a>使用包管理工具</h3><p>本节以Ubuntu为例，讲述如何使用Ubuntu下包管理工具<code>APT</code>安装软件。</p>
-<h4 id="源"><a href="#源" class="headerlink" title="源"></a>源</h4><p>在<code>APT</code>中，源和软件仓库是一个概念，厂商或个人将已经打包好的二进制文件发到源中，使用者想下载源中的软件就只需要将源添加入<code>/etc/apt/sources.list</code>文件中，然后<code>APT</code>就会自动搜索源，寻找是否有使用者想要的软件。</p>
-<p><code>Ubuntu</code>系统默认的源列表中很多都是在国外的，在国内访问不方便，因此在国内使用建议将源换为阿里源。将<code>/etc/apt/sources.list</code>中原有文件注释，并将以下内容粘贴即可(本文是<code>Ubuntu18.04</code>，其他版本请自行上网搜索，不同版本间有差异)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
-<p>源更改完成后需运行<code>apt update</code>更新，以获取新添加的源中的软件。</p>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>在Ubuntu下安装软件大致流程就是先去官方源看一下有没有对应的软件包，如果有则直接<code>apt install 软件名</code>，否则需要上网搜索包含相应软件的源，将其添加到源列表后安装。</p>
 <p>例子：</p>
-<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install.jpg-watermark" alt="install"></p>
-<h4 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h4><p>卸载常用的两个命令是<code>remove</code>和<code>autoremove</code>。<code>remove</code>命令删除所有软件数据，但会留下一些用户配置文件。<code>autoremove</code>命令在删除软件的同时会移除当前软件包所有不被他人使用的依赖，由于这是递归删除，可能一不小心就删除了一大片，所以使用时应极为小心，此命令会提示删除哪些文件，需反复确认。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/create-dir-and-copy-file.jpg-watermark" alt="create-dir-and-copy-file"></p>
+<p>这个例子先创建了若干文件夹:~/teat/a/b/c/d/e，然后将<code>a</code>文件夹下的文件夹<code>b</code>，复制到了<code>teat</code>文件夹目录下，可看到<code>b</code>文件夹下所有目录与<code>b</code>一起复制了过去。</p>
+<p>然后我在<code>teat</code>目录下新建了一个文件<code>a.cpp</code>，内容为<code>a</code>，再创建一个文件<code>b.cpp</code>，内容为<code>b</code>，然后将<code>b.cpp</code>复制到<code>a.cpp</code>，可以发现原来的<code>a.cpp</code>被覆盖了。</p>
+<h3 id="移动文件和目录"><a href="#移动文件和目录" class="headerlink" title="移动文件和目录"></a>移动文件和目录</h3><p>移动文件</p>
+<blockquote>
+<p>mv <em>src</em> <em>dest</em></p>
+</blockquote>
+<p>移动目录</p>
+<blockquote>
+<p>mv -r <em>src</em> <em>dest</em></p>
+</blockquote>
+<h3 id="删除文件和目录"><a href="#删除文件和目录" class="headerlink" title="删除文件和目录"></a>删除文件和目录</h3><p>删除文件</p>
+<blockquote>
+<p>rm <em>file</em></p>
+</blockquote>
+<p>删除目录</p>
+<blockquote>
+<p>rm -r <em>file</em></p>
+</blockquote>
+<h3 id="查看文件和目录"><a href="#查看文件和目录" class="headerlink" title="查看文件和目录"></a>查看文件和目录</h3><p>将文件内容输出在终端</p>
+<blockquote>
+<p>cat <em>file</em></p>
+</blockquote>
+<p>使用文本编辑器查看文件</p>
+<blockquote>
+<p>vim <em>file</em></p>
+</blockquote>
+<p>查看目录</p>
+<blockquote>
+<p>ls</p>
+</blockquote>
+<p>切换目录</p>
+<blockquote>
+<p>cd</p>
+</blockquote>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>链接类似于Windows中的快捷方式，链接分为两种：软链接和硬链接。</p>
+<h4 id="硬链接"><a href="#硬链接" class="headerlink" title="硬链接"></a>硬链接</h4><p>硬链接创建的文件和源文件指向存储器中的同一个结点，删除其中任意一个都对存储器中的文件无影响，另一个都可以访问。只有当所有指向这个结点的链接都删除后，这个文件才被删除。</p>
+<blockquote>
+<p>ln <em>src</em> <em>dest</em></p>
+</blockquote>
+<h4 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h4><p>相对于硬链接，感觉这个更像是Windows里的快捷方式，删除源文件后，软链接依旧存在，只是失效了。</p>
 <p>例子：</p>
-<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-remove.jpg-watermark" alt="remove"></p>
-<p>可以看到，在使用<code>remove</code>删除软件时，他会提醒你还有几个依赖没有删干净，想删除可以使用<code>autoremove</code>命令。</p>
-<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-autoremove.jpg-watermark" alt="autoremove"></p>
-<p>在使用<code>autoremove</code>时，他会告知你将要删除的文件及其依赖，需要进一步确认。</p>
-<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>使用<code>update</code>可以更新本地软件列表，使用<code>upgrade</code>命令可以将本地所有未升级到最新版的软件升级。</p>
-<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-update.jpg-watermark" alt="update"><br><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-upgrade1.jpg-watermark" alt="upgrade"></p>
-<p>可以看到<code>upgrade</code>会将所有可升级的软件列出来让你确认。</p>
-<h4 id="使用包管理工具的优点"><a href="#使用包管理工具的优点" class="headerlink" title="使用包管理工具的优点"></a>使用包管理工具的优点</h4><p>我觉得最大的优点是安装管理软件更方便，软件自动解决依赖，不用考虑太多东西。</p>
-<h3 id="从官网下载二进制包"><a href="#从官网下载二进制包" class="headerlink" title="从官网下载二进制包"></a>从官网下载二进制包</h3><p>以<code>vscode</code>为例，从官网下载<code>deb</code>安装包</p>
-<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/vscode-deb.jpg-watermark" alt="vscode官网下载安装包"></p>
-<p>然后使用<code>dpkg</code>命令即可安装。</p>
-<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/dpkg-fail.jpg-watermark" alt="第一次dpkg"></p>
-<p>然后他就报了一个错，说是没有安装依赖。使用<code>apt install -f</code>即可安装缺少的依赖。</p>
-<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/apt-install-f.jpg-watermark" alt="install -f"></p>
-<p>然后再运行<code>dpkg</code>命令即可安装完成。</p>
-<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-software-install/dpkg-success.jpg-watermark" alt="第二次dpkg"></p>
-<p>使用官网下的二进制包很容易出现依赖问题，一般不建议这么做。</p>
-<h2 id="源代码编译安装"><a href="#源代码编译安装" class="headerlink" title="源代码编译安装"></a>源代码编译安装</h2><p>源代码安装大部分情况是先去某个托管平台(例如GitHub)找到源代码，然后下载下来，<code>./configure</code>，<code>make</code>，<code>make install</code>三步走，就装完了。</p>
-<p><code>./configure</code>是配置环境，检查依赖。</p>
-<p><code>make</code>是编译程序。</p>
-<p><code>make install</code>是安装程序。</p>
-<p>例子待更。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/create-links.jpg-watermark" alt="create-links"></p>
+<p>在这个例子中，我首先创建了一个文件<code>a.sh</code>，内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> this is file a.sh</span><br></pre></td></tr></table></figure>
+<p>然后赋予执行权限，运行后输出<code>this is file a.sh</code>，然后创建硬链接<code>hard.sh</code>和软链接<code>soft.sh</code>，通过运行<code>ls -l</code>命令可以看到<code>soft.sh</code>指向<code>a.sh</code>代表这是一个软链接。然后运行<code>hard.sh</code>和<code>soft.sh</code>发现他们输出内容和<code>a.sh</code>一样。然后我们删除<code>a.sh</code>，发现<code>hard.sh</code>正常运行，而<code>soft.sh</code>失效了。 </p>
+<h2 id="权限控制"><a href="#权限控制" class="headerlink" title="权限控制"></a>权限控制</h2><p>首先，先在刚才那个目录下新建一个文件夹<code>test</code>，然后运行<code>ls -l</code>命令。然后就出现了下面这样一个东西。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/ls-l.jpg-watermark" alt="ls-l"></p>
+<p>输出的内容分为九列，分别是：</p>
+<ul>
+<li>文件类型和权限</li>
+<li>有多少链接指向该文件</li>
+<li>文件所有者</li>
+<li>文件所有组</li>
+<li>文件大小(单位为字节)</li>
+<li>文件最后修改月</li>
+<li>文件最后修改日</li>
+<li>文件最后修改时间</li>
+<li>文件名</li>
+<li>如果是软链接还会出现他指向的目标文件</li>
+</ul>
+<p>其中第一列就是有关权限控制的东西。</p>
+<p>第一列共有十个字符。</p>
+<p>第1个字符代表文件类型</p>
+<ul>
+<li><code>d</code>为目录</li>
+<li><code>-</code>为文件</li>
+<li><code>l</code>为链接文件</li>
+<li><code>b</code>为可供储存的接口设备</li>
+<li><code>c</code>为串行端口设备</li>
+</ul>
+<p>第2~4个字符表示文件所有者的权限，第5~7个字符表示用户所在组的权限，第8~10个字符表示其他人的权限。</p>
+<p>权限主要有以下三种：</p>
+<ul>
+<li>r:读权限</li>
+<li>w:写权限</li>
+<li>x:执行权限</li>
+</ul>
+<p>因为是三位数字，有八种组合，所以可以用0-7中的一个数字表示是否有相应权限，规定r-4,w-2,x-1，例如4代表只有读权限，6代表有读和写的权限，0代表无权限。通过以下命令可以更改权限。</p>
+<blockquote>
+<p>chmod [操作对象+权限增减+操作权限] <em>file</em></p>
+</blockquote>
+<p>操作对象可以是文件所有者u(ser)，所在组g(roup)，其他用户o(ther);</p>
+<p>权限增减是+或-</p>
+<p>操作权限是r/w/x</p>
+<p>通过下面这条命令可以直接指定三方的权限</p>
+<blockquote>
+<p>chmod [三位数字] <em>file</em></p>
+</blockquote>
+<p>三位数字每一位都是0-7，第一位代表用户，第二位代表组，第三位代表其他用户。例如<code>chmod 777 ...</code>代表此文件所有人都有读写执行的权限。</p>
+<p>下面介绍一下各权限的意思。</p>
+<h3 id="读权限"><a href="#读权限" class="headerlink" title="读权限"></a>读权限</h3><p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/chmod-r.jpg-watermark" alt="chmod -r"></p>
+<p>上图是一个取消文件读权限的例子，可以看到，原来对<code>a.sh</code>有读权限，然后我们可以正常读取文件，之后我把它的读权限删去，想读文件时，他就提示<code>Permission denied</code>了。</p>
+<p>从上一节可以知道，<code>a.sh</code>和<code>hard.sh</code>是硬链接，他们修改了一个的权限，另一个也相应修改了。</p>
+<h3 id="写权限"><a href="#写权限" class="headerlink" title="写权限"></a>写权限</h3><p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/chmod-w.jpg-watermark" alt="chmod -w"></p>
+<p>在这个例子中，首先文件是由写权限的，我向其中写入<code>echo I do not have write permission</code>，然后取消写权限，再想其中写入时就没有了写权限。</p>
+<p>和读权限一样，硬链接的权限也受到了影响。</p>
+<h3 id="执行权限"><a href="#执行权限" class="headerlink" title="执行权限"></a>执行权限</h3><p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-file-and-directory/chmod-x.jpg-watermark" alt="chmod -x"></p>
+<p>这是一个删除执行权限的例子。</p>
 
     </div>
 
@@ -409,7 +452,7 @@
     <strong>Post author:  </strong>zhaoyiping</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://blog.zhaoyiping.xyz/2019/09/25/linux-software-install/" title="Linux软件部署及应用">https://blog.zhaoyiping.xyz/2019/09/25/linux-software-install/</a>
+    <a href="https://blog.zhaoyiping.xyz/2019/09/30/linux-file-and-directory/" title="Linux 文件管理及目录与权限控制">https://blog.zhaoyiping.xyz/2019/09/30/linux-file-and-directory/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
@@ -434,8 +477,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/09/23/vim/" rel="next" title="vim使用">
-                  <i class="fa fa-chevron-left"></i> vim使用
+                <a href="/2019/09/25/assembly-language/" rel="next" title="汇编语言">
+                  <i class="fa fa-chevron-left"></i> 汇编语言
                 </a>
               
             </div>
@@ -443,10 +486,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/09/25/assembly-language/" rel="prev" title="汇编语言">
-                  汇编语言 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -498,7 +537,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装二进制文件"><span class="nav-number">1.</span> <span class="nav-text">安装二进制文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用包管理工具"><span class="nav-number">1.1.</span> <span class="nav-text">使用包管理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#源"><span class="nav-number">1.1.1.</span> <span class="nav-text">源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载"><span class="nav-number">1.1.3.</span> <span class="nav-text">卸载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新"><span class="nav-number">1.1.4.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用包管理工具的优点"><span class="nav-number">1.1.5.</span> <span class="nav-text">使用包管理工具的优点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从官网下载二进制包"><span class="nav-number">1.2.</span> <span class="nav-text">从官网下载二进制包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源代码编译安装"><span class="nav-number">2.</span> <span class="nav-text">源代码编译安装</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux文件-目录管理"><span class="nav-number">1.</span> <span class="nav-text">Linux文件/目录管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建文件"><span class="nav-number">1.1.</span> <span class="nav-text">创建文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#touch-命令"><span class="nav-number">1.1.1.</span> <span class="nav-text">touch 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文本编辑器"><span class="nav-number">1.1.2.</span> <span class="nav-text">文本编辑器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内容重定向"><span class="nav-number">1.1.3.</span> <span class="nav-text">内容重定向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建目录"><span class="nav-number">1.2.</span> <span class="nav-text">创建目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mkdir命令"><span class="nav-number">1.2.1.</span> <span class="nav-text">mkdir命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制文件和目录"><span class="nav-number">1.3.</span> <span class="nav-text">复制文件和目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移动文件和目录"><span class="nav-number">1.4.</span> <span class="nav-text">移动文件和目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件和目录"><span class="nav-number">1.5.</span> <span class="nav-text">删除文件和目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件和目录"><span class="nav-number">1.6.</span> <span class="nav-text">查看文件和目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">1.7.</span> <span class="nav-text">链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬链接"><span class="nav-number">1.7.1.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软链接"><span class="nav-number">1.7.2.</span> <span class="nav-text">软链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权限控制"><span class="nav-number">2.</span> <span class="nav-text">权限控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读权限"><span class="nav-number">2.1.</span> <span class="nav-text">读权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写权限"><span class="nav-number">2.2.</span> <span class="nav-text">写权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行权限"><span class="nav-number">2.3.</span> <span class="nav-text">执行权限</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
