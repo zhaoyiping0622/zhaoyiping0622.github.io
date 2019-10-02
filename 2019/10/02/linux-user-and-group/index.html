@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。 用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。  以上摘自菜鸟教程 本文主要介绍Linux用户与用户组相关知识以及相关命令。">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 用户与用户组管理">
+<meta property="og:url" content="https://blog.zhaoyiping.xyz/2019/10/02/linux-user-and-group/index.html">
+<meta property="og:site_name" content="zhaoyiping&#39;s blog">
+<meta property="og:description" content="Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。 用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。  以上摘自菜鸟教程 本文主要介绍Linux用户与用户组相关知识以及相关命令。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-user-and-group/useradd.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-user-and-group/adduser.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-user-and-group/addusers.jpg-watermark">
+<meta property="og:updated_time" content="2019-10-02T10:49:45.010Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 用户与用户组管理">
+<meta name="twitter:description" content="Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。 用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。  以上摘自菜鸟教程 本文主要介绍Linux用户与用户组相关知识以及相关命令。">
+<meta name="twitter:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-user-and-group/useradd.jpg-watermark">
+  <link rel="canonical" href="https://blog.zhaoyiping.xyz/2019/10/02/linux-user-and-group/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Linux 用户与用户组管理 | zhaoyiping's blog</title>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148337124-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148337124-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhaoyiping's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="https://blog.zhaoyiping.xyz/2019/10/02/linux-user-and-group/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoyiping">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhaoyiping's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Linux 用户与用户组管理
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-02 18:49:44 / Modified: 18:49:45" itemprop="dateCreated datePublished" datetime="2019-10-02T18:49:44+08:00">2019-10-02</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/校内课程/" itemprop="url" rel="index"><span itemprop="name">校内课程</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/校内课程/计算机操作系统/" itemprop="url" rel="index"><span itemprop="name">计算机操作系统</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/10/02/linux-user-and-group/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/10/02/linux-user-and-group/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Linux系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。</p>
+<p>用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。</p>
+</blockquote>
+<p>以上摘自<a href="https://www.runoob.com/linux/linux-user-manage.html" target="_blank" rel="noopener">菜鸟教程</a></p>
+<p>本文主要介绍Linux用户与用户组相关知识以及相关命令。</p>
+<a id="more"></a>
+<h2 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h2><p>在Linux中，用户是身份的象征，对Linux系统的操作是以用户的身份进行的。下面是基本的操作。</p>
+<p>用户信息存在<code>/etc/passwd</code>中，包含加密后的密码的用户信息存在<code>/etc/shadow</code>中。</p>
+<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><h4 id="单个添加用户"><a href="#单个添加用户" class="headerlink" title="单个添加用户"></a>单个添加用户</h4><p>单个添加用户用户有两条命令<code>adduser</code>和<code>useradd</code>。</p>
+<p><code>useradd</code>命令相对来说就更基本一点，在不带任何参数的情况下，它的功能仅仅是在几个相关文件(例如<code>/etc/shadow</code>,<code>/etc/passwd</code>)中添加此用户记录，不会帮你设置密码，也不会创建对应用户主目录。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-user-and-group/useradd.jpg-watermark" alt="useradd"></p>
+<p>在上面这个例子中，我添加了一个用户<code>testuseradd</code>，没有带任何参数，它也没有任何回显，然后查看<code>/etc/passwd</code>发现，它在最后添加了一条记录(记录含义后文会讲)，里面记录了这个用户的主目录是<code>/home/testuseradd</code>，然后我查看<code>/home</code>文件夹，发现并没有<code>testuseradd</code>目录，这是因为<code>useradd</code>命令除了添加用户，其他啥也不干(事实上它甚至连密码都没有设置)。</p>
+<p>一般来说初学者建议使用<code>adduser</code>，因为这条命令帮你把什么都做好了，你只需要按照它的提示，除了输密码，其他都可以一路回车，他会帮你设好一切。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-user-and-group/adduser.jpg-watermark" alt="adduser"></p>
+<p>上面是一个使用<code>adduser</code>的例子，这里就设置的很详尽了，几乎是帮你干好了一切。</p>
+<p>如果是使用<code>useradd</code>命令，还需要单独为用户添加密码，使用<code>passwd</code>命令即可添加密码。</p>
+<h4 id="批量添加用户"><a href="#批量添加用户" class="headerlink" title="批量添加用户"></a>批量添加用户</h4><p>首先创建一个文件<code>user.txt</code>，里面内容按如下格式填写：</p>
+<blockquote>
+<p><em>用户名</em>:<em>x</em>:<em>UID</em>:<em>GID</em>:<em>用户说明</em>:<em>用户目录</em>:<em>使用的shell</em></p>
+</blockquote>
+<p>以root身份运行<code>newusers</code>命令，将<code>user.txt</code>文件导入即可创建用户。</p>
+<p>批量添加密码流程：</p>
+<ul>
+<li>先使用<code>pwunconv</code>将shadow中的密码解码</li>
+<li>然后编辑一个文件，格式如下：<blockquote>
+<p><em>用户名</em>:<em>密码</em></p>
+</blockquote>
+</li>
+<li>以root执行<code>chpasswd</code></li>
+<li>执行<code>pwconv</code>将密码编码为shadow password</li>
+</ul>
+<p>下面是一个例子：</p>
+<p>user.txt:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">user001:x:600:100:user:/home/user001:/bin/bash</span><br><span class="line">user002:x:601:100:user:/home/user002:/bin/bash</span><br><span class="line">user003:x:602:100:user:/home/user003:/bin/bash</span><br><span class="line">user004:x:603:100:user:/home/user004:/bin/bash</span><br><span class="line">user005:x:604:100:user:/home/user005:/bin/bash</span><br><span class="line">user006:x:605:100:user:/home/user006:/bin/bash</span><br></pre></td></tr></table></figure>
+<p>passwd.txt:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">user001:abc</span><br><span class="line">user002:abc</span><br><span class="line">user003:abc</span><br><span class="line">user004:abc</span><br><span class="line">user005:abc</span><br><span class="line">user006:abc</span><br></pre></td></tr></table></figure>
+<p>demo.sh:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"this is user.txt:\n"</span></span><br><span class="line">tail user.txt -n 6</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"this is passwd.txt:\n"</span></span><br><span class="line">tail passwd.txt -n 6</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"this is /etc/passwd:\n"</span></span><br><span class="line">tail /etc/passwd -n 6</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"now i add users:\n"</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"\n"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"newusers &lt; user.txt"</span></span><br><span class="line">newusers &lt; user.txt</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"\n"</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"after i add users:\n"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"this is /etc/passwd:\n"</span></span><br><span class="line">tail /etc/passwd -n 6</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"now i add password:\n"</span></span><br><span class="line">pwunconv</span><br><span class="line"></span><br><span class="line">chpasswd &lt; passwd.txt</span><br><span class="line"></span><br><span class="line">pwconv</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"now everyone has password"</span></span><br></pre></td></tr></table></figure></p>
+<p>运行结果：</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-user-and-group/addusers.jpg-watermark" alt="addusers"></p>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><blockquote>
+<p>userdel <em>选项</em> <em>用户名</em> </p>
+</blockquote>
+<p>常用选项<code>-r</code>，同时删除用户目录。</p>
+<h2 id="用户组"><a href="#用户组" class="headerlink" title="用户组"></a>用户组</h2><blockquote>
+<p>每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。</p>
+</blockquote>
+<p>用户组的信息主要存在<code>/etc/group</code>文件中。</p>
+<p>每一个用户命令都有一个类似的用户组命令。</p>
+<h3 id="添加一个新的用户组"><a href="#添加一个新的用户组" class="headerlink" title="添加一个新的用户组"></a>添加一个新的用户组</h3><blockquote>
+<p>groupadd <em>选项</em> <em>用户组</em></p>
+</blockquote>
+<h3 id="删除一个已有的用户组"><a href="#删除一个已有的用户组" class="headerlink" title="删除一个已有的用户组"></a>删除一个已有的用户组</h3><blockquote>
+<p>groupdel <em>用户组</em></p>
+</blockquote>
+<h3 id="修改已有用户组"><a href="#修改已有用户组" class="headerlink" title="修改已有用户组"></a>修改已有用户组</h3><blockquote>
+<p>groupmode <em>选项</em> <em>用户组</em> </p>
+</blockquote>
+<h3 id="切换用户组"><a href="#切换用户组" class="headerlink" title="切换用户组"></a>切换用户组</h3><blockquote>
+<p>newgrp <em>用户组</em></p>
+</blockquote>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>与用户和用户组相关的文件主要有以下几个：</p>
+<h3 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h3><p>主要存用户信息，所有人都可以访问。</p>
+<p>格式：</p>
+<blockquote>
+<p><em>用户名</em>:<em>x</em>:<em>UID</em>:<em>GID</em>:<em>用户说明</em>:<em>用户目录</em>:<em>使用的shell</em></p>
+</blockquote>
+<h3 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h3><p>用户密码信息，只有<code>root</code>权限可访问。</p>
+<p>格式：</p>
+<blockquote>
+<p><em>登录名</em>:<em>加密口令</em>:<em>最后一次修改时间</em>:<em>修改最小时间间隔</em>:<em>修改最大时间间隔</em>:<em>警告时间</em>:<em>不活动时间</em>:<em>失效时间</em>:<em>标志</em></p>
+</blockquote>
+<p><code>pwunconv</code>命令可使<code>/etc/shadow</code>文件消失，密码信息填入<code>/etc/passwd</code>文件中。<code>pwconv</code>命令相反，将填入<code>/etc/passwd</code>文件中的密码信息填入<code>/etc/shadow</code>文件中。</p>
+<h3 id="etc-group"><a href="#etc-group" class="headerlink" title="/etc/group"></a>/etc/group</h3><p>用户组的信息在<code>/etc/group</code>文件中。</p>
+<p>格式：</p>
+<blockquote>
+<p><em>组名</em>:<em>口令</em>:<em>组标识号</em>:<em>组内用户列表</em></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>zhaoyiping</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://blog.zhaoyiping.xyz/2019/10/02/linux-user-and-group/" title="Linux 用户与用户组管理">https://blog.zhaoyiping.xyz/2019/10/02/linux-user-and-group/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/linux/" rel="tag"># linux</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/30/linux-file-and-directory/" rel="next" title="Linux 文件管理及目录与权限控制">
+                  <i class="fa fa-chevron-left"></i> Linux 文件管理及目录与权限控制
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户"><span class="nav-number">1.</span> <span class="nav-text">用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加用户"><span class="nav-number">1.1.</span> <span class="nav-text">添加用户</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单个添加用户"><span class="nav-number">1.1.1.</span> <span class="nav-text">单个添加用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#批量添加用户"><span class="nav-number">1.1.2.</span> <span class="nav-text">批量添加用户</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除用户"><span class="nav-number">1.2.</span> <span class="nav-text">删除用户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户组"><span class="nav-number">2.</span> <span class="nav-text">用户组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加一个新的用户组"><span class="nav-number">2.1.</span> <span class="nav-text">添加一个新的用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除一个已有的用户组"><span class="nav-number">2.2.</span> <span class="nav-text">删除一个已有的用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改已有用户组"><span class="nav-number">2.3.</span> <span class="nav-text">修改已有用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换用户组"><span class="nav-number">2.4.</span> <span class="nav-text">切换用户组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-passwd"><span class="nav-number">3.1.</span> <span class="nav-text">/etc/passwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-shadow"><span class="nav-number">3.2.</span> <span class="nav-text">/etc/shadow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-group"><span class="nav-number">3.3.</span> <span class="nav-text">/etc/group</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhaoyiping</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://back007.github.io/" title="https://back007.github.io/" rel="noopener" target="_blank">WA_King</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/fsahfgsadhsakndas" title="https://blog.csdn.net/fsahfgsadhsakndas" rel="noopener" target="_blank">ACoder</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://ch2-carbene.github.io/" title="https://ch2-carbene.github.io/" rel="noopener" target="_blank">TD06</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://www.sosusosu.com/" title="http://www.sosusosu.com/" rel="noopener" target="_blank">sosusosu</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://isecloud.github.io" title="https://isecloud.github.io" rel="noopener" target="_blank">iSecloud</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://LoliconAutomaton.github.io" title="https://LoliconAutomaton.github.io" rel="noopener" target="_blank">LoliconAutomaton</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhaoyiping</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共25.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Fj5YJT4c0qFIEUHIqJlgsc77-gzGzoHsz',
+    appKey: 'afziiJKFdmUaBPbb4MGDlQDU',
+    placeholder: '友善的评论是交流的起点',
+    avatar: 'mp',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","display":{"hOffset":0,"vOffset":0}},"mobile":{"show":true,"scale":0.5},"bottom":-50,"react":{"opacityDefault":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end --></body>
+</html>

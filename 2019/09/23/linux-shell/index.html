@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="helloworld12#!/bin/bashecho &quot;helloworld&quot;运行脚本方式 作为可执行程序 (注意第一行指定解释器路径) 12chmod +x helloworld.sh./helloworld.sh  作为解释器参数 1/bin/bash helloworld.sh  变量定义变量">
+  <meta name="description" content="helloworld12#!/bin/bashecho &quot;helloworld&quot; 运行脚本方式  作为可执行程序 (注意第一行指定解释器路径) 12chmod +x helloworld.sh./helloworld.sh  作为解释器参数 1/bin/bash helloworld.sh">
 <meta name="keywords" content="linux,shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux shell学习笔记">
 <meta property="og:url" content="https://blog.zhaoyiping.xyz/2019/09/23/linux-shell/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
-<meta property="og:description" content="helloworld12#!/bin/bashecho &quot;helloworld&quot;运行脚本方式 作为可执行程序 (注意第一行指定解释器路径) 12chmod +x helloworld.sh./helloworld.sh  作为解释器参数 1/bin/bash helloworld.sh  变量定义变量">
+<meta property="og:description" content="helloworld12#!/bin/bashecho &quot;helloworld&quot; 运行脚本方式  作为可执行程序 (注意第一行指定解释器路径) 12chmod +x helloworld.sh./helloworld.sh  作为解释器参数 1/bin/bash helloworld.sh">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-23T13:06:08.845Z">
+<meta property="og:updated_time" content="2019-09-30T09:06:35.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux shell学习笔记">
-<meta name="twitter:description" content="helloworld12#!/bin/bashecho &quot;helloworld&quot;运行脚本方式 作为可执行程序 (注意第一行指定解释器路径) 12chmod +x helloworld.sh./helloworld.sh  作为解释器参数 1/bin/bash helloworld.sh  变量定义变量">
+<meta name="twitter:description" content="helloworld12#!/bin/bashecho &quot;helloworld&quot; 运行脚本方式  作为可执行程序 (注意第一行指定解释器路径) 12chmod +x helloworld.sh./helloworld.sh  作为解释器参数 1/bin/bash helloworld.sh">
   <link rel="canonical" href="https://blog.zhaoyiping.xyz/2019/09/23/linux-shell/">
 
 
@@ -252,11 +252,19 @@
                 
               
 
-              <time title="Created: 2019-09-23 20:49:37 / Modified: 21:06:08" itemprop="dateCreated datePublished" datetime="2019-09-23T20:49:37+08:00">2019-09-23</time>
+              <time title="Created: 2019-09-23 20:49:37" itemprop="dateCreated datePublished" datetime="2019-09-23T20:49:37+08:00">2019-09-23</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-09-30 17:06:35" itemprop="dateModified" datetime="2019-09-30T17:06:35+08:00">2019-09-30</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -305,17 +313,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="helloworld"><a href="#helloworld" class="headerlink" title="helloworld"></a>helloworld</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"helloworld"</span></span><br></pre></td></tr></table></figure><p>运行脚本方式</p><ul>
+        <h2 id="helloworld"><a href="#helloworld" class="headerlink" title="helloworld"></a>helloworld</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"helloworld"</span></span><br></pre></td></tr></table></figure>
+<p>运行脚本方式</p>
+<ul>
 <li><p>作为可执行程序 (注意第一行指定解释器路径)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x helloworld.sh</span><br><span class="line">./helloworld.sh</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>作为解释器参数</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash helloworld.sh</span><br></pre></td></tr></table></figure>
 </li>
-</ul><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h3><a id="more"></a>
-
-
-<p>变量定义与C语言类似，不过不需要声明类型</p>
+</ul>
+<a id="more"></a>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h3><p>变量定义与C语言类似，不过不需要声明类型</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aaa=<span class="string">"hello"</span></span><br><span class="line">a1c=<span class="string">"world"</span></span><br><span class="line">a_b=<span class="string">"goodbye"</span></span><br></pre></td></tr></table></figure>
 <p>除了直接给变量赋值还可以通过语句赋值：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> `ls -a ~`;<span class="keyword">do</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;file&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> $(ls -a /home);<span class="keyword">do</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;file&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
@@ -609,7 +618,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -709,7 +718,7 @@
   <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共23.9k字</span>
+  <span class="post-count">博客全站共25.1k字</span>
 </div>
 
         
@@ -776,7 +785,7 @@
 <script>
 NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', () => {
   var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
+  var guest = 'nick,mail';
   guest = guest.split(',').filter(item => {
     return GUEST.includes(item);
   });
@@ -787,7 +796,7 @@ NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', () => {
     appId: 'Fj5YJT4c0qFIEUHIqJlgsc77-gzGzoHsz',
     appKey: 'afziiJKFdmUaBPbb4MGDlQDU',
     placeholder: '友善的评论是交流的起点',
-    avatar: 'mm',
+    avatar: 'mp',
     meta: guest,
     pageSize: '10' || 10,
     visitor: false,
