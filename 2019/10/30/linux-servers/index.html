@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="前置知识由于这些服务器大部分都是提供服务端功能，我需要一个客户端验证功能的正确性，因此我下面的实验都是在virtualbox内完成，首先要完成的是两台虚拟机的通信问题。首先，我选择虚拟机内部网络模式为NAT网络。在管理-&amp;gt;全局设定-&amp;gt;网络-&amp;gt;添加中添加一个新的网络。如上图，为了方便主机ssh访问虚拟机，我将两台虚拟机的22端口转发到主机的23456和23457端口。">
+<meta name="keywords" content="linux,网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux各种服务器搭建">
+<meta property="og:url" content="https://blog.zhaoyiping.xyz/2019/10/30/linux-servers/index.html">
+<meta property="og:site_name" content="zhaoyiping&#39;s blog">
+<meta property="og:description" content="前置知识由于这些服务器大部分都是提供服务端功能，我需要一个客户端验证功能的正确性，因此我下面的实验都是在virtualbox内完成，首先要完成的是两台虚拟机的通信问题。首先，我选择虚拟机内部网络模式为NAT网络。在管理-&amp;gt;全局设定-&amp;gt;网络-&amp;gt;添加中添加一个新的网络。如上图，为了方便主机ssh访问虚拟机，我将两台虚拟机的22端口转发到主机的23456和23457端口。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/nat-network.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/pre-ping.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/named-v.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/etc-bind.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/my-dns.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/ip-addr.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/no-ip-machine.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/with-ip-machine.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/ftp.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/nfs.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/apache2-ubuntu-default-page.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/mail-error.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/mysql.jpg-watermark">
+<meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/telnet.jpg-watermark">
+<meta property="og:updated_time" content="2019-10-30T09:15:30.140Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux各种服务器搭建">
+<meta name="twitter:description" content="前置知识由于这些服务器大部分都是提供服务端功能，我需要一个客户端验证功能的正确性，因此我下面的实验都是在virtualbox内完成，首先要完成的是两台虚拟机的通信问题。首先，我选择虚拟机内部网络模式为NAT网络。在管理-&amp;gt;全局设定-&amp;gt;网络-&amp;gt;添加中添加一个新的网络。如上图，为了方便主机ssh访问虚拟机，我将两台虚拟机的22端口转发到主机的23456和23457端口。">
+<meta name="twitter:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-servers/nat-network.jpg-watermark">
+  <link rel="canonical" href="https://blog.zhaoyiping.xyz/2019/10/30/linux-servers/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>linux各种服务器搭建 | zhaoyiping's blog</title>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148337124-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-148337124-1');
+    }
+  </script>
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhaoyiping's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="https://blog.zhaoyiping.xyz/2019/10/30/linux-servers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoyiping">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhaoyiping's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">linux各种服务器搭建
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-30 17:15:30" itemprop="dateCreated datePublished" datetime="2019-10-30T17:15:30+08:00">2019-10-30</time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/校内课程/" itemprop="url" rel="index"><span itemprop="name">校内课程</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/校内课程/计算机操作系统/" itemprop="url" rel="index"><span itemprop="name">计算机操作系统</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/10/30/linux-servers/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/10/30/linux-servers/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>由于这些服务器大部分都是提供服务端功能，我需要一个客户端验证功能的正确性，因此我下面的实验都是在virtualbox内完成，首先要完成的是两台虚拟机的通信问题。</p><p>首先，我选择虚拟机内部网络模式为<code>NAT网络</code>。在管理-&gt;全局设定-&gt;网络-&gt;添加中添加一个新的网络。</p><p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/nat-network.jpg-watermark" alt="nat-network"></p><p>如上图，为了方便主机ssh访问虚拟机，我将两台虚拟机的22端口转发到主机的23456和23457端口。</p><a id="more"></a>
+
+
+
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/pre-ping.jpg-watermark" alt="pre-ping"></p>
+<h2 id="DNS服务器"><a href="#DNS服务器" class="headerlink" title="DNS服务器"></a>DNS服务器</h2><h3 id="DNS简介"><a href="#DNS简介" class="headerlink" title="DNS简介"></a>DNS简介</h3><blockquote>
+<p>域名系统（英语：Domain Name System，缩写：DNS）是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。DNS使用TCP和UDP端口53。当前，对于每一级域名长度的限制是63个字符，域名总长度则不能超过253个字符。</p>
+</blockquote>
+<p>简单来说，dns就是将特定域名解析为ip的程序，在Linux下，使用</p>
+<blockquote>
+<p>host <em>hostname</em></p>
+</blockquote>
+<p>命令可查询域名对应的ip。</p>
+<h3 id="配置DNS服务端"><a href="#配置DNS服务端" class="headerlink" title="配置DNS服务端"></a>配置DNS服务端</h3><p>BIND（Berkeley Internet Name Domain）是现今互联网上最常使用的DNS软件，使用BIND作为服务器软件的DNS服务器约占所有DNS服务器的九成。BIND现在由互联网系统协会（Internet Systems Consortium）负责开发与维护。</p>
+<h4 id="安装bind"><a href="#安装bind" class="headerlink" title="安装bind"></a>安装bind</h4><blockquote>
+<p>sudo apt install bind9 bind9utils bind9-doc bind9-host</p>
+</blockquote>
+<p>使用如下命令检查</p>
+<blockquote>
+<p>named -v</p>
+</blockquote>
+<p>输出应为：</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/named-v.jpg-watermark" alt="named-v"></p>
+<p>默认情况下，BIND回在安装后自启动，使用</p>
+<blockquote>
+<p>systemctl status bind9</p>
+</blockquote>
+<p>检查其运行状态</p>
+<h4 id="DNS解析程序的配置"><a href="#DNS解析程序的配置" class="headerlink" title="DNS解析程序的配置"></a>DNS解析程序的配置</h4><p>BIND配置目录是<code>/etc/bind/</code></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/etc-bind.jpg-watermark" alt="etc-bind"></p>
+<ul>
+<li>named.conf:主配置文件</li>
+<li>db.root:DNS解析器用于查询根DNS服务器的根提示文件</li>
+<li>db.127:localhost IPv4反向映射区域文件</li>
+<li>db.local:localhost 转发IPv4和IPv6反向映射区域文件</li>
+<li>db.empty:空区域文件</li>
+</ul>
+<p>首先修改<code>named.conf.options</code>文件，改为如下：</p>
+<blockquote>
+<p>acl “trusted”{<br>    10.0.2.0/24;<br>};<br>options {<br>    directory “/var/cache/bind”;<br>    recursion yes; # 设置成 yes，表示允许递归 DNS 查询。<br>    allow-recursion {trusted;}; # 允许递归查询的客户端范围，这里设置成了之前在acl中声明的trusted<br>    listen-on{10.0.2.4;}; # 表示 DNS 服务监听在哪个地址上，填写本地 IP 即可。<br>    allow-transfer{none;}; # 设置成 none 表示不允许其他 DNS 服务器从本 DNS 服务器中查询。<br>    forwarders{<br>        114.114.114.114; # 转发机制<br>    };<br>    dnssec-validation auto;<br>    auth-nxdomain no;    # conform to RFC1035<br>    listen-on-v6 { any; };<br>};</p>
+</blockquote>
+<p>其中，我这台DNS服务器ip为10.0.2.4，将10.0.2.0网段全设为trusted，这样我虚拟机都可以访问了。</p>
+<p>下面修改named.conf.local，假设内网DNS要解析的域名为example.com，则named.conf.local的内容改为</p>
+<blockquote>
+<p>zone “example.com” {<br>    type master;<br>    file “/etc/bind/zones/db.example.com”;<br>};</p>
+</blockquote>
+<p>在zones文件夹建立文件db.example.com，和之前一样，10.0.2.4改为testing.example.com.想要解析的ip。</p>
+<blockquote>
+<p>$TTL    604800<br>@   IN  SOA testing.example.com. admin.example.com. (<br>        2     ; Serial<br>        604800     ; Refresh<br>        86400     ; Retry<br>        2419200     ; Expire<br>        604800 )   ; Negative Cache TTL<br>;</p>
+<p>; A records<br>@       IN      NS      epc.example.com.<br>example.com.    IN      NS      epc.example.com.<br>epc.example.com.        IN    A    10.0.2.4<br>testing.example.com.    IN    A    10.0.2.4</p>
+</blockquote>
+<p>然后重启一下bind9服务即可。</p>
+<p>修改一下/etc/resolv.conf即可使用此dns服务器。</p>
+<blockquote>
+<p>nameserver 10.0.2.4<br>search DHCP HOST</p>
+</blockquote>
+<p>效果：</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/my-dns.jpg-watermark" alt="my-dns"></p>
+<h2 id="DHCP服务器"><a href="#DHCP服务器" class="headerlink" title="DHCP服务器"></a>DHCP服务器</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><blockquote>
+<p>动态主机设置协议（DHCP）是一种使网络管理员能够集中管理和自动分配IP网络地址的通信协议。在IP网络中，每个连接Internet的设备都需要分配唯一的IP地址。DHCP使网络管理员能从中心结点监控和分配IP地址。当某台计算机移到网络中的其它位置时，能自动收到新的IP地址。<br>DHCP使用了租约的概念，或称为计算机IP地址的有效期。租用时间是不定的，主要取决于用户在某地连接Internet需要多久，这对于教育行业和其它用户频繁改变的环境是很实用的。通过较短的租期，DHCP能够在一个计算机比可用IP地址多的环境中动态地重新配置网络。DHCP支持为计算机分配静态地址，如需要永久性IP地址的Web服务器。<br>DHCP和另一个网络IP管理协议BOOTP类似。当前两种配置管理协议都得到了普遍使用，其中DHCP更为先进。某些操作系统，如Windows NT/2000，都带有DHCP服务器。DHCP或BOOTP客户端是装在计算机中的一个程序，这样就可以对其进行配置操作。</p>
+</blockquote>
+<h3 id="安装配置DHCP服务器"><a href="#安装配置DHCP服务器" class="headerlink" title="安装配置DHCP服务器"></a>安装配置DHCP服务器</h3><p>首先安装软件<code>isc-dhcp-server</code>:</p>
+<blockquote>
+<p>apt install isc-dhcp-server</p>
+</blockquote>
+<p>首先设置文件<code>/etc/default/isc-dhcp-server</code>，将里面内容改为：</p>
+<blockquote>
+<p>INTERFACES=”<em>设备名称</em>“</p>
+</blockquote>
+<p>例如，我用<code>ip addr</code>命令，可以看到我有一个网卡为<code>enp0s3</code></p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/ip-addr.jpg-watermark" alt="ip-addr"></p>
+<p>这里就改为</p>
+<blockquote>
+<p>INTERFACES=”enp0s3”</p>
+</blockquote>
+<p>然后修改<code>/etc/dhcp/dhcpd.conf</code>文件</p>
+<p>在原文件中未注释的行有：</p>
+<blockquote>
+<p>option domain-name “example.org”;<br>option domain-name-servers ns1.example.org ns2.example.org<br>default-lease-time 600;<br>max-lease-time 7200;<br>ddns-update-style none;</p>
+</blockquote>
+<p>其中注释掉<code>option domain-name-servers ns1.example.org ns2.example.org</code>，其他不变。</p>
+<p>然后插入以下内容：</p>
+<blockquote>
+<p>subnet 10.0.3.0 netmask 255.255.255.0 {<br>   range 10.0.3.200 10.0.3.253;<br>   option routers 10.0.3.1;<br>   option subnet-mask 255.255.255.0;<br>   option broadcast-address 10.0.3.255;<br>   option domain-name-servers 10.0.3.1;<br>   option ntp-servers 10.0.3.1;<br>   option netbios-name-servers 10.0.3.1;<br>   option netbios-node-type 8;<br>}</p>
+</blockquote>
+<p>需要注意的是，这里的内容一旦敲错了，服务启动就会fail(我检查了三遍才找到bug)</p>
+<p>在这里，我将dhcp服务器ip设置为10.0.3.5，如果ip不是这个，则将上述所有10.0.3改为ip前三位。</p>
+<p>然后重启dhcp服务：<code>systemctl restart isc-dhcp-server.service</code></p>
+<h3 id="验证已安装的dhcp服务器"><a href="#验证已安装的dhcp服务器" class="headerlink" title="验证已安装的dhcp服务器"></a>验证已安装的dhcp服务器</h3><p>首先，准备两个虚拟机，将他们放入同一个虚拟网络(详情请见<a href="#前置知识">前置知识</a>)，其中支持DHCP选项选否。</p>
+<p>给已安装DHCP服务器的虚拟机一个ip：</p>
+<blockquote>
+<p>ip addr add 10.0.3.5 dev enp0s3</p>
+</blockquote>
+<p>服务器重启DHCP服务，即可看到所有虚拟机都有了DHCP服务器分配的ip了。</p>
+<p>例子：</p>
+<p>首先是一台没有ip的虚拟机：</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/no-ip-machine.jpg-watermark" alt="no-ip-machine"></p>
+<p>然后启动DHCP服务器，添加ip，然后就可以看到那台没有ip的虚拟机有ip了。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/with-ip-machine.jpg-watermark" alt="with-ip-machine"></p>
+<h2 id="FTP服务器"><a href="#FTP服务器" class="headerlink" title="FTP服务器"></a>FTP服务器</h2><p>安装vsftpd软件：</p>
+<blockquote>
+<p>apt install vsftpd</p>
+</blockquote>
+<p>配置vsftpd.conf文件</p>
+<blockquote>
+<p>anonymous_enable=YES<br>anon_root=…#这里填你的ftp服务器根目录<br>no_anon_password=YES<br>write_enable=YES<br>anon_update_enable=YES<br>anon_mkdir_write_enable=YES</p>
+</blockquote>
+<p>然后重启vsftpd即可。</p>
+<p>验证：<br>在另一台服务器上使用</p>
+<blockquote>
+<p>ftp <em>ip</em></p>
+</blockquote>
+<p>即可连接ftp服务器。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/ftp.jpg-watermark" alt="ftp"></p>
+<h2 id="NFS服务器"><a href="#NFS服务器" class="headerlink" title="NFS服务器"></a>NFS服务器</h2><blockquote>
+<p>网络文件系统（英语：Network File System，缩写作 NFS）是一种分布式文件系统协议，力求客户端主机可以访问服务器端文件，并且其过程与访问本地存储时一样，它由太阳微系统（已被甲骨文公司收购）开发，于1984年发布。<br>它基于开放网络运算远程过程调用（ONC RPC）协议：一个开放、标准的RFC协议，任何人或组织都可以依据标准实现它。相关编号在“外部链接”。</p>
+</blockquote>
+<p>简单来说，NFS服务器就是通过网络将服务器上的一个目录映射为本地的一个目录。</p>
+<h3 id="服务端安装"><a href="#服务端安装" class="headerlink" title="服务端安装"></a>服务端安装</h3><p>安装软件</p>
+<blockquote>
+<p>apt install nfs-kernel-server</p>
+</blockquote>
+<p>建立共享目录</p>
+<blockquote>
+<p>mkdir <em>目录位置</em><br>chmod 777 <em>目录位置</em></p>
+</blockquote>
+<p>修改nfs配置文件</p>
+<p>在/etc/exports文件中以如下格式添加行：</p>
+<p>目录位置 允许访问的ip 参数</p>
+<p>例如</p>
+<blockquote>
+<p>/home/zhaoyiping/nfs 10.0.2.0/24(rw,sync,no_subtree_check)</p>
+</blockquote>
+<p>参数含义：rw指读写权限，sync指数据同步写入内存和硬盘，no_subtree_check关闭子树检查。</p>
+<p>重启nfs-kernel-server服务即可生效。</p>
+<h3 id="客户端安装"><a href="#客户端安装" class="headerlink" title="客户端安装"></a>客户端安装</h3><p>先安装nfs common客户端：</p>
+<blockquote>
+<p>apt install nfs-common</p>
+</blockquote>
+<p>创建共享目录，将服务端目录挂载到共享目录。</p>
+<blockquote>
+<p>mkdir /home/zhaoyiping/nfsclient<br>sudo mount 10.0.2.4:/home/zhaoyiping/nfs /home/zhaoyiping/nfsclient</p>
+</blockquote>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/nfs.jpg-watermark" alt="nfs"></p>
+<h2 id="web服务器"><a href="#web服务器" class="headerlink" title="web服务器"></a>web服务器</h2><blockquote>
+<p>Web Server中文名称叫网页服务器或web服务器。WEB服务器也称为WWW(WORLD WIDE WEB)服务器，主要功能是提供网上信息浏览服务</p>
+</blockquote>
+<h3 id="安装web服务器"><a href="#安装web服务器" class="headerlink" title="安装web服务器"></a>安装web服务器</h3><p>这里以使用最广的apache服务器为例。</p>
+<p>安装软件：</p>
+<blockquote>
+<p>apt install apache2</p>
+</blockquote>
+<p>调整防火墙，开放80(未加密的流量)和443(加密流量)端口。即可使用最基础的web服务。</p>
+<h3 id="验证web服务器"><a href="#验证web服务器" class="headerlink" title="验证web服务器"></a>验证web服务器</h3><p>由于我服务器运行在虚拟机里，所以需要把虚拟机的80端口映射到主机某端口，方便再chrome中访问。</p>
+<p>在这里，我将80端口映射为主机的23458端口，然后在chrome中输入</p>
+<blockquote>
+<p><a href="http://localhost:23458/" target="_blank" rel="noopener">http://localhost:23458/</a></p>
+</blockquote>
+<p>即可看见如下界面：</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/apache2-ubuntu-default-page.jpg-watermark" alt="apache2-ubuntu-default-page"></p>
+<h2 id="邮件服务器"><a href="#邮件服务器" class="headerlink" title="邮件服务器"></a>邮件服务器</h2><p>阿里云默认不开放25端口，所以这个实验也只能在虚拟机上进行了。</p>
+<h3 id="设置正确的主机名"><a href="#设置正确的主机名" class="headerlink" title="设置正确的主机名"></a>设置正确的主机名</h3><blockquote>
+<p>hostnamectl set-hostname <em>主机名</em></p>
+</blockquote>
+<h3 id="添加DNS"><a href="#添加DNS" class="headerlink" title="添加DNS"></a>添加DNS</h3><p>在DNS服务器/etc/bind/named.conf.local中添加以下内容：</p>
+<blockquote>
+<p>zone “zypserver.info”<br>{<br>    type master;<br>    file “/etc/bind/zones/db.zypserver.info”;<br>}</p>
+</blockquote>
+<p>在/etc/bind/zones目录下添加文件db.zypserver.info</p>
+<p>内容如下：</p>
+<blockquote>
+<p>$TTL    604800<br>@   IN  SOA ns1.zypserver.info. admin.zypserver.info. (<br>     2     ; Serial<br>     604800     ; Refresh<br>     86400     ; Retry<br>     2419200     ; Expire<br>     604800 )   ; Negative Cache TTL<br>;</p>
+<p>; A records<br>@       IN      NS      epc.zypserver.info.<br>;zypserver.info.    IN      NS      epc.zypserver.info.<br>IN MX 10 mail.zypserver.info.<br>mail.zypserver.info. IN A 10.0.2.4<br>zypserver.info. IN A 10.0.2.4</p>
+<ul>
+<li>IN A 10.0.2.4</li>
+</ul>
+</blockquote>
+<h3 id="装postfix"><a href="#装postfix" class="headerlink" title="装postfix"></a>装postfix</h3><blockquote>
+<p>apt install postfix</p>
+</blockquote>
+<p>注意需打开25端口。</p>
+<h3 id="发测试邮件"><a href="#发测试邮件" class="headerlink" title="发测试邮件"></a>发测试邮件</h3><p>在另一台机子上用上述方法也装一个邮件服务器，同时添加DNS。我将其命名为zypclient.</p>
+<p>在zypclient上使用如下命令发邮件：</p>
+<blockquote>
+<p>echo “this is a mail from zypclient to zypserver” | sendmail zhaoyiping@mail.zypserver.info</p>
+</blockquote>
+<p>然后就可以在对方主机/var/mail目录下看到邮件。</p>
+<p>如果碰到报错，例如：</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/mail-error.jpg-watermark" alt="mail-error"></p>
+<p>可以发现它默认使用了ipv6解析域名。可以在/etc/postfix/main.cf文件中将inet_protocols的值改为ipv4。</p>
+<h2 id="MySQL服务器"><a href="#MySQL服务器" class="headerlink" title="MySQL服务器"></a>MySQL服务器</h2><h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><blockquote>
+<p>sudo apt install mysql-server</p>
+</blockquote>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><blockquote>
+<p>sudo mysql_secure_installation</p>
+</blockquote>
+<h4 id="配置远程访问"><a href="#配置远程访问" class="headerlink" title="配置远程访问"></a>配置远程访问</h4><p>进入MySQL，选择mysql数据库，修改user表，将root那一行的host改为%。</p>
+<blockquote>
+<p>use mysql;<br>update user set host=’%’ where user=’root’;</p>
+</blockquote>
+<p>进入/etc/mysql，查看my.cnf文件，注意，如果这里是include其他文件，那么也要去其他文件中寻找。将bind-address一行注释掉，并且找到有port的一行，记住是哪个端口。</p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><blockquote>
+<p>sudo apt install mysql-client</p>
+</blockquote>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><blockquote>
+<p>mysql -u root -h <em>ip</em> -P <em>port</em> -p</p>
+</blockquote>
+<p>成功连接即可。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/mysql.jpg-watermark" alt="mysql"></p>
+<h2 id="telnet服务器"><a href="#telnet服务器" class="headerlink" title="telnet服务器"></a>telnet服务器</h2><blockquote>
+<p>Telnet是一种应用层协议，使用于互联网及局域网中，使用虚拟终端机的形式，提供双向、以文字字符串为主的命令行接口交互功能。属于TCP/IP协议族的其中之一，是Internet远程登录服务的标准协议和主要方式，常用于服务器的远程控制，可供用户在本地主机运行远程主机上的工作。</p>
+</blockquote>
+<h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><blockquote>
+<p>sudo apt install xinetd telnetd</p>
+</blockquote>
+<p>使用service xinetd status 查看服务正常运行。</p>
+<h3 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h3><p>在另一台服务器上使用</p>
+<blockquote>
+<p>telnet -l <em>user</em> <em>host</em></p>
+</blockquote>
+<p>即可连接服务器。</p>
+<p><img src="http://cdn.zhaoyiping.xyz/static/images/linux-servers/telnet.jpg-watermark" alt="telnet"></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>zhaoyiping</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://blog.zhaoyiping.xyz/2019/10/30/linux-servers/" title="linux各种服务器搭建">https://blog.zhaoyiping.xyz/2019/10/30/linux-servers/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/linux/" rel="tag"># linux</a>
+            
+              <a href="/tags/网络/" rel="tag"># 网络</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/30/linux-network/" rel="next" title="Linux 网络配置路由器及防火墙设置">
+                  <i class="fa fa-chevron-left"></i> Linux 网络配置路由器及防火墙设置
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/30/linux-vnc-and-proxy/" rel="prev" title="VNC 与代理服务器设置">
+                  VNC 与代理服务器设置 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS服务器"><span class="nav-number">2.</span> <span class="nav-text">DNS服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS简介"><span class="nav-number">2.1.</span> <span class="nav-text">DNS简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置DNS服务端"><span class="nav-number">2.2.</span> <span class="nav-text">配置DNS服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装bind"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装bind</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS解析程序的配置"><span class="nav-number">2.2.2.</span> <span class="nav-text">DNS解析程序的配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP服务器"><span class="nav-number">3.</span> <span class="nav-text">DHCP服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">3.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装配置DHCP服务器"><span class="nav-number">3.2.</span> <span class="nav-text">安装配置DHCP服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证已安装的dhcp服务器"><span class="nav-number">3.3.</span> <span class="nav-text">验证已安装的dhcp服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FTP服务器"><span class="nav-number">4.</span> <span class="nav-text">FTP服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NFS服务器"><span class="nav-number">5.</span> <span class="nav-text">NFS服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端安装"><span class="nav-number">5.1.</span> <span class="nav-text">服务端安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端安装"><span class="nav-number">5.2.</span> <span class="nav-text">客户端安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web服务器"><span class="nav-number">6.</span> <span class="nav-text">web服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装web服务器"><span class="nav-number">6.1.</span> <span class="nav-text">安装web服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证web服务器"><span class="nav-number">6.2.</span> <span class="nav-text">验证web服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#邮件服务器"><span class="nav-number">7.</span> <span class="nav-text">邮件服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置正确的主机名"><span class="nav-number">7.1.</span> <span class="nav-text">设置正确的主机名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加DNS"><span class="nav-number">7.2.</span> <span class="nav-text">添加DNS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装postfix"><span class="nav-number">7.3.</span> <span class="nav-text">装postfix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发测试邮件"><span class="nav-number">7.4.</span> <span class="nav-text">发测试邮件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL服务器"><span class="nav-number">8.</span> <span class="nav-text">MySQL服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端"><span class="nav-number">8.1.</span> <span class="nav-text">服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">8.1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置"><span class="nav-number">8.1.2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置远程访问"><span class="nav-number">8.1.3.</span> <span class="nav-text">配置远程访问</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端"><span class="nav-number">8.2.</span> <span class="nav-text">客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-1"><span class="nav-number">8.2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证"><span class="nav-number">8.2.2.</span> <span class="nav-text">验证</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#telnet服务器"><span class="nav-number">9.</span> <span class="nav-text">telnet服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-2"><span class="nav-number">9.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证-1"><span class="nav-number">9.2.</span> <span class="nav-text">验证</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhaoyiping</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://back007.github.io/" title="https://back007.github.io/" rel="noopener" target="_blank">WA_King</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/fsahfgsadhsakndas" title="https://blog.csdn.net/fsahfgsadhsakndas" rel="noopener" target="_blank">ACoder</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://ch2-carbene.github.io/" title="https://ch2-carbene.github.io/" rel="noopener" target="_blank">TD06</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="http://www.sosusosu.com/" title="http://www.sosusosu.com/" rel="noopener" target="_blank">sosusosu</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://isecloud.github.io" title="https://isecloud.github.io" rel="noopener" target="_blank">iSecloud</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://LoliconAutomaton.github.io" title="https://LoliconAutomaton.github.io" rel="noopener" target="_blank">LoliconAutomaton</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhaoyiping</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共31.4k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Fj5YJT4c0qFIEUHIqJlgsc77-gzGzoHsz',
+    appKey: 'afziiJKFdmUaBPbb4MGDlQDU',
+    placeholder: '友善的评论是交流的起点',
+    avatar: 'mp',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","display":{"hOffset":0,"vOffset":0}},"mobile":{"show":true,"scale":0.5},"bottom":-50,"react":{"opacityDefault":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end --></body>
+</html>
