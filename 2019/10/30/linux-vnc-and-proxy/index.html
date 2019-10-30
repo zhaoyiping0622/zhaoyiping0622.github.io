@@ -65,7 +65,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-vnc-and-proxy/vnc.jpg-watermark">
 <meta property="og:image" content="http://cdn.zhaoyiping.xyz/static/images/linux-vnc-and-proxy/proxy.jpg-watermark">
-<meta property="og:updated_time" content="2019-10-30T09:15:39.988Z">
+<meta property="og:updated_time" content="2019-10-30T09:28:25.025Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VNC 与代理服务器设置">
 <meta name="twitter:description" content="VNC安装服务端 sudo apt install tightvncserver 输入vncserver进行第一次启动，需要输入一个6到8位的密码。vncserver会在用户目录下生成一个.vnc目录，需要将里面的xstartup修改为如下： #!/bin/sh#Uncomment the following two lines for normal desktop:export XKL_XMOD">
@@ -255,8 +255,12 @@
                 
               
 
-              <time title="Created: 2019-10-30 17:15:39" itemprop="dateCreated datePublished" datetime="2019-10-30T17:15:39+08:00">2019-10-30</time>
+              <time title="Created: 2019-10-30 17:15:39 / Modified: 17:28:25" itemprop="dateCreated datePublished" datetime="2019-10-30T17:15:39+08:00">2019-10-30</time>
             </span>
+          
+            
+
+            
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -304,11 +308,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h2><h3 id="安装服务端"><a href="#安装服务端" class="headerlink" title="安装服务端"></a>安装服务端</h3><blockquote>
+        <a id="more"></a><h2 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h2><h3 id="安装服务端"><a href="#安装服务端" class="headerlink" title="安装服务端"></a>安装服务端</h3><blockquote>
 <p>sudo apt install tightvncserver</p>
 </blockquote><p>输入vncserver进行第一次启动，需要输入一个6到8位的密码。vncserver会在用户目录下生成一个.vnc目录，需要将里面的xstartup修改为如下：</p><blockquote>
 <p>#!/bin/sh<br>#Uncomment the following two lines for normal desktop:<br>export XKL_XMODMAP_DISABLE=1<br> unset SESSION_MANAGER<br>#exec /etc/X11/xinit/xinitrc<br>unset DBUS_SESSION_BUS_ADDRESS<br>gnome-panel &amp;<br>gnome-settings-daemon &amp;<br>metacity &amp;<br>nautilus &amp;<br>gnome-terminal &amp;</p>
 </blockquote><a id="more"></a>
+
 
 
 <p>然后杀掉原桌面进程再打开：</p>

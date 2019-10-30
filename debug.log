@@ -1389,3 +1389,8 @@
 {"name":"hexo","hostname":"DESKTOP-0O403SH","pid":8948,"level":30,"msg":"Generated: \u001b[35mlive2dw/assets/moc/shizuku.1024/texture_03.png\u001b[39m","time":"2019-10-30T09:26:13.574Z","v":0}
 {"name":"hexo","hostname":"DESKTOP-0O403SH","pid":8948,"level":30,"msg":"Generated: \u001b[35mlib/font-awesome/css/font-awesome.min.css\u001b[39m","time":"2019-10-30T09:26:13.582Z","v":0}
 {"name":"hexo","hostname":"DESKTOP-0O403SH","pid":8948,"level":30,"msg":"Generated: \u001b[35mlive2dw/assets/moc/shizuku.1024/texture_02.png\u001b[39m","time":"2019-10-30T09:26:13.584Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-0O403SH","pid":8948,"level":30,"msg":"Generated: \u001b[35mlive2dw/lib/L2Dwidget.0.min.js.map\u001b[39m","time":"2019-10-30T09:26:13.589Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-0O403SH","pid":8948,"level":30,"msg":"Generated: \u001b[35mlive2dw/assets/moc/shizuku.moc\u001b[39m","time":"2019-10-30T09:26:13.592Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-0O403SH","pid":8948,"level":30,"msg":"Generated: \u001b[35mdebug.log\u001b[39m","time":"2019-10-30T09:26:13.595Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-0O403SH","pid":8948,"level":30,"msg":"156 files generated in \u001b[36m5.27 s\u001b[39m","time":"2019-10-30T09:26:13.603Z","v":0}
+{"name":"hexo","hostname":"DESKTOP-0O403SH","pid":8948,"level":20,"msg":"Database saved","time":"2019-10-30T09:26:13.637Z","v":0}
