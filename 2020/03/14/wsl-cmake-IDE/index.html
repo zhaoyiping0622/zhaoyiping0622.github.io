@@ -56,15 +56,16 @@
 </script>
 
   <meta name="description" content="最近在尝试使用Windows中的IDE搭配wsl中的工具链(cmake、gcc等)进行C++开发。现在还碰到很多问题，在此记录问题以及解决方法（可能还没解决）。 windows 10版本：1909wsl：Ubuntu 18.04 (用lxRunOffline将wsl根目录迁移到D盘，个人认为我碰到的大部分问题都是因为这个)">
+<meta name="keywords" content="wsl,windows,IDE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="windows下IDE使用wsl工具链碰到的一些问题">
+<meta property="og:title" content="windows下IDE使用wsl工具链碰到的一些问题(已解决)">
 <meta property="og:url" content="https://blog.zhaoyiping.xyz/2020/03/14/wsl-cmake-IDE/index.html">
 <meta property="og:site_name" content="zhaoyiping&#39;s blog">
 <meta property="og:description" content="最近在尝试使用Windows中的IDE搭配wsl中的工具链(cmake、gcc等)进行C++开发。现在还碰到很多问题，在此记录问题以及解决方法（可能还没解决）。 windows 10版本：1909wsl：Ubuntu 18.04 (用lxRunOffline将wsl根目录迁移到D盘，个人认为我碰到的大部分问题都是因为这个)">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-14T15:29:44.722Z">
+<meta property="og:updated_time" content="2020-03-15T05:14:39.121Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="windows下IDE使用wsl工具链碰到的一些问题">
+<meta name="twitter:title" content="windows下IDE使用wsl工具链碰到的一些问题(已解决)">
 <meta name="twitter:description" content="最近在尝试使用Windows中的IDE搭配wsl中的工具链(cmake、gcc等)进行C++开发。现在还碰到很多问题，在此记录问题以及解决方法（可能还没解决）。 windows 10版本：1909wsl：Ubuntu 18.04 (用lxRunOffline将wsl根目录迁移到D盘，个人认为我碰到的大部分问题都是因为这个)">
   <link rel="canonical" href="https://blog.zhaoyiping.xyz/2020/03/14/wsl-cmake-IDE/">
 
@@ -80,7 +81,7 @@
   };
 </script>
 
-  <title>windows下IDE使用wsl工具链碰到的一些问题 | zhaoyiping's blog</title>
+  <title>windows下IDE使用wsl工具链碰到的一些问题(已解决) | zhaoyiping's blog</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148337124-1"></script>
   <script>
@@ -235,7 +236,7 @@
       <meta itemprop="name" content="zhaoyiping's blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">windows下IDE使用wsl工具链碰到的一些问题
+        <h1 class="post-title" itemprop="name headline">windows下IDE使用wsl工具链碰到的一些问题(已解决)
 
           
         </h1>
@@ -251,12 +252,33 @@
                 
               
 
-              <time title="Created: 2020-03-14 23:24:34 / Modified: 23:29:44" itemprop="dateCreated datePublished" datetime="2020-03-14T23:24:34+08:00">2020-03-14</time>
+              <time title="Created: 2020-03-14 23:24:34" itemprop="dateCreated datePublished" datetime="2020-03-14T23:24:34+08:00">2020-03-14</time>
             </span>
           
             
 
             
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-15 13:14:39" itemprop="dateModified" datetime="2020-03-15T13:14:39+08:00">2020-03-15</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/" itemprop="url" rel="index"><span itemprop="name">其他</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -291,6 +313,9 @@
 <p>这两个IDE都是使用SSH进行文件同步，以及在远程主机上构建并运行程序。而提供语法提示的方法则是将远程主机上<code>include path</code>（可以使用命令<code>cpp -v</code>查看）中的所有文件打包为下载到本机某一文件夹。</p>
 <p>此文件夹在<code>Visual studio</code>中可以在<code>工具-选项-跨平台-连接管理器-远程标头Intelligence管理器</code>中查看（顺便吐槽一下header翻译为标头）。但是<code>Visual studio</code>是下载了远程主机上的<code>/usr</code>文件夹，貌似并未进行其他配置，因此<code>#include&lt;bits/stdc++.h&gt;</code>会失败，因为它的路径是<code>/usr/include/x86_64-linux-gnu/c++/7/bits/stdc++.h</code>，貌似没有被vs包含在第一层。</p>
 <p><code>CLion</code>中的问题还未解决，貌似它并没有执行下载操作。而<code>CLion</code>的远程功能会执行下载操作，<code>wsl</code>是否执行并不清楚。我在网上也没有找到详细的解释，发了邮件到jb的邮箱去问，但还没收到回信。</p>
+<p><strong><code>CLion</code>更新</strong></p>
+<p>jb还没有回我，我在本机上装了Ubuntu16.04后，不改变Ubuntu安装位置后做了个实验，发现<code>CLion</code>功能完好，未出现上述问题。因此，我认为<code>CLion</code>检测wsl安装目录并没有查看注册表中<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\&lt;your distribution&gt;\BasePath</code>的值，而是写死了在wsl的默认安装位置，因此解决方法就是在wsl默认安装位置创一个软链接，指向修改过的wsl安装位置即可解决。</p>
+<p>关于<code>CLion</code>的wsl功能应该并不是和vs一样从远程主机上下载头文件，而是直接到相应目录寻找。也就是说，<code>CLion</code>将wsl和远程主机区分开了，而vs并未区分。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://devblogs.microsoft.com/cppblog/intellisense-for-remote-linux-headers/" target="_blank" rel="noopener">Visual studio远程开发原理</a></p>
 
     </div>
@@ -308,7 +333,7 @@
     <strong>Post author:  </strong>zhaoyiping</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://blog.zhaoyiping.xyz/2020/03/14/wsl-cmake-IDE/" title="windows下IDE使用wsl工具链碰到的一些问题">https://blog.zhaoyiping.xyz/2020/03/14/wsl-cmake-IDE/</a>
+    <a href="https://blog.zhaoyiping.xyz/2020/03/14/wsl-cmake-IDE/" title="windows下IDE使用wsl工具链碰到的一些问题(已解决)">https://blog.zhaoyiping.xyz/2020/03/14/wsl-cmake-IDE/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
@@ -318,6 +343,19 @@
       
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/wsl/" rel="tag"># wsl</a>
+            
+              <a href="/tags/windows/" rel="tag"># windows</a>
+            
+              <a href="/tags/IDE/" rel="tag"># IDE</a>
+            
+          </div>
+        
 
         
 
@@ -425,7 +463,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
@@ -500,7 +538,7 @@
   <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共32.3k字</span>
+  <span class="post-count">博客全站共32.5k字</span>
 </div>
 
         
@@ -586,7 +624,9 @@ NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', () => {
     path: location.pathname
   });
 }, window.Valine);
-</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","display":{"hOffset":0,"vOffset":0}},"mobile":{"show":true,"scale":0.5},"bottom":-50,"react":{"opacityDefault":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
 </script>
@@ -603,7 +643,5 @@ NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', () => {
 <script type="text/javascript" src="">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
-
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","display":{"hOffset":0,"vOffset":0}},"mobile":{"show":true,"scale":0.5},"bottom":-50,"react":{"opacityDefault":0.5},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body>
+<!-- hexo-inject:end --></body>
 </html>
